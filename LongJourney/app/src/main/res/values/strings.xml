@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">LongJourney</string>
-    <string name="hello_round">Hello Round World!</string>
-    <string name="hello_square">Hello Square World!</string>
+
+    <string name="travel_level">LV</string>
+    <string name="travel_gold">G</string>
+    <string name="travel_steps">Steps</string>
+
+    <string name="travel_counter_default">0</string>
 </resources>
