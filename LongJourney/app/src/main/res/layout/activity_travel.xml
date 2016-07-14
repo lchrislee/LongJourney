@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     tools:context="com.lchrislee.longjourney.TravelActivity"
     tools:deviceIds="wear"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:background="@color/blue">
 
     <FrameLayout
         android:id="@+id/travel_layout_frame"
@@ -45,19 +46,26 @@
             android:layout_marginEnd="12dp"
             android:text="@string/travel_counter_default" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="26dp"
-            android:text="@string/travel_steps" />
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/travel_text_steps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/travel_counter_default" />
+            <TextView
+                android:id="@+id/travel_text_steps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:text="@string/travel_counter_default" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/travel_steps" />
+
+        </LinearLayout>
 
         <ProgressBar
             android:layout_width="match_parent"

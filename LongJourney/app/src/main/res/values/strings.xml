@@ -5,5 +5,5 @@
     <string name="travel_gold">G</string>
     <string name="travel_steps">Steps</string>
 
-    <string name="travel_counter_default">0</string>
+    <string name="travel_counter_default">99999</string>
 </resources>

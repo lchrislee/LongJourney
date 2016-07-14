@@ -3,6 +3,8 @@
     package="com.lchrislee.longjourney" >
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.sensor.stepcounter"
+                  android:required="true" />
 
     <application
         android:allowBackup="true"
