@@ -2,43 +2,64 @@ package com.lchrislee.longjourney;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.wearable.view.BoxInsetLayout;
-import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import com.lchrislee.longjourney.model.actors.Player;
+import com.lchrislee.longjourney.utility.SharedPreferenceConstants;
 
 public class TravelActivity extends Activity {
     private static final String TAG = TravelActivity.class.getSimpleName();
 
     private ProgressBar xp;
-    private TextView level;
-    private TextView gold;
-    private TextView steps;
+    private TextView levelText;
+    private TextView goldText;
+    private TextView stepsText;
 
     private SensorManager sensorManager;
-    private Sensor stepSensor;
-    private StepSensorManager stepSensorListener;
+    private StepDetectorUpdateManager stepDetectorListener;
+    private StepCounterUpdateManager stepCounterListener;
 
-    private int stepCount = 0;
+    private Player player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel);
+        pullDataFromPreferences();
         initializeUI();
+    }
+
+    private void pullDataFromPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreferenceConstants.STEP_PREF_NAME, MODE_PRIVATE);
+        long stepRef = sharedPreferences.getLong(SharedPreferenceConstants.STEP_REFERENCE, 0);
+        long stepCount = sharedPreferences.getLong(SharedPreferenceConstants.STEP_COUNT, 0);
+        long playerGold = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_GOLD, 0);
+        long playerHealth = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_HEALTH, 10);
+        long playerLevel = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_LEVEL, 1);
+        long playerStrength = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_STRENGTH, 1);
+        long playerDefense = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_DEFENSE, 1);
+
+        Player.Builder playerBuilder = new Player.Builder();
+        playerBuilder.stepReference(stepRef);
+        playerBuilder.stepCount(stepCount);
+        playerBuilder.gold(playerGold);
+        playerBuilder.health(playerHealth);
+        playerBuilder.level(playerLevel);
+        playerBuilder.strength(playerStrength);
+        playerBuilder.defense(playerDefense);
+        player = playerBuilder.build();
     }
 
     private void initializeUI(){
@@ -61,41 +82,84 @@ public class TravelActivity extends Activity {
             }
         });
 
-        level = (TextView) findViewById(R.id.travel_text_level);
-        level.setText("1");
-        gold = (TextView) findViewById(R.id.travel_text_gold);
-        gold.setText("0");
-        steps = (TextView) findViewById(R.id.travel_text_steps);
-        steps.setText("0");
+        levelText = (TextView) findViewById(R.id.travel_text_level);
+        goldText = (TextView) findViewById(R.id.travel_text_gold);
+        stepsText = (TextView) findViewById(R.id.travel_text_steps);
+
+        updateUI();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        initializeStepSensors();
+        updateUI();
+    }
+
+    private void initializeStepSensors(){
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) == null){
-            Log.e(TAG, "No step counter!");
+        Sensor stepDetector = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        Sensor stepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (stepDetector == null || stepCounter == null){
+            Log.e(TAG, "Insufficient step detection!");
             Toast.makeText(getApplicationContext(), "Sorry, you can't use this app!", Toast.LENGTH_SHORT).show();
-        }else{
-            Log.d(TAG, "Step counter found!");
-            stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-            stepSensorListener = new StepSensorManager();
-            sensorManager.registerListener(stepSensorListener, stepSensor, SensorManager.SENSOR_DELAY_GAME);
+        }else {
+            Log.d(TAG, "Step counter and detector found!");
+            stepDetectorListener = new StepDetectorUpdateManager();
+            sensorManager.registerListener(stepDetectorListener, stepDetector, SensorManager.SENSOR_DELAY_GAME);
+            stepCounterListener = new StepCounterUpdateManager();
+            sensorManager.registerListener(stepCounterListener, stepCounter, SensorManager.SENSOR_DELAY_GAME);
         }
+    }
+
+    private void updateUI(){
+        levelText.setText(String.valueOf(player.getLevel()));
+        goldText.setText(String.valueOf(player.getGold()));
+        stepsText.setText(String.valueOf(player.getStepCount()));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(stepSensorListener);
+        sensorManager.unregisterListener(stepDetectorListener);
+        saveDataToPreferences();
     }
 
-    class StepSensorManager implements SensorEventListener{
+    private void saveDataToPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreferenceConstants.STEP_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong(SharedPreferenceConstants.STEP_REFERENCE, player.getStepReference());
+        editor.putLong(SharedPreferenceConstants.STEP_COUNT, player.getStepCount());
+        editor.apply();
+    }
+
+
+    class StepDetectorUpdateManager implements SensorEventListener{
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            ++stepCount;
-            steps.setText(String.valueOf(stepCount));
+            player.increaseStepCount(1);
+            stepsText.setText(String.valueOf(player.getStepCount()));
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    }
+
+    class StepCounterUpdateManager implements SensorEventListener{
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            long newTotalCount = (long) event.values[0];
+            long ref = player.getStepReference();
+            if (newTotalCount > ref){
+                player.increaseStepCount(newTotalCount - ref);
+            } else if (newTotalCount < ref){
+                player.increaseStepCount(newTotalCount);
+            }
+            sensorManager.unregisterListener(this);
         }
 
         @Override
