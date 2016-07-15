@@ -1,5 +1,7 @@
 package com.lchrislee.longjourney.model.actors;
 
+import android.support.annotation.NonNull;
+
 import com.lchrislee.longjourney.model.items.UsableItem;
 import com.lchrislee.longjourney.model.items.Weapon;
 
@@ -10,7 +12,6 @@ import java.util.ArrayList;
  */
 public class Player extends Actor {
     private ArrayList<UsableItem> items;
-    private Weapon weapon;
     private long stepCount;
     private long stepReference;
 
@@ -18,6 +19,7 @@ public class Player extends Actor {
         super(level, health, gold, strength, defense);
         this.stepCount = stepCount;
         this.stepReference = stepReference;
+        items = new ArrayList<>();
     }
 
     public ArrayList<UsableItem> getItems() {
@@ -26,14 +28,6 @@ public class Player extends Actor {
 
     public void addItem(UsableItem inItem){
         items.add(inItem);
-    }
-
-    public Weapon getWeapon() {
-        return weapon;
-    }
-
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
     }
 
     public long getStepCount() {
@@ -48,43 +42,19 @@ public class Player extends Actor {
         return stepReference;
     }
 
-    public void setStepReference(long stepReference) {
-        this.stepReference = stepReference;
+    @Override
+    protected void buildWeapon() {
+        Weapon.Builder builder = new Weapon.Builder();
+        builder.name("Fists");
+        builder.description("Your hands.");
+        builder.attack(1);
+        setWeapon(builder.build());
     }
 
-    public static class Builder{
-        private long level;
-        private long health;
-        private long gold;
-        private long strength;
-        private long defense;
+
+    public static class Builder extends Actor.Builder{
         private long stepCount;
         private long stepReference;
-
-        public Builder level(long level) {
-            this.level = level;
-            return this;
-        }
-
-        public Builder health(long health) {
-            this.health = health;
-            return this;
-        }
-
-        public Builder gold(long gold) {
-            this.gold = gold;
-            return this;
-        }
-
-        public Builder strength(long strength) {
-            this.strength = strength;
-            return this;
-        }
-
-        public Builder defense(long defense) {
-            this.defense = defense;
-            return this;
-        }
 
         public Builder stepCount(long stepCount) {
             this.stepCount = stepCount;
