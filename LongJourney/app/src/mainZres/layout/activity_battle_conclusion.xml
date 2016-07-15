@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout
+    android:id="@+id/watch_view_stub"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lchrislee.longjourney.BattleConclusionActivity"
+    tools:deviceIds="wear"
+    android:padding="15dp"
+    android:background="@color/blue"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="5dp"
+        app:layout_box="all">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:text="@string/travel_level" />
+
+        <TextView
+            android:id="@+id/conclusion_text_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:layout_marginStart="20dp"
+            android:text="@string/travel_counter_default" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:text="@string/travel_gold" />
+
+        <TextView
+            android:id="@+id/conclusion_text_gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:layout_marginEnd="12dp"
+            android:text="@string/travel_counter_default" />
+
+        <TextView
+            android:id="@+id/conclusion_text_spoils_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="16dp"
+            android:text="@string/battle_conclusion_add" />
+
+        <TextView
+            android:id="@+id/conclusion_text_spoils"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:text="@string/travel_counter_default" />
+
+        <TextView
+            android:id="@+id/conclusion_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_gravity="center"
+            android:text="@string/battle_conclusion_loss" />
+
+        <ProgressBar
+            android:id="@+id/conclusion_progress_xp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:progress="10"
+            android:max="100"
+            android:secondaryProgress="50"
+            android:clickable="false"
+            android:focusable="false"
+            android:longClickable="false"
+            style="?android:attr/progressBarStyleHorizontal" />
+
+    </FrameLayout>
+
+</android.support.wearable.view.BoxInsetLayout>

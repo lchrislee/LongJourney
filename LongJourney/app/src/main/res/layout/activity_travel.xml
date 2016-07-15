@@ -16,6 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_box="all">
 
         <TextView
@@ -66,22 +69,6 @@
                 android:text="@string/travel_steps" />
 
         </LinearLayout>
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:progress="10"
-            android:id="@+id/travel_progress_xp"
-            android:max="100"
-            android:secondaryProgress="50"
-            android:clickable="false"
-            android:focusable="false"
-            android:longClickable="false"
-            style="?android:attr/progressBarStyleHorizontal" />
 
     </FrameLayout>
 

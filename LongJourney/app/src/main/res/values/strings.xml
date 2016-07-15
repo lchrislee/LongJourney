@@ -6,4 +6,9 @@
     <string name="travel_steps">Steps</string>
 
     <string name="travel_counter_default">99999</string>
+    <string name="battle_conclusion_victory">You won!</string>
+    <string name="battle_conclusion_loss">You lost!</string>
+    <string name="battle_conclusion_add">+</string>
+    <string name="battle_conclusion_subtract">-</string>
+
 </resources>
