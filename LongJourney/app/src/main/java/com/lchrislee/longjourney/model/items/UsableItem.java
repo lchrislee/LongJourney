@@ -1,5 +1,6 @@
 package com.lchrislee.longjourney.model.items;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 /**
@@ -8,10 +9,12 @@ import android.support.annotation.NonNull;
 public class UsableItem {
     private @NonNull String name;
     private @NonNull String description;
+    private @DrawableRes int image;
 
-    public UsableItem(@NonNull String name, @NonNull String description) {
+    public UsableItem(@NonNull String name, @NonNull String description, @DrawableRes int image) {
         this.name = name;
         this.description = description;
+        this.image = image;
     }
 
     public @NonNull String getName() {
@@ -22,4 +25,7 @@ public class UsableItem {
         return description;
     }
 
+    public int getImage() {
+        return image;
+    }
 }

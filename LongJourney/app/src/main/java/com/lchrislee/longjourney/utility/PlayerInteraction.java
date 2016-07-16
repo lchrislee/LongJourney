@@ -14,7 +14,7 @@ public class PlayerInteraction {
         long stepRef = sharedPreferences.getLong(SharedPreferenceConstants.STEP_REFERENCE, 0);
         long stepCount = sharedPreferences.getLong(SharedPreferenceConstants.STEP_COUNT, 0);
         long playerGold = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_GOLD, 0);
-        long playerHealth = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_HEALTH, 10);
+        int playerHealth = sharedPreferences.getInt(SharedPreferenceConstants.PLAYER_HEALTH, 10);
         long playerLevel = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_LEVEL, 1);
         long playerStrength = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_STRENGTH, 1);
         long playerDefense = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_DEFENSE, 1);

@@ -13,4 +13,5 @@ public class SharedPreferenceConstants {
     public static final String PLAYER_LEVEL = "com.lchrislee.longjourney.utility.SharedPreferenceConstants.PLAYER_LEVEL";
     public static final String PLAYER_STRENGTH = "com.lchrislee.longjourney.utility.SharedPreferenceConstants.PLAYER_STRENGTH";
     public static final String PLAYER_DEFENSE = "com.lchrislee.longjourney.utility.SharedPreferenceConstants.PLAYER_DEFENSE";
+    public static final String PLAYER_XP = "com.lchrislee.longjourney.utility.SharedPreferenceConstants.PLAYER_XP";
 }

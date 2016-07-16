@@ -12,17 +12,16 @@ import android.support.wearable.view.BoxInsetLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowInsets;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lchrislee.longjourney.model.actors.Player;
+import com.lchrislee.longjourney.utility.PlayerInteraction;
 import com.lchrislee.longjourney.utility.SharedPreferenceConstants;
 
 public class TravelActivity extends Activity {
     private static final String TAG = TravelActivity.class.getSimpleName();
 
-    private ProgressBar xp;
     private TextView levelText;
     private TextView goldText;
     private TextView stepsText;
@@ -37,29 +36,9 @@ public class TravelActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel);
-        pullDataFromPreferences();
+        player = ((LongJourneyApplication) getApplication()).getPlayer();
+
         initializeUI();
-    }
-
-    private void pullDataFromPreferences(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreferenceConstants.STEP_PREF_NAME, MODE_PRIVATE);
-        long stepRef = sharedPreferences.getLong(SharedPreferenceConstants.STEP_REFERENCE, 0);
-        long stepCount = sharedPreferences.getLong(SharedPreferenceConstants.STEP_COUNT, 0);
-        long playerGold = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_GOLD, 0);
-        long playerHealth = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_HEALTH, 10);
-        long playerLevel = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_LEVEL, 1);
-        long playerStrength = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_STRENGTH, 1);
-        long playerDefense = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_DEFENSE, 1);
-
-        Player.Builder playerBuilder = new Player.Builder();
-        playerBuilder.stepReference(stepRef);
-        playerBuilder.stepCount(stepCount);
-        playerBuilder.gold(playerGold);
-        playerBuilder.health(playerHealth);
-        playerBuilder.level(playerLevel);
-        playerBuilder.strength(playerStrength);
-        playerBuilder.defense(playerDefense);
-        player = playerBuilder.build();
     }
 
     private void initializeUI(){
@@ -71,22 +50,9 @@ public class TravelActivity extends Activity {
             }
         });
 
-        xp = (ProgressBar) findViewById(R.id.travel_progress_xp); // TODO Animate, take a look at http://stackoverflow.com/questions/8035682/animate-progressbar-update-in-android
-        xp.setProgress(0);
-        xp.setSecondaryProgress(0);
-        xp.setVisibility(View.GONE);
-        xp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                xp.setProgress(xp.getProgress() + 10);
-            }
-        });
-
         levelText = (TextView) findViewById(R.id.travel_text_level);
         goldText = (TextView) findViewById(R.id.travel_text_gold);
         stepsText = (TextView) findViewById(R.id.travel_text_steps);
-
-        updateUI();
     }
 
     @Override
@@ -138,7 +104,7 @@ public class TravelActivity extends Activity {
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            player.increaseStepCount(1);
+            player.increaseStepCountBy(1);
             stepsText.setText(String.valueOf(player.getStepCount()));
         }
 
@@ -155,9 +121,9 @@ public class TravelActivity extends Activity {
             long newTotalCount = (long) event.values[0];
             long ref = player.getStepReference();
             if (newTotalCount > ref){
-                player.increaseStepCount(newTotalCount - ref);
+                player.increaseStepCountBy(newTotalCount - ref);
             } else if (newTotalCount < ref){
-                player.increaseStepCount(newTotalCount);
+                player.increaseStepCountBy(newTotalCount);
             }
             sensorManager.unregisterListener(this);
         }

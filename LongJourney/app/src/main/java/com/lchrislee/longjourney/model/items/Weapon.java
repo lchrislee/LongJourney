@@ -1,5 +1,6 @@
 package com.lchrislee.longjourney.model.items;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 /**
@@ -8,8 +9,8 @@ import android.support.annotation.NonNull;
 public class Weapon extends UsableItem {
     private int attack;
 
-    public Weapon(@NonNull String name, @NonNull String description, int attack) {
-        super(name, description);
+    public Weapon(@NonNull String name, @NonNull String description, @DrawableRes int image, int attack) {
+        super(name, description, image);
         this.attack = attack;
     }
 
@@ -21,6 +22,7 @@ public class Weapon extends UsableItem {
         private String name;
         private String description;
         private int attack;
+        private int image;
 
         public @NonNull Builder name(@NonNull String name){
             this.name = name;
@@ -37,8 +39,13 @@ public class Weapon extends UsableItem {
             return this;
         }
 
+        public @NonNull Builder image(@DrawableRes int image){
+            this.image = image;
+            return this;
+        }
+
         public Weapon build(){
-            return new Weapon(name, description, attack);
+            return new Weapon(name, description, attack, image);
         }
     }
 }

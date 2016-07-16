@@ -1,25 +1,28 @@
 package com.lchrislee.longjourney.model.actors;
 
-import android.support.annotation.NonNull;
-
+import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.items.UsableItem;
 import com.lchrislee.longjourney.model.items.Weapon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Chris Lee on 7/15/16.
  */
-public class Player extends Actor {
+public class Player extends Actor implements Serializable{
     private ArrayList<UsableItem> items;
     private long stepCount;
     private long stepReference;
+    private int xpNeeded;
 
-    public Player(long level, long health, long gold, long strength, long defense, long stepCount, long stepReference) {
-        super(level, health, gold, strength, defense);
+    public Player(long level, int health, long gold, long strength, long defense, long stepCount, long stepReference, int xp) {
+        super(level, health, gold, strength, defense, xp);
         this.stepCount = stepCount;
         this.stepReference = stepReference;
         items = new ArrayList<>();
+        generateXpNeeded(getLevel());
+        buildWeapon();
     }
 
     public ArrayList<UsableItem> getItems() {
@@ -34,12 +37,39 @@ public class Player extends Actor {
         return stepCount;
     }
 
-    public void increaseStepCount(long stepDifference) {
+    public void increaseStepCountBy(long stepDifference) {
         this.stepCount += stepDifference;
     }
 
     public long getStepReference() {
         return stepReference;
+    }
+
+    public int getXpNeeded() {
+        return xpNeeded;
+    }
+
+    protected void generateXpNeeded(long level){
+        if (level == 0){
+            xpNeeded = 10;
+        }else{
+            generateXpNeeded(level - 1);
+            xpNeeded += (int) level;
+        }
+    }
+
+    public boolean gainXPAndCheckLevelUp(int xpGain){
+        increaseXpBy(xpGain);
+        if (getXp() >= getXpNeeded()){
+            levelUp();
+            return true;
+        }
+        return false;
+    }
+
+    protected void levelUp(){
+        increaseLevelBy(1);
+        generateXpNeeded(getLevel());
     }
 
     @Override
@@ -48,6 +78,7 @@ public class Player extends Actor {
         builder.name("Fists");
         builder.description("Your hands.");
         builder.attack(1);
+        builder.image(R.drawable.rubber_chicken);
         setWeapon(builder.build());
     }
 
@@ -67,7 +98,7 @@ public class Player extends Actor {
         }
 
         public Player build(){
-            return new Player(level, health, gold, strength, defense, stepReference, stepCount);
+            return new Player(level, health, gold, strength, defense, stepReference, stepCount, xp);
         }
     }
 }

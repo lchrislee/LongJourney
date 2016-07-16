@@ -3,24 +3,29 @@ package com.lchrislee.longjourney.model.actors;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
+import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.items.Weapon;
+
+import java.io.Serializable;
 
 /**
  * Created by Chris Lee on 7/15/16.
  */
-public class Monster extends Actor {
+public class Monster extends Actor implements Serializable{
     private @NonNull String name;
     private @NonNull String description;
     @DrawableRes private int image;
 
-    public Monster(long level, long health, long gold,
+    public Monster(long level, int health, long gold,
                    long strength, long defense,
                    @NonNull String name, @NonNull String description,
-                   @DrawableRes int image) {
-        super(level, health, gold, strength, defense);
+                   @DrawableRes int image,
+                   int xp) {
+        super(level, health, gold, strength, defense, xp);
         this.name = name;
         this.description = description;
         this.image = image;
+        buildWeapon();
     }
 
     public @NonNull String getName() {
@@ -66,7 +71,11 @@ public class Monster extends Actor {
         }
 
         public Monster build(){
-            return new Monster(level, health, gold, strength, defense, name, description, image);
+            return new Monster(level, health, gold, strength, defense, name, description, image, xp);
+        }
+
+        public Monster buildDefault(){
+            return new Monster(1, 0, 10, 1, 1, "Slime", "It's something.", R.drawable.slime, 10);
         }
     }
 }

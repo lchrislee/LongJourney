@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.wearable.view.BoxInsetLayout
-    android:id="@+id/watch_view_stub"
+    android:id="@+id/conclusion_layout_box"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lchrislee.longjourney.BattleConclusionActivity"
     tools:deviceIds="wear"
     android:padding="15dp"
-    android:background="@color/blue"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/blue">
 
     <FrameLayout
         android:layout_width="match_parent"

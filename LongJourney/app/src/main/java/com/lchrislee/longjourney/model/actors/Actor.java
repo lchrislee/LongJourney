@@ -8,59 +8,69 @@ import com.lchrislee.longjourney.model.items.Weapon;
  * Created by Chris Lee on 7/15/16.
  */
 public abstract class Actor {
+
+    private @NonNull Weapon weapon;
     private long level;
-    private long health;
+    private int maxHealth;
+    private int currentHealth;
     private long gold;
     private long strength;
     private long defense;
-    private @NonNull Weapon weapon;
+    private int xp;
 
-    public Actor(long level, long health, long gold, long strength, long defense) {
-        this.health = health;
+    public Actor(long level, int maxHealth, long gold, long strength, long defense, int xp) {
+        this.maxHealth = maxHealth;
         this.gold = gold;
         this.level = level;
         this.strength = strength;
         this.defense = defense;
+        this.xp = xp;
+        this.currentHealth = this.maxHealth;
     }
 
-    public long getHealth() {
-        return health;
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
-    public void setHealth(long health) {
-        this.health = health;
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    protected void changeCurrentHealthBy(int change) {
+        this.currentHealth += change;
     }
 
     public long getGold() {
         return gold;
     }
 
-    public void setGold(long gold) {
-        this.gold = gold;
-    }
-
     public long getLevel() {
         return level;
     }
 
-    public void setLevel(long level) {
-        this.level = level;
+    protected void increaseLevelBy(long levelIncrease){
+        this.level += levelIncrease;
+        increaseStats();
     }
 
     public long getStrength() {
         return strength;
     }
 
-    public void setStrength(long strength) {
-        this.strength = strength;
-    }
-
     public long getDefense() {
         return defense;
     }
 
-    public void setDefense(long defense) {
-        this.defense = defense;
+    public int getXp() {
+        return xp;
+    }
+
+    protected void increaseXpBy(int change) {
+        this.xp += change;
+    }
+
+    protected void increaseStats(){
+        // TODO FILL
     }
 
     public @NonNull Weapon getWeapon() {
@@ -75,18 +85,19 @@ public abstract class Actor {
 
     public static abstract class Builder{
         protected long level;
-        protected long health;
+        protected int health;
         protected long gold;
         protected long strength;
         protected long defense;
+        protected int xp;
 
         public Builder level(long level) {
             this.level = level;
             return this;
         }
 
-        public Builder health(long health) {
-            this.health = health;
+        public Builder maxHealth(int maxHealth) {
+            this.health = maxHealth;
             return this;
         }
 
@@ -102,6 +113,11 @@ public abstract class Actor {
 
         public Builder defense(long defense) {
             this.defense = defense;
+            return this;
+        }
+
+        public Builder xp(int xp) {
+            this.xp = xp;
             return this;
         }
     }
