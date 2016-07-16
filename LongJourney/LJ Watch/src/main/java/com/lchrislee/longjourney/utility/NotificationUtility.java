@@ -11,8 +11,10 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.activities.BattleActivity;
 import com.lchrislee.longjourney.activities.BattleConclusionActivity;
+import com.lchrislee.longjourney.activities.BattleEngageActivity;
+import com.lchrislee.longjourney.activities.BattleFightActivity;
+import com.lchrislee.longjourney.activities.BattleSneakActivity;
 
 import java.util.ArrayList;
 
@@ -27,8 +29,8 @@ public class NotificationUtility {
     public static final int NOTIFICATION_IDENTIFIER_BATTLE_RUN = 3;
 
     public static void launchBattleNotification(@NonNull Context context, @DrawableRes int monsterBackground){
-        Intent startBattle = new Intent(context, BattleActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_IDENTIFIER_BATTLE, startBattle, 0);
+        Intent engageBattle = new Intent(context, BattleEngageActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_IDENTIFIER_BATTLE, engageBattle, 0);
 
         Log.d("TEST", "Pending Intent created.");
 
@@ -55,7 +57,7 @@ public class NotificationUtility {
     private static @NonNull ArrayList<NotificationCompat.Action> generateBattleActions(@NonNull Context context){
         ArrayList<NotificationCompat.Action> battleActions = new ArrayList<>();
 
-        Intent startBattle = new Intent(context, BattleActivity.class);
+        Intent startBattle = new Intent(context, BattleFightActivity.class);
         PendingIntent pendingFightIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_IDENTIFIER_BATTLE_FIGHT, startBattle, 0);
 
@@ -65,7 +67,7 @@ public class NotificationUtility {
                 pendingFightIntent)
                 .build();
 
-        Intent sneakBattle = new Intent(context, BattleConclusionActivity.class);
+        Intent sneakBattle = new Intent(context, BattleSneakActivity.class);
         PendingIntent pendingSneakIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_IDENTIFIER_BATTLE_SNEAK, sneakBattle, 0);
 

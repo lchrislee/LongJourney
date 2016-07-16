@@ -1,9 +1,9 @@
 <resources>
     <!-- Application level -->
     <string name="app_name">LongJourney</string>
-    <string name="title_activity_engage_battle">EngageBattleActivity</string>
+    <string name="title_activity_engage_battle">BattleEngageActivity</string>
     <string name="title_activity_battle_sneak">BattleSneakActivity</string>
-    <string name="title_activity_battle">BattleActivity</string>
+    <string name="title_activity_battle">BattleFightActivity</string>
     <string name="title_activity_battle_conclusion">BattleConclusionActivity</string>
 
     <!-- Travel Activity -->

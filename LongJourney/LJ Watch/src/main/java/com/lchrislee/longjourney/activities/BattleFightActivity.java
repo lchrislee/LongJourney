@@ -12,7 +12,8 @@ import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
 
-public class BattleActivity extends Activity {
+public class BattleFightActivity extends Activity {
+    static final String FROM = "com.lchrislee.longjourney.activities.BattleFightActivity.FROM";
 
     private TextView monsterLevel;
     private TextView monsterName;

@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     app:roundLayout="@layout/round_activity_battle"
     app:rectLayout="@layout/rect_activity_battle"
-    tools:context=".activities.BattleActivity"
+    tools:context=".activities.BattleFightActivity"
     tools:deviceIds="wear"
     android:background="@color/blue">
 

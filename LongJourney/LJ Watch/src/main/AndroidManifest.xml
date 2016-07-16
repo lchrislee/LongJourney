@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.EngageBattleActivity"
+            android:name=".activities.BattleEngageActivity"
             android:allowEmbedded="true"
             android:exported="true"
             android:label="@string/title_activity_engage_battle"
@@ -33,7 +33,16 @@
             android:parentActivityName=".activities.TravelActivity">
         </activity>
         <activity
-            android:name=".activities.BattleActivity"
+            android:name=".activities.BattleSneakActivity"
+            android:label="@string/title_activity_battle_sneak"
+            android:excludeFromRecents="true"
+            android:allowEmbedded="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:parentActivityName=".activities.BattleEngageActivity">
+        </activity>
+        <activity
+            android:name=".activities.BattleFightActivity"
             android:allowEmbedded="true"
             android:exported="true"
             android:label="@string/title_activity_battle">
@@ -43,16 +52,7 @@
             android:excludeFromRecents="true"
             android:label="@string/title_activity_battle_conclusion"
             android:noHistory="true"
-            android:parentActivityName=".activities.BattleActivity">
-        </activity>
-        <activity
-            android:name=".activities.BattleSneakActivity"
-            android:label="@string/title_activity_battle_sneak"
-            android:excludeFromRecents="true"
-            android:allowEmbedded="true"
-            android:exported="true"
-            android:noHistory="true"
-            android:parentActivityName=".activities.EngageBattleActivity">
+            android:parentActivityName=".activities.BattleFightActivity">
         </activity>
     </application>
 

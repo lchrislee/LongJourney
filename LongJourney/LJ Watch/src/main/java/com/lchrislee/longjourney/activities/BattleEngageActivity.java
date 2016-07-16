@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.lchrislee.longjourney.R;
 
-public class EngageBattleActivity extends Activity {
+public class BattleEngageActivity extends Activity {
 
     private TextView mTextView;
 

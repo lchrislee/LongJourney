@@ -1,15 +1,21 @@
 package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
 import com.lchrislee.longjourney.R;
+import com.lchrislee.longjourney.utility.BattleUtility;
 
 public class BattleSneakActivity extends Activity {
 
-    private TextView mTextView;
+    private Button left;
+    private Button right;
+
+    private SneakButtonListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +25,34 @@ public class BattleSneakActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
+                left = (Button) stub.findViewById(R.id.sneak_button_left);
+                left.setTag(BattleUtility.BATTLE_SNEAK_OPTION_LEFT);
+                right = (Button) stub.findViewById(R.id.sneak_button_right);
+                right.setTag(BattleUtility.BATTLE_SNEAK_OPTION_RIGHT);
+
+                applyButtonListeners();
             }
         });
+        listener = new SneakButtonListener();
+    }
+
+    private void applyButtonListeners(){
+        left.setOnClickListener(listener);
+        right.setOnClickListener(listener);
+    }
+
+    private class SneakButtonListener implements Button.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            Intent nextActivity;
+            if(BattleUtility.determineSneakSuccess(v.getTag())){
+                nextActivity = new Intent(v.getContext(), BattleConclusionActivity.class);
+                nextActivity.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_CONCLUSION_SNEAK);
+            }else{
+                nextActivity = new Intent(v.getContext(), BattleFightActivity.class);
+                nextActivity.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_CONCLUSION_SNEAK);
+            }
+            startActivity(nextActivity);
+        }
     }
 }

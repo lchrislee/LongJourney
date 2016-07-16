@@ -13,6 +13,7 @@ import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
 
 public class BattleConclusionActivity extends Activity {
+    static final String CONCLUSION = "com.lchrislee.longjourney.activities.BattleConclusionActivity.CONCLUSION";
 
     private TextView levelText;
     private TextView goldText;
