@@ -12,7 +12,7 @@
     tools:deviceIds="wear_round">
 
     <TextView
-        android:id="@+id/conclusion_text_level_prompt"
+        android:id="@+id/spoils_text_level_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,16 +21,16 @@
         android:text="@string/travel_level" />
 
     <TextView
-        android:id="@+id/conclusion_text_level"
+        android:id="@+id/spoils_text_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/conclusion_text_level_prompt"
+        android:layout_toEndOf="@+id/spoils_text_level_prompt"
         android:layout_marginStart="2dp"
         android:text="@string/travel_counter_default" />
 
     <TextView
-        android:id="@+id/conclusion_text_gold_prompt"
+        android:id="@+id/spoils_text_gold_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -39,27 +39,27 @@
         android:text="@string/travel_gold" />
 
     <TextView
-        android:id="@+id/conclusion_text_gold"
+        android:id="@+id/spoils_text_gold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/conclusion_text_level"
-        android:layout_toStartOf="@+id/conclusion_text_gold_prompt"
+        android:layout_toEndOf="@+id/spoils_text_level"
+        android:layout_toStartOf="@+id/spoils_text_gold_prompt"
         android:layout_marginEnd="2dp"
         android:gravity="end"
         android:text="@string/travel_counter_default" />
 
     <TextView
-        android:id="@+id/conclusion_text_spoils"
+        android:id="@+id/spoils_text_spoils"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/conclusion_text_gold_prompt"
-        android:layout_below="@+id/conclusion_text_gold"
+        android:layout_toStartOf="@+id/spoils_text_gold_prompt"
+        android:layout_below="@+id/spoils_text_gold"
         android:layout_marginEnd="2dp"
         android:text="@string/travel_counter_default" />
 
     <TextView
-        android:id="@+id/conclusion_status"
+        android:id="@+id/spoils_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -67,7 +67,7 @@
         android:text="@string/conclusion_loss" />
 
     <ProgressBar
-        android:id="@+id/conclusion_progress_xp"
+        android:id="@+id/spoils_progress_xp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

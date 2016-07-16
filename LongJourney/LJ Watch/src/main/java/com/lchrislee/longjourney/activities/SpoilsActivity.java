@@ -45,16 +45,16 @@ public class SpoilsActivity extends Activity {
     }
 
     private void initializeUI(){
-        final WatchViewStub watchViewStub = (WatchViewStub) findViewById(R.id.conclusion_layout_stub);
+        final WatchViewStub watchViewStub = (WatchViewStub) findViewById(R.id.spoils_layout_stub);
         watchViewStub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub watchViewStub) {
-                levelText = (TextView) findViewById(R.id.conclusion_text_level);
-                goldText = (TextView) findViewById(R.id.conclusion_text_gold);
-                spoilsText = (TextView) findViewById(R.id.conclusion_text_spoils);
-                statusText = (TextView) findViewById(R.id.conclusion_status);
+                levelText = (TextView) findViewById(R.id.spoils_text_level);
+                goldText = (TextView) findViewById(R.id.spoils_text_gold);
+                spoilsText = (TextView) findViewById(R.id.spoils_text_spoils);
+                statusText = (TextView) findViewById(R.id.spoils_status);
 
-                xp = (ProgressBar) findViewById(R.id.conclusion_progress_xp); // TODO Animate, take a look at http://stackoverflow.com/questions/8035682/animate-progressbar-update-in-android
+                xp = (ProgressBar) findViewById(R.id.spoils_progress_xp); // TODO Animate, take a look at http://stackoverflow.com/questions/8035682/animate-progressbar-update-in-android
                 xp.setProgress(0);
                 xp.setSecondaryProgress(0);
                 xp.setOnClickListener(new View.OnClickListener() {

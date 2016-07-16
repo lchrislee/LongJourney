@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/conclusion_layout_stub"
+    android:id="@+id/spoils_layout_stub"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:roundLayout="@layout/round_activity_spoils"
