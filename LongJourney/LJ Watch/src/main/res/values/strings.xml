@@ -16,20 +16,24 @@
     <string name="engage_prompt">What will you do?</string>
 
     <!-- Battle Sneak Activity -->
-    <string name="sneak_title">sneak</string>
+    <string name="sneak_title">Which way?</string>
     <string name="sneak_option_left">left</string>
     <string name="sneak_option_right">right</string>
 
-    <!-- Battle Activity -->
+    <!-- Battle Fight Activity -->
     <string name="battle_monster_name_default">Slime</string>
     <string name="battle_player_identifier">You</string>
+    <string name="battle_charge">You charge!</string>
+    <string name="battle_caught">The monster notices you!</string>
 
     <!-- Battle Conclusion Activity -->
     <string name="conclusion_victory">You won!</string>
     <string name="conclusion_loss">You lost!</string>
     <string name="conclusion_sneak">You got away!</string>
+    <string name="conclusion_run">You fled!</string>
 
     <!-- Unorganized -->
+    <string name="zero">0</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
 

@@ -1,19 +1,22 @@
 package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lchrislee.longjourney.LongJourneyApplication;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
+import com.lchrislee.longjourney.utility.BattleUtility;
 
 public class BattleFightActivity extends Activity {
-    static final String FROM = "com.lchrislee.longjourney.activities.BattleFightActivity.FROM";
+    public static final String FROM = "com.lchrislee.longjourney.activities.BattleFightActivity.FROM";
 
     private TextView monsterLevel;
     private TextView monsterName;
@@ -29,6 +32,20 @@ public class BattleFightActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+
+        Intent i = getIntent();
+        if (i != null){
+            int from = i.getIntExtra(FROM, -1);
+            switch(from){
+                case BattleUtility.BATTLE_CONCLUSION_SNEAK:
+                    Toast.makeText(this, R.string.battle_caught, Toast.LENGTH_SHORT).show();
+                    break;
+                case BattleUtility.BATTLE_CONCLUSION_FIGHT:
+                    Toast.makeText(this, R.string.battle_charge, Toast.LENGTH_SHORT).show();
+                default:
+                    break;
+            }
+        }
 
         player = ((LongJourneyApplication) getApplication()).getPlayer();
         monster = ((LongJourneyApplication) getApplication()).getMonster();

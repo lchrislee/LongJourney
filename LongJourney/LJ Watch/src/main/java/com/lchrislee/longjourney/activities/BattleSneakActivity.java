@@ -3,6 +3,7 @@ package com.lchrislee.longjourney.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.percent.PercentRelativeLayout;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import com.lchrislee.longjourney.utility.BattleUtility;
 
 public class BattleSneakActivity extends Activity {
 
+    private PercentRelativeLayout monster;
     private Button left;
     private Button right;
 
@@ -25,20 +27,22 @@ public class BattleSneakActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
+                monster = (PercentRelativeLayout) stub.findViewById(R.id.sneak_layout_monster);
                 left = (Button) stub.findViewById(R.id.sneak_button_left);
                 left.setTag(BattleUtility.BATTLE_SNEAK_OPTION_LEFT);
                 right = (Button) stub.findViewById(R.id.sneak_button_right);
                 right.setTag(BattleUtility.BATTLE_SNEAK_OPTION_RIGHT);
 
-                applyButtonListeners();
+                updateUI();
             }
         });
         listener = new SneakButtonListener();
     }
 
-    private void applyButtonListeners(){
+    private void updateUI(){
         left.setOnClickListener(listener);
         right.setOnClickListener(listener);
+        monster.setBackground(BattleUtility.getMonsterDrawable(this));
     }
 
     private class SneakButtonListener implements Button.OnClickListener{

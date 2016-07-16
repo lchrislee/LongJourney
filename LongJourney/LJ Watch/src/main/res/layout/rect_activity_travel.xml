@@ -2,7 +2,7 @@
 <android.support.percent.PercentRelativeLayout
     android:id="@+id/travel_layout_frame"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/apk/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="16dp"

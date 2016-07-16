@@ -1,6 +1,7 @@
 package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
@@ -11,9 +12,10 @@ import com.lchrislee.longjourney.LongJourneyApplication;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
+import com.lchrislee.longjourney.utility.BattleUtility;
 
 public class BattleConclusionActivity extends Activity {
-    static final String CONCLUSION = "com.lchrislee.longjourney.activities.BattleConclusionActivity.CONCLUSION";
+    public static final String CONCLUSION = "com.lchrislee.longjourney.activities.BattleConclusionActivity.CONCLUSION";
 
     private TextView levelText;
     private TextView goldText;
@@ -24,10 +26,17 @@ public class BattleConclusionActivity extends Activity {
     private Player player;
     private Monster monster;
 
+    private int conclusion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conclusion);
+
+        Intent i = getIntent();
+        if (i != null){
+            conclusion = i.getIntExtra(CONCLUSION, -1);
+        }
 
         player = ((LongJourneyApplication) getApplication()).getPlayer();
         monster = ((LongJourneyApplication) getApplication()).getMonster();
@@ -64,7 +73,13 @@ public class BattleConclusionActivity extends Activity {
         goldText.setText(String.valueOf(player.getGold()));
 
         xp.setProgress(player.getXp());
-        if (monster.getCurrentHealth() == 0){
+        if (conclusion == BattleUtility.BATTLE_CONCLUSION_SNEAK){
+            spoilsText.setVisibility(View.INVISIBLE);
+            statusText.setText(R.string.conclusion_sneak);
+        }else if(conclusion == BattleUtility.BATTLE_CONCLUSION_RUN){
+            spoilsText.setText(String.valueOf(-1 * monster.getGold()));
+            statusText.setText(R.string.conclusion_run);
+        } else if (monster.getCurrentHealth() == 0){
             spoilsText.setText(String.valueOf(monster.getGold()));
             statusText.setText(R.string.conclusion_victory);
             int xpChange = player.getXp() + monster.getXp();
@@ -76,7 +91,7 @@ public class BattleConclusionActivity extends Activity {
                 xp.setProgress(xpChange);
             }
         }else{
-            spoilsText.setText("0");
+            spoilsText.setText(R.string.zero);
             statusText.setText(R.string.conclusion_loss);
         }
     }

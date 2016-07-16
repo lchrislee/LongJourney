@@ -1,6 +1,11 @@
 package com.lchrislee.longjourney.utility;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
+
+import com.lchrislee.longjourney.R;
 
 /**
  * Created by Chris Lee on 7/16/16.
@@ -8,7 +13,10 @@ import android.support.annotation.NonNull;
 public class BattleUtility {
     public static final int BATTLE_SNEAK_OPTION_LEFT = 0; // TODO MAKE THESE BETTER
     public static final int BATTLE_SNEAK_OPTION_RIGHT = 1;
-    public static final int BATTLE_CONCLUSION_SNEAK = 0;
+
+    public static final int BATTLE_CONCLUSION_FIGHT = 0;
+    public static final int BATTLE_CONCLUSION_SNEAK = 1;
+    public static final int BATTLE_CONCLUSION_RUN = 2;
 
     public static boolean determineSneakSuccess(@NonNull Object tag){
         if (!(tag instanceof Integer)){
@@ -17,5 +25,9 @@ public class BattleUtility {
             boolean result = false;
             return result;
         }
+    }
+
+    public static @NonNull Drawable getMonsterDrawable(@NonNull Context context){
+        return ResourcesCompat.getDrawable(context.getResources(), R.drawable.slime, null);
     }
 }

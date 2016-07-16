@@ -58,6 +58,7 @@ public class NotificationUtility {
         ArrayList<NotificationCompat.Action> battleActions = new ArrayList<>();
 
         Intent startBattle = new Intent(context, BattleFightActivity.class);
+        startBattle.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_CONCLUSION_FIGHT);
         PendingIntent pendingFightIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_IDENTIFIER_BATTLE_FIGHT, startBattle, 0);
 
@@ -78,6 +79,7 @@ public class NotificationUtility {
                 .build();
 
         Intent runBattle = new Intent(context, BattleConclusionActivity.class);
+        runBattle.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_CONCLUSION_RUN);
         PendingIntent pendingRunIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_IDENTIFIER_BATTLE_RUN, runBattle, 0);
 
