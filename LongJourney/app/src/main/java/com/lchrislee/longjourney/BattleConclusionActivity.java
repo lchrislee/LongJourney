@@ -16,8 +16,6 @@ import com.lchrislee.longjourney.utility.PlayerInteraction;
 import com.lchrislee.longjourney.utility.SharedPreferenceConstants;
 
 public class BattleConclusionActivity extends Activity {
-    public static final String PLAYER = "com.lchrislee.longjourney.BattleConclusionActivity.PLAYER";
-    public static final String MONSTER = "com.lchrislee.longjourney.BattleConclusionActivity.MONSTER";
 
     private TextView levelText;
     private TextView goldText;
@@ -34,20 +32,14 @@ public class BattleConclusionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle_conclusion);
 
-        Intent i = getIntent();
-        if (i != null){
-            player = (Player) i.getSerializableExtra(PLAYER);
-            monster = (Monster) i.getSerializableExtra(MONSTER);
-        }else{
-            monster = new Monster.Builder().buildDefault();
-            player = PlayerInteraction.pullDataFromPreferences(getSharedPreferences(SharedPreferenceConstants.STEP_PREF_NAME, MODE_PRIVATE));
-        }
+        player = ((LongJourneyApplication) getApplication()).getPlayer();
+        monster = ((LongJourneyApplication) getApplication()).getMonster();
 
         initializeUI();
     }
 
     private void initializeUI(){
-        final BoxInsetLayout box = (BoxInsetLayout) findViewById(R.id.travel_layout_box);
+        final BoxInsetLayout box = (BoxInsetLayout) findViewById(R.id.conclusion_layout_box);
         box.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override
             public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
@@ -64,14 +56,17 @@ public class BattleConclusionActivity extends Activity {
         xp = (ProgressBar) findViewById(R.id.conclusion_progress_xp); // TODO Animate, take a look at http://stackoverflow.com/questions/8035682/animate-progressbar-update-in-android
         xp.setProgress(0);
         xp.setSecondaryProgress(0);
-        xp.setVisibility(View.GONE);
         xp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 xp.setProgress(xp.getProgress() + 10);
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         updateUI();
     }
 
