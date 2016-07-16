@@ -1,17 +1,13 @@
 package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +18,8 @@ import android.widget.Toast;
 import com.lchrislee.longjourney.LongJourneyApplication;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Player;
-import com.lchrislee.longjourney.utility.SharedPreferenceConstants;
+import com.lchrislee.longjourney.utility.NotificationUtility;
+import com.lchrislee.longjourney.utility.constants.SharedPreferenceConstants;
 
 public class TravelActivity extends Activity {
     private static final String TAG = TravelActivity.class.getSimpleName();
@@ -57,25 +54,7 @@ public class TravelActivity extends Activity {
                 b.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("TEST", "In button click.");
-                        Intent startBattle = new Intent(getApplicationContext(), BattleActivity.class);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(v.getContext(), 0, startBattle, 0);
-
-                        Log.d("TEST", "Pending Intent created.");
-
-                        NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
-                        extender.setDisplayIntent(pendingIntent);
-
-                        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(v.getContext());
-                        notificationBuilder.setSmallIcon(R.drawable.common_full_open_on_phone)
-                                .setContentTitle("A monster approaches!")
-                                .setContentText("What will you do?")
-                                .setContentIntent(pendingIntent).extend(extender);
-
-                        Log.d("TEST", "Notification builder setup.");
-
-                        NotificationManagerCompat.from(v.getContext()).notify(0, notificationBuilder.build());
-                        Log.d("TEST", "Notification launched.");
+                        NotificationUtility.launchBattleNotification(v.getContext(), R.drawable.slime);
                     }
                 });
                 updateUI();

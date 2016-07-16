@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 
 import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
-import com.lchrislee.longjourney.utility.PlayerInteraction;
-import com.lchrislee.longjourney.utility.SharedPreferenceConstants;
+import com.lchrislee.longjourney.utility.ActorUtility;
+import com.lchrislee.longjourney.utility.constants.SharedPreferenceConstants;
 
 /**
  * Created by Chris Lee on 7/15/16.
@@ -23,7 +23,8 @@ public class LongJourneyApplication extends Application {
 
     public @NonNull Player getPlayer(){
         if (player == null){
-            player = PlayerInteraction.pullDataFromPreferences(getSharedPreferences(SharedPreferenceConstants.STEP_PREF_NAME, MODE_PRIVATE));
+            player = (Player) ActorUtility.pullDataFromPreferences(
+                    getSharedPreferences(SharedPreferenceConstants.STEP_PREF_NAME, MODE_PRIVATE));
         }
         return player;
     }

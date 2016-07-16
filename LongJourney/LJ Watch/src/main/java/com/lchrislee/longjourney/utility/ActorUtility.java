@@ -3,14 +3,17 @@ package com.lchrislee.longjourney.utility;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import com.lchrislee.longjourney.model.actors.Actor;
 import com.lchrislee.longjourney.model.actors.Player;
+import com.lchrislee.longjourney.utility.constants.SharedPreferenceConstants;
 
 /**
  * Created by Chris Lee on 7/15/16.
  */
-public class PlayerInteraction {
+public class ActorUtility {
 
-    public static @NonNull Player pullDataFromPreferences(@NonNull SharedPreferences sharedPreferences){
+    public static @NonNull
+    Actor pullDataFromPreferences(@NonNull SharedPreferences sharedPreferences){
         long stepRef = sharedPreferences.getLong(SharedPreferenceConstants.STEP_REFERENCE, 0);
         long stepCount = sharedPreferences.getLong(SharedPreferenceConstants.STEP_COUNT, 0);
         long playerGold = sharedPreferences.getLong(SharedPreferenceConstants.PLAYER_GOLD, 0);
