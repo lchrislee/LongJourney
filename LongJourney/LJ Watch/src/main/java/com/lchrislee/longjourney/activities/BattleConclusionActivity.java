@@ -65,7 +65,7 @@ public class BattleConclusionActivity extends Activity {
         xp.setProgress(player.getXp());
         if (monster.getCurrentHealth() == 0){
             spoilsText.setText(String.valueOf(monster.getGold()));
-            statusText.setText(R.string.battle_conclusion_victory);
+            statusText.setText(R.string.conclusion_victory);
             int xpChange = player.getXp() + monster.getXp();
             if (xpChange >= player.getXpNeeded()){
                 xp.setSecondaryProgress(xp.getMax());
@@ -76,7 +76,7 @@ public class BattleConclusionActivity extends Activity {
             }
         }else{
             spoilsText.setText("0");
-            statusText.setText(R.string.battle_conclusion_loss);
+            statusText.setText(R.string.conclusion_loss);
         }
     }
 }

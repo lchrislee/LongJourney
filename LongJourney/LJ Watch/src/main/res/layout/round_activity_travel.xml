@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
+<RelativeLayout
     android:id="@+id/travel_layout_frame"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="32dp"
     android:layout_marginStart="32dp"
     android:layout_marginEnd="32dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginBottom="32dp"
+    tools:context="com.lchrislee.longjourney.activities.TravelActivity"
+    tools:deviceIds="wear_round"
+    >
 
     <TextView
         android:id="@+id/travel_text_level_prompt"
@@ -51,20 +55,19 @@
         android:id="@+id/travel_text_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/travel_text_steps_prompt"
-        android:gravity="end"
         android:layout_marginEnd="2dp"
-        app:layout_marginTopPercent="40%"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="end"
         android:text="@string/travel_counter_default" />
 
     <TextView
-        android:id="@+id/travel_text_steps_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/travel_text_steps"
-        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/travel_text_steps"
         android:layout_marginStart="2dp"
-        app:layout_marginEndPercent="22%"
+        android:gravity="start"
         android:text="@string/travel_steps" />
 
-</android.support.percent.PercentRelativeLayout>
+</RelativeLayout>

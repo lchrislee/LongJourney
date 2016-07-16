@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="32dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="32dp"
+    tools:context="com.lchrislee.longjourney.activities.BattleSneakActivity"
+    tools:deviceIds="wear_round"
+    tools:background="@drawable/slime"
+    >
+
+    <TextView
+        android:id="@+id/sneak_text_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="4dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/sneak_title"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="@color/red"
+        />
+
+    <Button
+        android:id="@+id/sneak_button_left"
+        app:layout_widthPercent="50%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sneak_text_prompt"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/sneak_option_left"/>
+
+    <Button
+        android:id="@+id/sneak_button_right"
+        app:layout_widthPercent="50%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sneak_text_prompt"
+        android:layout_toEndOf="@+id/sneak_button_left"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/sneak_option_right"/>
+
+</android.support.percent.PercentRelativeLayout>

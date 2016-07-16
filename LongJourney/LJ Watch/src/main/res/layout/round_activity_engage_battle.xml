@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="32dp"
+    android:layout_marginStart="32dp"
+    android:layout_marginEnd="32dp"
+    android:layout_marginBottom="32dp"
+    tools:context="com.lchrislee.longjourney.activities.EngageBattleActivity"
+    tools:deviceIds="wear_round">
+
+    <TextView
+        android:id="@+id/engage_text_monster_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/battle_monster_name_default" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/engage_text_monster_name"
+        android:layout_toStartOf="@+id/engage_text_monster_level"
+        android:layout_marginEnd="2dp"
+        android:gravity="end"
+        android:text="@string/travel_level" />
+
+    <TextView
+        android:id="@+id/engage_text_monster_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="2dp"
+        android:text="@string/travel_counter_default" />
+
+    <ImageView
+        android:id="@+id/engage_image_monster"
+        android:src="@drawable/slime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/engage_text_monster_name"
+        android:layout_above="@+id/engage_text_prompt"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/engage_text_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:text="@string/engage_prompt" />
+
+
+</RelativeLayout>

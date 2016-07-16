@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="16dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginBottom="16dp">
+    android:layout_marginBottom="16dp"
+    tools:context="com.lchrislee.longjourney.activities.BattleConclusionActivity"
+    tools:deviceIds="wear_square"
+    >
 
     <TextView
         android:id="@+id/conclusion_text_level_prompt"
@@ -60,9 +63,9 @@
         android:id="@+id/conclusion_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_marginTopPercent="48%"
-        app:layout_marginStartPercent="32%"
-        android:text="@string/battle_conclusion_loss" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/conclusion_loss" />
 
     <ProgressBar
         android:id="@+id/conclusion_progress_xp"
@@ -79,4 +82,4 @@
         android:longClickable="false"
         style="?android:attr/progressBarStyleHorizontal" />
 
-</android.support.percent.PercentRelativeLayout>
+</RelativeLayout>
