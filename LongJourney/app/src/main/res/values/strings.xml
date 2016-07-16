@@ -1,11 +1,20 @@
 <resources>
+    <!-- Application level -->
     <string name="app_name">LongJourney</string>
+    <string name="title_activity_battle_conclusion">BattleConclusionActivity</string>
+    <string name="title_activity_battle">BattleActivity</string>
 
+    <!-- Travel Activity -->
     <string name="travel_level">LV</string>
     <string name="travel_gold">G</string>
     <string name="travel_steps">Steps</string>
-
     <string name="travel_counter_default">99999</string>
+
+    <!-- Battle Activity -->
+    <string name="battle_monster_name_default">Slime</string>
+    <string name="battle_player_identifier">You</string>
+
+    <!-- Battle Conclusion Activity -->
     <string name="battle_conclusion_victory">You won!</string>
     <string name="battle_conclusion_loss">You lost!</string>
     <string name="battle_conclusion_add">+</string>
