@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp">
+
+    <TextView
+        android:id="@+id/battle_text_monster_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/battle_monster_name_default" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/battle_text_monster_name"
+        android:layout_toStartOf="@+id/battle_text_monster_level"
+        android:layout_marginEnd="2dp"
+        android:gravity="end"
+        android:text="@string/travel_level" />
+
+    <TextView
+        android:id="@+id/battle_text_monster_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="2dp"
+        android:text="@string/travel_counter_default" />
+
+    <ProgressBar
+        android:id="@+id/battle_progress_monster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/battle_text_monster_name"
+        android:progress="10"
+        android:max="100"
+        android:secondaryProgress="50"
+        android:clickable="false"
+        android:focusable="false"
+        android:longClickable="false"
+        style="?android:attr/progressBarStyleHorizontal" />
+
+    <ImageView
+        android:id="@+id/battle_image_monster"
+        android:src="@drawable/slime"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/battle_progress_monster"
+        android:layout_above="@+id/battle_text_player_identifier"
+        android:scaleType="fitCenter"/>
+
+    <ImageView
+        android:id="@+id/battle_image_player"
+        android:src="@drawable/rubber_chicken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/battle_text_player_identifier"
+        android:layout_below="@+id/battle_progress_monster"
+        android:scaleType="fitCenter"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/battle_text_player_identifier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/battle_progress_player"
+        android:text="@string/battle_player_identifier" />
+
+    <ProgressBar
+        android:id="@+id/battle_progress_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:progress="10"
+        android:max="100"
+        android:secondaryProgress="50"
+        android:clickable="false"
+        android:focusable="false"
+        android:longClickable="false"
+        style="?android:attr/progressBarStyleHorizontal" />
+
+</RelativeLayout>

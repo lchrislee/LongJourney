@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/battle_layout_stub"
+    android:id="@+id/travel_layout_stub"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:roundLayout="@layout/round_activity_battle"
-    app:rectLayout="@layout/rect_activity_battle"
-    tools:context=".activities.BattleActivity"
+    app:roundLayout="@layout/round_activity_conclusion"
+    app:rectLayout="@layout/rect_activity_conclusion"
+    tools:context=".activities.BattleConclusionActivity"
     tools:deviceIds="wear"
     android:background="@color/blue">
 

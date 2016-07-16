@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp">
+
+    <TextView
+        android:id="@+id/conclusion_text_level_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="2dp"
+        android:text="@string/travel_level" />
+
+    <TextView
+        android:id="@+id/conclusion_text_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/conclusion_text_level_prompt"
+        android:layout_marginStart="2dp"
+        android:text="@string/travel_counter_default" />
+
+    <TextView
+        android:id="@+id/conclusion_text_gold_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="2dp"
+        android:text="@string/travel_gold" />
+
+    <TextView
+        android:id="@+id/conclusion_text_gold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/conclusion_text_level"
+        android:layout_toStartOf="@+id/conclusion_text_gold_prompt"
+        android:layout_marginEnd="2dp"
+        android:gravity="end"
+        android:text="@string/travel_counter_default" />
+
+    <TextView
+        android:id="@+id/conclusion_text_spoils"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/conclusion_text_gold_prompt"
+        android:layout_below="@+id/conclusion_text_gold"
+        android:layout_marginEnd="2dp"
+        android:text="@string/travel_counter_default" />
+
+    <TextView
+        android:id="@+id/conclusion_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="48%"
+        app:layout_marginStartPercent="32%"
+        android:text="@string/battle_conclusion_loss" />
+
+    <ProgressBar
+        android:id="@+id/conclusion_progress_xp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:progress="10"
+        android:max="100"
+        android:secondaryProgress="50"
+        android:clickable="false"
+        android:focusable="false"
+        android:longClickable="false"
+        style="?android:attr/progressBarStyleHorizontal" />
+
+</android.support.percent.PercentRelativeLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    android:id="@+id/travel_layout_frame"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="32dp"
+    android:layout_marginStart="32dp"
+    android:layout_marginEnd="32dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/travel_text_level_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="2dp"
+        android:text="@string/travel_level" />
+
+    <TextView
+        android:id="@+id/travel_text_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/travel_text_level_prompt"
+        android:layout_marginStart="2dp"
+        android:text="@string/travel_counter_default" />
+
+    <TextView
+        android:id="@+id/travel_text_gold_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="2dp"
+        android:text="@string/travel_gold" />
+
+    <TextView
+        android:id="@+id/travel_text_gold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/travel_text_level"
+        android:layout_toStartOf="@+id/travel_text_gold_prompt"
+        android:layout_marginEnd="2dp"
+        android:gravity="end"
+        android:text="@string/travel_counter_default" />
+
+    <TextView
+        android:id="@+id/travel_text_steps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/travel_text_steps_prompt"
+        android:gravity="end"
+        android:layout_marginEnd="2dp"
+        app:layout_marginTopPercent="40%"
+        android:text="@string/travel_counter_default" />
+
+    <TextView
+        android:id="@+id/travel_text_steps_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/travel_text_steps"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="2dp"
+        app:layout_marginEndPercent="22%"
+        android:text="@string/travel_steps" />
+
+</android.support.percent.PercentRelativeLayout>

@@ -17,7 +17,9 @@
     <!-- Battle Conclusion Activity -->
     <string name="battle_conclusion_victory">You won!</string>
     <string name="battle_conclusion_loss">You lost!</string>
-    <string name="battle_conclusion_add">+</string>
-    <string name="battle_conclusion_subtract">-</string>
+
+    <!-- Unorganized -->
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
 
 </resources>

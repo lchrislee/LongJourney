@@ -1,4 +1,4 @@
-package com.lchrislee.longjourney;
+package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,15 +8,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.wearable.view.BoxInsetLayout;
+import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
-import android.view.View;
-import android.view.WindowInsets;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lchrislee.longjourney.LongJourneyApplication;
+import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Player;
-import com.lchrislee.longjourney.utility.PlayerInteraction;
 import com.lchrislee.longjourney.utility.SharedPreferenceConstants;
 
 public class TravelActivity extends Activity {
@@ -42,17 +41,15 @@ public class TravelActivity extends Activity {
     }
 
     private void initializeUI(){
-        final BoxInsetLayout box = (BoxInsetLayout) findViewById(R.id.travel_layout_box);
-        box.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+        final WatchViewStub watchViewStub = (WatchViewStub) findViewById(R.id.travel_layout_stub);
+        watchViewStub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
-            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-                return insets;
+            public void onLayoutInflated(WatchViewStub watchViewStub) {
+                levelText = (TextView) findViewById(R.id.travel_text_level);
+                goldText = (TextView) findViewById(R.id.travel_text_gold);
+                stepsText = (TextView) findViewById(R.id.travel_text_steps);
             }
         });
-
-        levelText = (TextView) findViewById(R.id.travel_text_level);
-        goldText = (TextView) findViewById(R.id.travel_text_gold);
-        stepsText = (TextView) findViewById(R.id.travel_text_steps);
     }
 
     @Override

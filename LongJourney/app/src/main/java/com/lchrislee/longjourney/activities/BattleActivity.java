@@ -1,14 +1,17 @@
-package com.lchrislee.longjourney;
+package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.BoxInsetLayout;
+import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.lchrislee.longjourney.LongJourneyApplication;
+import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
 
@@ -35,20 +38,19 @@ public class BattleActivity extends Activity {
         initializeUI();
     }
 
-    private void initializeUI(){final BoxInsetLayout box = (BoxInsetLayout) findViewById(R.id.battle_layout_box);
-        box.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+    private void initializeUI(){
+        final WatchViewStub watchViewStub = (WatchViewStub) findViewById(R.id.battle_layout_stub);
+        watchViewStub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
-            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-                return insets;
+            public void onLayoutInflated(WatchViewStub watchViewStub) {
+                monsterLevel = (TextView) findViewById(R.id.battle_text_monster_level);
+                monsterName = (TextView) findViewById(R.id.battle_text_monster_name);
+                monsterImage = (ImageView) findViewById(R.id.battle_image_monster);
+                playerImage = (ImageView) findViewById(R.id.battle_image_player);
+                monsterHealth = (ProgressBar) findViewById(R.id.battle_progress_monster);
+                playerHealth = (ProgressBar) findViewById(R.id.battle_progress_player);
             }
         });
-
-        monsterLevel = (TextView) findViewById(R.id.battle_text_monster_level);
-        monsterName = (TextView) findViewById(R.id.battle_text_monster_name);
-        monsterImage = (ImageView) findViewById(R.id.battle_image_monster);
-        playerImage = (ImageView) findViewById(R.id.battle_image_player);
-        monsterHealth = (ProgressBar) findViewById(R.id.battle_progress_monster);
-        playerHealth = (ProgressBar) findViewById(R.id.battle_progress_player);
     }
 
     @Override
