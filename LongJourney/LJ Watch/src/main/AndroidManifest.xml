@@ -45,12 +45,13 @@
             android:name=".activities.BattleFightActivity"
             android:allowEmbedded="true"
             android:exported="true"
+            android:noHistory="true"
             android:label="@string/title_activity_battle">
         </activity>
         <activity
-            android:name=".activities.BattleConclusionActivity"
+            android:name=".activities.SpoilsActivity"
             android:excludeFromRecents="true"
-            android:label="@string/title_activity_battle_conclusion"
+            android:label="@string/title_activity_spoils"
             android:noHistory="true"
             android:parentActivityName=".activities.BattleFightActivity">
         </activity>

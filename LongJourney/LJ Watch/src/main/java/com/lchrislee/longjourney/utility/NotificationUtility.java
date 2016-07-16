@@ -11,10 +11,10 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.activities.BattleConclusionActivity;
 import com.lchrislee.longjourney.activities.BattleEngageActivity;
 import com.lchrislee.longjourney.activities.BattleFightActivity;
 import com.lchrislee.longjourney.activities.BattleSneakActivity;
+import com.lchrislee.longjourney.activities.SpoilsActivity;
 
 import java.util.ArrayList;
 
@@ -79,8 +79,8 @@ public class NotificationUtility {
                 pendingSneakIntent)
                 .build();
 
-        Intent runBattle = new Intent(context, BattleConclusionActivity.class);
-        runBattle.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_RUN);
+        Intent runBattle = new Intent(context, SpoilsActivity.class);
+        runBattle.putExtra(SpoilsActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_RUN);
         PendingIntent pendingRunIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_IDENTIFIER_BATTLE_RUN, runBattle, 0);
 

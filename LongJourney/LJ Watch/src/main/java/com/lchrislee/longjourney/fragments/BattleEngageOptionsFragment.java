@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.activities.BattleConclusionActivity;
 import com.lchrislee.longjourney.activities.BattleFightActivity;
 import com.lchrislee.longjourney.activities.BattleSneakActivity;
+import com.lchrislee.longjourney.activities.SpoilsActivity;
 import com.lchrislee.longjourney.adapters.BattleEngageOptionsListAdapter;
 import com.lchrislee.longjourney.utility.BattleUtility;
 
@@ -49,8 +49,8 @@ public class BattleEngageOptionsFragment extends Fragment implements WearableLis
                 nextActivity = new Intent(getActivity(), BattleSneakActivity.class);
                 break;
             case BattleUtility.BATTLE_OPTION_RUN:
-                nextActivity = new Intent(getActivity(), BattleConclusionActivity.class);
-                nextActivity.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_RUN);
+                nextActivity = new Intent(getActivity(), SpoilsActivity.class);
+                nextActivity.putExtra(SpoilsActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_RUN);
                 break;
             default:
                 nextActivity = null;

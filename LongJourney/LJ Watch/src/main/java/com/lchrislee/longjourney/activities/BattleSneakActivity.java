@@ -50,8 +50,8 @@ public class BattleSneakActivity extends Activity {
         public void onClick(View v) {
             Intent nextActivity;
             if(BattleUtility.determineSneakSuccess(v.getTag())){
-                nextActivity = new Intent(v.getContext(), BattleConclusionActivity.class);
-                nextActivity.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_SNEAK);
+                nextActivity = new Intent(v.getContext(), SpoilsActivity.class);
+                nextActivity.putExtra(SpoilsActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_SNEAK);
             }else{
                 nextActivity = new Intent(v.getContext(), BattleFightActivity.class);
                 nextActivity.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_OPTION_SNEAK);

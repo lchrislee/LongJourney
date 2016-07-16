@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/apk/tools"
-    android:layout_marginTop="32dp"
-    android:layout_marginStart="32dp"
-    android:layout_marginEnd="32dp"
-    android:layout_marginBottom="32dp"
-    tools:context="com.lchrislee.longjourney.activities.BattleConclusionActivity"
-    tools:deviceIds="wear_round">
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    tools:context="com.lchrislee.longjourney.activities.SpoilsActivity"
+    tools:deviceIds="wear_square"
+    >
 
     <TextView
         android:id="@+id/conclusion_text_level_prompt"

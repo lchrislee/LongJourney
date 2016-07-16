@@ -6,9 +6,9 @@
     android:id="@+id/conclusion_layout_stub"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:roundLayout="@layout/round_activity_conclusion"
-    app:rectLayout="@layout/rect_activity_conclusion"
-    tools:context=".activities.BattleConclusionActivity"
+    app:roundLayout="@layout/round_activity_spoils"
+    app:rectLayout="@layout/rect_activity_spoils"
+    tools:context=".activities.SpoilsActivity"
     tools:deviceIds="wear"
     android:background="@color/blue">
 

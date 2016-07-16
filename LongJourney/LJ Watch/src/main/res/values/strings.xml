@@ -4,7 +4,7 @@
     <string name="title_activity_engage_battle">BattleEngageActivity</string>
     <string name="title_activity_battle_sneak">BattleSneakActivity</string>
     <string name="title_activity_battle">BattleFightActivity</string>
-    <string name="title_activity_battle_conclusion">BattleConclusionActivity</string>
+    <string name="title_activity_spoils">SpoilsActivity</string>
 
     <!-- Travel Activity -->
     <string name="travel_level">LV</string>

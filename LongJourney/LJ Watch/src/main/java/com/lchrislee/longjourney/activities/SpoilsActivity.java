@@ -14,8 +14,8 @@ import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
 import com.lchrislee.longjourney.utility.BattleUtility;
 
-public class BattleConclusionActivity extends Activity {
-    public static final String CONCLUSION = "com.lchrislee.longjourney.activities.BattleConclusionActivity.CONCLUSION";
+public class SpoilsActivity extends Activity {
+    public static final String CONCLUSION = "com.lchrislee.longjourney.activities.SpoilsActivity.CONCLUSION";
 
     private TextView levelText;
     private TextView goldText;
@@ -31,7 +31,7 @@ public class BattleConclusionActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conclusion);
+        setContentView(R.layout.activity_spoils);
 
         Intent i = getIntent();
         if (i != null){
