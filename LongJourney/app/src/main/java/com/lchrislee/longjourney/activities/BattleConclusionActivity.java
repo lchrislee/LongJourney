@@ -2,9 +2,8 @@ package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.wearable.view.BoxInsetLayout;
+import android.support.wearable.view.WatchViewStub;
 import android.view.View;
-import android.view.WindowInsets;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -36,34 +35,27 @@ public class BattleConclusionActivity extends Activity {
     }
 
     private void initializeUI(){
-        final BoxInsetLayout box = (BoxInsetLayout) findViewById(R.id.conclusion_layout_box);
-        box.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+        final WatchViewStub watchViewStub = (WatchViewStub) findViewById(R.id.conclusion_layout_stub);
+        watchViewStub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
-            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-                return insets;
+            public void onLayoutInflated(WatchViewStub watchViewStub) {
+                levelText = (TextView) findViewById(R.id.conclusion_text_level);
+                goldText = (TextView) findViewById(R.id.conclusion_text_gold);
+                spoilsText = (TextView) findViewById(R.id.conclusion_text_spoils);
+                statusText = (TextView) findViewById(R.id.conclusion_status);
+
+                xp = (ProgressBar) findViewById(R.id.conclusion_progress_xp); // TODO Animate, take a look at http://stackoverflow.com/questions/8035682/animate-progressbar-update-in-android
+                xp.setProgress(0);
+                xp.setSecondaryProgress(0);
+                xp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        xp.setProgress(xp.getProgress() + 10);
+                    }
+                });
+                updateUI();
             }
         });
-
-        levelText = (TextView) findViewById(R.id.conclusion_text_level);
-        goldText = (TextView) findViewById(R.id.conclusion_text_gold);
-        spoilsText = (TextView) findViewById(R.id.conclusion_text_spoils);
-        statusText = (TextView) findViewById(R.id.conclusion_status);
-
-        xp = (ProgressBar) findViewById(R.id.conclusion_progress_xp); // TODO Animate, take a look at http://stackoverflow.com/questions/8035682/animate-progressbar-update-in-android
-        xp.setProgress(0);
-        xp.setSecondaryProgress(0);
-        xp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                xp.setProgress(xp.getProgress() + 10);
-            }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateUI();
     }
 
     private void updateUI(){

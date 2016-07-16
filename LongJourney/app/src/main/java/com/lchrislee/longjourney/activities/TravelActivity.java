@@ -1,15 +1,21 @@
 package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +53,32 @@ public class TravelActivity extends Activity {
                 levelText = (TextView) findViewById(R.id.travel_text_level);
                 goldText = (TextView) findViewById(R.id.travel_text_gold);
                 stepsText = (TextView) findViewById(R.id.travel_text_steps);
+                Button b = (Button) findViewById(R.id.travel_button_temp_notification);
+                b.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("TEST", "In button click.");
+                        Intent startBattle = new Intent(getApplicationContext(), BattleActivity.class);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(v.getContext(), 0, startBattle, 0);
+
+                        Log.d("TEST", "Pending Intent created.");
+
+                        NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
+                        extender.setDisplayIntent(pendingIntent);
+
+                        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(v.getContext());
+                        notificationBuilder.setSmallIcon(R.drawable.common_full_open_on_phone)
+                                .setContentTitle("A monster approaches!")
+                                .setContentText("What will you do?")
+                                .setContentIntent(pendingIntent).extend(extender);
+
+                        Log.d("TEST", "Notification builder setup.");
+
+                        NotificationManagerCompat.from(v.getContext()).notify(0, notificationBuilder.build());
+                        Log.d("TEST", "Notification launched.");
+                    }
+                });
+                updateUI();
             }
         });
     }
@@ -55,7 +87,6 @@ public class TravelActivity extends Activity {
     protected void onResume() {
         super.onResume();
         initializeStepSensors();
-        updateUI();
     }
 
     private void initializeStepSensors(){
@@ -101,7 +132,9 @@ public class TravelActivity extends Activity {
         @Override
         public void onSensorChanged(SensorEvent event) {
             player.increaseStepCountBy(1);
-            stepsText.setText(String.valueOf(player.getStepCount()));
+            if (stepsText != null) {
+                stepsText.setText(String.valueOf(player.getStepCount()));
+            }
         }
 
         @Override
@@ -118,8 +151,6 @@ public class TravelActivity extends Activity {
             long ref = player.getStepReference();
             if (newTotalCount > ref){
                 player.increaseStepCountBy(newTotalCount - ref);
-            } else if (newTotalCount < ref){
-                player.increaseStepCountBy(newTotalCount);
             }
             sensorManager.unregisterListener(this);
         }

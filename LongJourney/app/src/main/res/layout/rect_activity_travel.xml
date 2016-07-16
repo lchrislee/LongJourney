@@ -67,4 +67,12 @@
         app:layout_marginEndPercent="24%"
         android:text="@string/travel_steps" />
 
+    <Button
+        android:id="@+id/travel_button_temp_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:text="next"/>
+
 </android.support.percent.PercentRelativeLayout>

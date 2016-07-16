@@ -46,21 +46,16 @@ public class BattleActivity extends Activity {
                 playerImage = (ImageView) findViewById(R.id.battle_image_player);
                 monsterHealth = (ProgressBar) findViewById(R.id.battle_progress_monster);
                 playerHealth = (ProgressBar) findViewById(R.id.battle_progress_player);
+                updateUI();
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateUI();
     }
 
     private void updateUI() {
         monsterLevel.setText(String.valueOf(monster.getLevel()));
         monsterName.setText(monster.getName());
         monsterImage.setImageResource(monster.getImage());
-        playerImage.setImageResource(player.getWeapon().getImage());
+        playerImage.setImageResource(R.drawable.rubber_chicken);
         monsterHealth.setMax(monster.getMaxHealth());
         playerHealth.setMax(player.getMaxHealth());
         updateHealth();
