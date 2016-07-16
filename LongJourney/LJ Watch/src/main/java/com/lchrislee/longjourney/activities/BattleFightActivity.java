@@ -37,10 +37,10 @@ public class BattleFightActivity extends Activity {
         if (i != null){
             int from = i.getIntExtra(FROM, -1);
             switch(from){
-                case BattleUtility.BATTLE_CONCLUSION_SNEAK:
+                case BattleUtility.BATTLE_OPTION_SNEAK:
                     Toast.makeText(this, R.string.battle_caught, Toast.LENGTH_SHORT).show();
                     break;
-                case BattleUtility.BATTLE_CONCLUSION_FIGHT:
+                case BattleUtility.BATTLE_OPTION_FIGHT:
                     Toast.makeText(this, R.string.battle_charge, Toast.LENGTH_SHORT).show();
                 default:
                     break;

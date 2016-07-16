@@ -73,10 +73,10 @@ public class BattleConclusionActivity extends Activity {
         goldText.setText(String.valueOf(player.getGold()));
 
         xp.setProgress(player.getXp());
-        if (conclusion == BattleUtility.BATTLE_CONCLUSION_SNEAK){
+        if (conclusion == BattleUtility.BATTLE_OPTION_SNEAK){
             spoilsText.setVisibility(View.INVISIBLE);
             statusText.setText(R.string.conclusion_sneak);
-        }else if(conclusion == BattleUtility.BATTLE_CONCLUSION_RUN){
+        }else if(conclusion == BattleUtility.BATTLE_OPTION_RUN){
             spoilsText.setText(String.valueOf(-1 * monster.getGold()));
             statusText.setText(R.string.conclusion_run);
         } else if (monster.getCurrentHealth() == 0){

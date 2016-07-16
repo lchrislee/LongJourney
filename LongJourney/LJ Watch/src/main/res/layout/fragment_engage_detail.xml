@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.wearable.view.WatchViewStub
-    android:id="@+id/watch_view_stub"
+    android:id="@+id/fragment_engage_stub"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:rectLayout="@layout/rect_activity_engage_battle"
-    app:roundLayout="@layout/round_activity_engage_battle"
-    tools:context=".activities.BattleEngageActivity"
+    app:rectLayout="@layout/rect_fragment_engage"
+    app:roundLayout="@layout/round_fragment_engage"
+    tools:context="com.lchrislee.longjourney.fragments.BattleEngageDetailFragment"
     tools:deviceIds="wear">
 </android.support.wearable.view.WatchViewStub>

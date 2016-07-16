@@ -45,6 +45,7 @@ public class NotificationUtility {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
         notificationBuilder.setSmallIcon(R.drawable.common_full_open_on_phone)
                 .setContentTitle("A monster approaches!")
+                .setContentIntent(pendingIntent)
                 .setLocalOnly(true)
                 .extend(extender);
 
@@ -58,7 +59,7 @@ public class NotificationUtility {
         ArrayList<NotificationCompat.Action> battleActions = new ArrayList<>();
 
         Intent startBattle = new Intent(context, BattleFightActivity.class);
-        startBattle.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_CONCLUSION_FIGHT);
+        startBattle.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_OPTION_FIGHT);
         PendingIntent pendingFightIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_IDENTIFIER_BATTLE_FIGHT, startBattle, 0);
 
@@ -79,7 +80,7 @@ public class NotificationUtility {
                 .build();
 
         Intent runBattle = new Intent(context, BattleConclusionActivity.class);
-        runBattle.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_CONCLUSION_RUN);
+        runBattle.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_RUN);
         PendingIntent pendingRunIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_IDENTIFIER_BATTLE_RUN, runBattle, 0);
 

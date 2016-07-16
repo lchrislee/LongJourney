@@ -14,6 +14,9 @@
 
     <!-- Battle Engage Activity -->
     <string name="engage_prompt">What will you do?</string>
+    <string name="engage_option_fight">Fight</string>
+    <string name="engage_option_sneak">Sneak</string>
+    <string name="engage_option_run">Run</string>
 
     <!-- Battle Sneak Activity -->
     <string name="sneak_title">Which way?</string>
@@ -34,7 +37,9 @@
 
     <!-- Unorganized -->
     <string name="zero">0</string>
+    <string name="default_list_entry_text">Rainbows!</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

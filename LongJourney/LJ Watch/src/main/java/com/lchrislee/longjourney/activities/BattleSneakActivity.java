@@ -51,10 +51,10 @@ public class BattleSneakActivity extends Activity {
             Intent nextActivity;
             if(BattleUtility.determineSneakSuccess(v.getTag())){
                 nextActivity = new Intent(v.getContext(), BattleConclusionActivity.class);
-                nextActivity.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_CONCLUSION_SNEAK);
+                nextActivity.putExtra(BattleConclusionActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_SNEAK);
             }else{
                 nextActivity = new Intent(v.getContext(), BattleFightActivity.class);
-                nextActivity.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_CONCLUSION_SNEAK);
+                nextActivity.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_OPTION_SNEAK);
             }
             startActivity(nextActivity);
         }
