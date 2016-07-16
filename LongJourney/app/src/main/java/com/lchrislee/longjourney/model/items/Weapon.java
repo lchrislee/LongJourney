@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 public class Weapon extends UsableItem {
     private int attack;
 
-    public Weapon(@NonNull String name, @NonNull String description, @DrawableRes int image, int attack) {
+    private Weapon(@NonNull String name, @NonNull String description, @DrawableRes int image, int attack) {
         super(name, description, image);
         this.attack = attack;
     }

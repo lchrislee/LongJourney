@@ -2,10 +2,7 @@ package com.lchrislee.longjourney.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.wearable.view.BoxInsetLayout;
 import android.support.wearable.view.WatchViewStub;
-import android.view.View;
-import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;

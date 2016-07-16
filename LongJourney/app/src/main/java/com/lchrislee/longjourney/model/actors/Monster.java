@@ -16,11 +16,11 @@ public class Monster extends Actor implements Serializable{
     private @NonNull String description;
     @DrawableRes private int image;
 
-    public Monster(long level, int health, long gold,
-                   long strength, long defense,
-                   @NonNull String name, @NonNull String description,
-                   @DrawableRes int image,
-                   int xp) {
+    private Monster(long level, int health, long gold,
+                    long strength, long defense,
+                    @NonNull String name, @NonNull String description,
+                    @DrawableRes int image,
+                    int xp) {
         super(level, health, gold, strength, defense, xp);
         this.name = name;
         this.description = description;

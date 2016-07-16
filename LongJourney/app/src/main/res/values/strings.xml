@@ -19,7 +19,5 @@
     <string name="battle_conclusion_loss">You lost!</string>
 
     <!-- Unorganized -->
-    <string name="hello_round">Hello Round World!</string>
-    <string name="hello_square">Hello Square World!</string>
 
 </resources>

@@ -11,7 +11,7 @@ public class UsableItem {
     private @NonNull String description;
     private @DrawableRes int image;
 
-    public UsableItem(@NonNull String name, @NonNull String description, @DrawableRes int image) {
+    UsableItem(@NonNull String name, @NonNull String description, @DrawableRes int image) {
         this.name = name;
         this.description = description;
         this.image = image;

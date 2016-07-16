@@ -9,7 +9,7 @@ import com.lchrislee.longjourney.model.items.Weapon;
  */
 public abstract class Actor {
 
-    private @NonNull Weapon weapon;
+    private Weapon weapon;
     private long level;
     private int maxHealth;
     private int currentHealth;
@@ -18,7 +18,7 @@ public abstract class Actor {
     private long defense;
     private int xp;
 
-    public Actor(long level, int maxHealth, long gold, long strength, long defense, int xp) {
+    Actor(long level, int maxHealth, long gold, long strength, long defense, int xp) {
         this.maxHealth = maxHealth;
         this.gold = gold;
         this.level = level;
@@ -48,7 +48,7 @@ public abstract class Actor {
         return level;
     }
 
-    protected void increaseLevelBy(long levelIncrease){
+    void increaseLevelBy(long levelIncrease){
         this.level += levelIncrease;
         increaseStats();
     }
@@ -65,11 +65,11 @@ public abstract class Actor {
         return xp;
     }
 
-    protected void increaseXpBy(int change) {
+    void increaseXpBy(int change) {
         this.xp += change;
     }
 
-    protected void increaseStats(){
+    private void increaseStats(){
         // TODO FILL
     }
 
@@ -77,19 +77,19 @@ public abstract class Actor {
         return weapon;
     }
 
-    protected void setWeapon(@NonNull Weapon weapon) {
+    void setWeapon(@NonNull Weapon weapon) {
         this.weapon = weapon;
     }
 
     protected abstract void buildWeapon();
 
     public static abstract class Builder{
-        protected long level;
-        protected int health;
-        protected long gold;
-        protected long strength;
-        protected long defense;
-        protected int xp;
+        long level;
+        int health;
+        long gold;
+        long strength;
+        long defense;
+        int xp;
 
         public Builder level(long level) {
             this.level = level;

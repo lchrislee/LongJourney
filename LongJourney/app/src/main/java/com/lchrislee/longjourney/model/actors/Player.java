@@ -16,7 +16,7 @@ public class Player extends Actor implements Serializable{
     private long stepReference;
     private int xpNeeded;
 
-    public Player(long level, int health, long gold, long strength, long defense, long stepCount, long stepReference, int xp) {
+    private Player(long level, int health, long gold, long strength, long defense, long stepCount, long stepReference, int xp) {
         super(level, health, gold, strength, defense, xp);
         this.stepCount = stepCount;
         this.stepReference = stepReference;
@@ -49,7 +49,7 @@ public class Player extends Actor implements Serializable{
         return xpNeeded;
     }
 
-    protected void generateXpNeeded(long level){
+    private void generateXpNeeded(long level){
         if (level == 0){
             xpNeeded = 10;
         }else{
@@ -67,7 +67,7 @@ public class Player extends Actor implements Serializable{
         return false;
     }
 
-    protected void levelUp(){
+    private void levelUp(){
         increaseLevelBy(1);
         generateXpNeeded(getLevel());
     }

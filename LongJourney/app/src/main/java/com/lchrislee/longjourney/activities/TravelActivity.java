@@ -27,7 +27,6 @@ public class TravelActivity extends Activity {
 
     private SensorManager sensorManager;
     private StepDetectorUpdateManager stepDetectorListener;
-    private StepCounterUpdateManager stepCounterListener;
 
     private Player player;
 
@@ -70,7 +69,7 @@ public class TravelActivity extends Activity {
             Log.d(TAG, "Step counter and detector found!");
             stepDetectorListener = new StepDetectorUpdateManager();
             sensorManager.registerListener(stepDetectorListener, stepDetector, SensorManager.SENSOR_DELAY_GAME);
-            stepCounterListener = new StepCounterUpdateManager();
+            StepCounterUpdateManager stepCounterListener = new StepCounterUpdateManager();
             sensorManager.registerListener(stepCounterListener, stepCounter, SensorManager.SENSOR_DELAY_GAME);
         }
     }
@@ -97,7 +96,7 @@ public class TravelActivity extends Activity {
     }
 
 
-    class StepDetectorUpdateManager implements SensorEventListener{
+    private class StepDetectorUpdateManager implements SensorEventListener{
 
         @Override
         public void onSensorChanged(SensorEvent event) {
@@ -111,7 +110,7 @@ public class TravelActivity extends Activity {
         }
     }
 
-    class StepCounterUpdateManager implements SensorEventListener{
+    private class StepCounterUpdateManager implements SensorEventListener{
 
         @Override
         public void onSensorChanged(SensorEvent event) {
