@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.BattleEngageActivity"
     tools:deviceIds="wear"
-    android:padding="16dp"
     >
 
     <android.support.wearable.view.GridViewPager
@@ -20,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="8dp"
         />
 
 </android.support.wearable.view.BoxInsetLayout>

@@ -8,7 +8,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.activities.BattleEngageActivity;
@@ -30,14 +29,11 @@ public class NotificationUtility {
 
     public static void launchBattleNotification(@NonNull Context context, @DrawableRes int monsterBackground){
         Intent engageBattle = new Intent(context, BattleEngageActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_IDENTIFIER_BATTLE, engageBattle, 0);
-
-        Log.d("TEST", "Pending Intent created.");
-
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_IDENTIFIER_BATTLE, engageBattle,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
         ArrayList<NotificationCompat.Action> potentialActions = generateBattleActions(context);
 
         NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
-        extender.setDisplayIntent(pendingIntent);
         extender.setContentIntentAvailableOffline(true);
         extender.setBackground(BitmapFactory.decodeResource(context.getResources(), monsterBackground));
         extender.addActions(potentialActions);
@@ -45,14 +41,12 @@ public class NotificationUtility {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
         notificationBuilder.setSmallIcon(R.drawable.common_full_open_on_phone)
                 .setContentTitle("A monster approaches!")
+                .setContentText("What will you do?")
                 .setContentIntent(pendingIntent)
                 .setLocalOnly(true)
                 .extend(extender);
 
-        Log.d("TEST", "Notification builder setup.");
-
         NotificationManagerCompat.from(context).notify(NOTIFICATION_IDENTIFIER_BATTLE, notificationBuilder.build());
-        Log.d("TEST", "Notification launched.");
     }
 
     private static @NonNull ArrayList<NotificationCompat.Action> generateBattleActions(@NonNull Context context){
@@ -61,7 +55,8 @@ public class NotificationUtility {
         Intent startBattle = new Intent(context, BattleFightActivity.class);
         startBattle.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_OPTION_FIGHT);
         PendingIntent pendingFightIntent = PendingIntent.getActivity(context,
-                NOTIFICATION_IDENTIFIER_BATTLE_FIGHT, startBattle, 0);
+                NOTIFICATION_IDENTIFIER_BATTLE_FIGHT, startBattle,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Action fightAction = new NotificationCompat.Action.Builder(
                 R.drawable.common_plus_signin_btn_icon_light_normal,
@@ -71,7 +66,8 @@ public class NotificationUtility {
 
         Intent sneakBattle = new Intent(context, BattleSneakActivity.class);
         PendingIntent pendingSneakIntent = PendingIntent.getActivity(context,
-                NOTIFICATION_IDENTIFIER_BATTLE_SNEAK, sneakBattle, 0);
+                NOTIFICATION_IDENTIFIER_BATTLE_SNEAK, sneakBattle,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Action sneakAction = new NotificationCompat.Action.Builder(
                 R.drawable.common_google_signin_btn_icon_dark,
@@ -82,7 +78,8 @@ public class NotificationUtility {
         Intent runBattle = new Intent(context, SpoilsActivity.class);
         runBattle.putExtra(SpoilsActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_RUN);
         PendingIntent pendingRunIntent = PendingIntent.getActivity(context,
-                NOTIFICATION_IDENTIFIER_BATTLE_RUN, runBattle, 0);
+                NOTIFICATION_IDENTIFIER_BATTLE_RUN, runBattle,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Action runAction = new NotificationCompat.Action.Builder(
                 R.drawable.ic_full_sad,

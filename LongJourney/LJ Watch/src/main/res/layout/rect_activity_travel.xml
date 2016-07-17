@@ -5,9 +5,7 @@
     xmlns:tools="http://schemas.android.com/apk/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="16dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
+    android:padding="8dp"
     tools:context="com.lchrislee.longjourney.activities.TravelActivity"
     tools:deviceIds="wear_square">
 

@@ -11,6 +11,7 @@ import com.lchrislee.longjourney.adapters.BattleEngageGridPagerAdapter;
 
 public class BattleEngageActivity extends Activity {
     public static final String ENTRANCE = "com.lchrislee.longjourney.activities.BattleEngageActivity.ENTRANCE";
+    private static final String TAG = BattleEngageActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
