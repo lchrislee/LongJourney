@@ -10,7 +10,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.activities.BattleEngageActivity;
 import com.lchrislee.longjourney.activities.BattleFightActivity;
 import com.lchrislee.longjourney.activities.BattleSneakActivity;
 import com.lchrislee.longjourney.activities.SpoilsActivity;
@@ -28,9 +27,6 @@ public class NotificationUtility {
     public static final int NOTIFICATION_IDENTIFIER_BATTLE_RUN = 3;
 
     public static void launchBattleNotification(@NonNull Context context, @DrawableRes int monsterBackground){
-        Intent engageBattle = new Intent(context, BattleEngageActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_IDENTIFIER_BATTLE, engageBattle,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
         ArrayList<NotificationCompat.Action> potentialActions = generateBattleActions(context);
 
         NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
@@ -39,11 +35,12 @@ public class NotificationUtility {
         extender.addActions(potentialActions);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-        notificationBuilder.setSmallIcon(R.drawable.common_full_open_on_phone)
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("A monster approaches!")
                 .setContentText("What will you do?")
-                .setContentIntent(pendingIntent)
                 .setLocalOnly(true)
+                .setAutoCancel(true)
+                .setVibrate(new long[]{200, 200, 200, 200, 600})
                 .extend(extender);
 
         NotificationManagerCompat.from(context).notify(NOTIFICATION_IDENTIFIER_BATTLE, notificationBuilder.build());

@@ -22,12 +22,10 @@ public class BattleEngageGridPagerAdapter extends FragmentGridPagerAdapter {
     private static final int COLUMN_OPTIONS = 1;
 
     private Context context;
-    private int entrance;
 
-    public BattleEngageGridPagerAdapter(@NonNull Context c, @NonNull FragmentManager fm, int e) {
+    public BattleEngageGridPagerAdapter(@NonNull Context c, @NonNull FragmentManager fm) {
         super(fm);
         context = c;
-        entrance = e;
     }
 
     @Override
@@ -35,7 +33,7 @@ public class BattleEngageGridPagerAdapter extends FragmentGridPagerAdapter {
         Fragment fragment;
         switch(column){
             case COLUMN_DETAIL:
-                fragment = BattleEngageDetailFragment.newInstance(entrance);
+                fragment = new BattleEngageDetailFragment();
                 break;
             case COLUMN_OPTIONS:
                 fragment = new BattleEngageOptionsFragment();

@@ -46,9 +46,7 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/engage_text_monster_name"
         android:layout_above="@+id/engage_text_prompt"
-        android:visibility="gone"
         tools:src="@drawable/slime"
-        tools:visibility="visible"
         />
 
     <TextView

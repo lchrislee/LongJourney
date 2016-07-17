@@ -16,33 +16,13 @@ import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.utility.BattleUtility;
 
 public class BattleEngageDetailFragment extends Fragment {
-    private static final String ENTRANCE = "com.lchrislee.longjourney.fragments.BattleEngageDetailFragment.ENTRANCE";
 
     private TextView monsterName;
     private TextView monsterLevel;
     private ImageView monsterImage;
 
-    private int entrance;
-
     public BattleEngageDetailFragment() {
         // Required empty public constructor
-    }
-
-    public static BattleEngageDetailFragment newInstance(int entrance){
-        Bundle b = new Bundle();
-        b.putInt(ENTRANCE, entrance);
-        BattleEngageDetailFragment frag = new BattleEngageDetailFragment();
-        frag.setArguments(b);
-        return frag;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle arguments = getArguments();
-        if (arguments != null){
-            entrance = arguments.getInt(ENTRANCE, -1);
-        }
     }
 
     @Override
@@ -66,11 +46,7 @@ public class BattleEngageDetailFragment extends Fragment {
         final Monster monster = ((LongJourneyApplication) (getActivity().getApplication())).getMonster();
         monsterName.setText(monster.getName());
         monsterLevel.setText(String.valueOf(monster.getLevel()));
-        if (entrance == BattleUtility.BATTLE_FROM_TRAVEL){
-            monsterImage.setImageDrawable(BattleUtility.getMonsterDrawable(monsterImage.getContext()));
-        }else{
-            monsterImage.setVisibility(View.GONE);
-        }
+        monsterImage.setImageDrawable(BattleUtility.getMonsterDrawable(monsterImage.getContext()));
     }
 
 }
