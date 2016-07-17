@@ -24,7 +24,7 @@
         android:layout_marginEnd="4dp"
         android:textSize="24sp"
         android:textAllCaps="true"
-        tools:text="@string/default_list_entry_text"
+        tools:text="@string/engage_option_fight"
         />
 
 </com.lchrislee.longjourney.views.BattleEngageOptionListItemLayout>

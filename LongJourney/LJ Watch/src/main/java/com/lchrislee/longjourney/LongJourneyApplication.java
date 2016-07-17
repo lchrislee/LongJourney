@@ -16,11 +16,6 @@ public class LongJourneyApplication extends Application {
     private Player player;
     private Monster monster;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
     public @NonNull Player getPlayer(){
         if (player == null){
             player = (Player) ActorUtility.pullDataFromPreferences(

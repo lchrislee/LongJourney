@@ -70,6 +70,11 @@ public class Player extends Actor implements Serializable{
     private void levelUp(){
         increaseLevelBy(1);
         generateXpNeeded(getLevel());
+        increaseStats();
+    }
+
+    protected void increaseStats() {
+        // TODO FILL
     }
 
     @Override

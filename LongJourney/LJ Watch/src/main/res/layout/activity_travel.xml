@@ -10,6 +10,6 @@
     app:rectLayout="@layout/rect_activity_travel"
     tools:context=".activities.TravelActivity"
     tools:deviceIds="wear"
-    android:background="@color/blue">
+    >
 
 </android.support.wearable.view.WatchViewStub>

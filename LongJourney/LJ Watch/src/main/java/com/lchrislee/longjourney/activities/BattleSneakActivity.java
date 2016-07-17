@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.utility.BattleUtility;
 
 public class BattleSneakActivity extends Activity {
 
-    private RelativeLayout monster;
+    private ImageView monster;
     private Button left;
     private Button right;
 
@@ -27,7 +27,7 @@ public class BattleSneakActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                monster = (RelativeLayout) stub.findViewById(R.id.sneak_layout_monster);
+                monster = (ImageView) stub.findViewById(R.id.sneak_image_monster);
                 left = (Button) stub.findViewById(R.id.sneak_button_left);
                 left.setTag(BattleUtility.BATTLE_SNEAK_OPTION_LEFT);
                 right = (Button) stub.findViewById(R.id.sneak_button_right);
@@ -42,7 +42,7 @@ public class BattleSneakActivity extends Activity {
     private void updateUI(){
         left.setOnClickListener(listener);
         right.setOnClickListener(listener);
-        monster.setBackground(BattleUtility.getMonsterDrawable(this));
+        monster.setImageDrawable(BattleUtility.getMonsterDrawable(this));
     }
 
     private class SneakButtonListener implements Button.OnClickListener{

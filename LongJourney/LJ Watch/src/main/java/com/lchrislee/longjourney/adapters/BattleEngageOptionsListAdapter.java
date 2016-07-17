@@ -32,7 +32,7 @@ public class BattleEngageOptionsListAdapter extends WearableListView.Adapter {
     @Override
     public WearableListView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new OptionsViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_list_item_battle_engage_option, null));
+                .inflate(R.layout.layout_list_item_battle_engage_option, parent, false));
     }
 
     @Override

@@ -1,5 +1,4 @@
 <android.support.wearable.view.WatchViewStub
-    android:id="@+id/fragment_engage_stub"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

@@ -50,7 +50,6 @@ public abstract class Actor {
 
     void increaseLevelBy(long levelIncrease){
         this.level += levelIncrease;
-        increaseStats();
     }
 
     public long getStrength() {
@@ -67,10 +66,6 @@ public abstract class Actor {
 
     void increaseXpBy(int change) {
         this.xp += change;
-    }
-
-    private void increaseStats(){
-        // TODO FILL
     }
 
     public @NonNull Weapon getWeapon() {

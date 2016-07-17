@@ -10,6 +10,6 @@
     app:rectLayout="@layout/rect_activity_battle"
     tools:context=".activities.BattleFightActivity"
     tools:deviceIds="wear"
-    android:background="@color/blue">
+    >
 
 </android.support.wearable.view.WatchViewStub>

@@ -19,8 +19,6 @@ public class BattleUtility {
     public static final int BATTLE_OPTION_SNEAK = 3;
     public static final int BATTLE_OPTION_RUN = 4;
 
-    public static final int BATTLE_FROM_TRAVEL = 5;
-
     public static boolean determineSneakSuccess(@NonNull Object tag){
         if (!(tag instanceof Integer)){
             return false;
