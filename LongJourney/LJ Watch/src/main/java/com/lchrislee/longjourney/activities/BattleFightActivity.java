@@ -14,6 +14,7 @@ import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
 import com.lchrislee.longjourney.utility.BattleUtility;
+import com.lchrislee.longjourney.utility.NotificationUtility;
 
 public class BattleFightActivity extends Activity {
     public static final String FROM = "com.lchrislee.longjourney.activities.BattleFightActivity.FROM";
@@ -35,6 +36,7 @@ public class BattleFightActivity extends Activity {
 
         Intent i = getIntent();
         if (i != null){
+            NotificationUtility.cancelNotification(this);
             int from = i.getIntExtra(FROM, -1);
             switch(from){
                 case BattleUtility.BATTLE_OPTION_SNEAK:

@@ -1,5 +1,6 @@
 package com.lchrislee.longjourney.utility;
 
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -21,17 +22,16 @@ import java.util.ArrayList;
  */
 public class NotificationUtility {
 
-    public static final int NOTIFICATION_IDENTIFIER_BATTLE = 0; // TODO MAKE THESE BETTER
-    public static final int NOTIFICATION_IDENTIFIER_BATTLE_FIGHT = 1;
-    public static final int NOTIFICATION_IDENTIFIER_BATTLE_SNEAK = 2;
-    public static final int NOTIFICATION_IDENTIFIER_BATTLE_RUN = 3;
+    private static int notificationNumber = 0;
 
     public static void launchBattleNotification(@NonNull Context context, @DrawableRes int monsterBackground){
-        ArrayList<NotificationCompat.Action> potentialActions = generateBattleActions(context);
+        cancelNotification(context);
 
         NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
         extender.setContentIntentAvailableOffline(true);
         extender.setBackground(BitmapFactory.decodeResource(context.getResources(), monsterBackground));
+
+        ArrayList<NotificationCompat.Action> potentialActions = generateBattleActions(context);
         extender.addActions(potentialActions);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
@@ -40,10 +40,10 @@ public class NotificationUtility {
                 .setContentText("What will you do?")
                 .setLocalOnly(true)
                 .setAutoCancel(true)
-                .setVibrate(new long[]{200, 200, 200, 200, 600})
+                .setVibrate(new long[]{100, 200, 100, 200, 300, 200})
                 .extend(extender);
 
-        NotificationManagerCompat.from(context).notify(NOTIFICATION_IDENTIFIER_BATTLE, notificationBuilder.build());
+        NotificationManagerCompat.from(context).notify(notificationNumber++, notificationBuilder.build());
     }
 
     private static @NonNull ArrayList<NotificationCompat.Action> generateBattleActions(@NonNull Context context){
@@ -52,7 +52,7 @@ public class NotificationUtility {
         Intent startBattle = new Intent(context, BattleFightActivity.class);
         startBattle.putExtra(BattleFightActivity.FROM, BattleUtility.BATTLE_OPTION_FIGHT);
         PendingIntent pendingFightIntent = PendingIntent.getActivity(context,
-                NOTIFICATION_IDENTIFIER_BATTLE_FIGHT, startBattle,
+                notificationNumber, startBattle,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Action fightAction = new NotificationCompat.Action.Builder(
@@ -63,7 +63,7 @@ public class NotificationUtility {
 
         Intent sneakBattle = new Intent(context, BattleSneakActivity.class);
         PendingIntent pendingSneakIntent = PendingIntent.getActivity(context,
-                NOTIFICATION_IDENTIFIER_BATTLE_SNEAK, sneakBattle,
+                notificationNumber, sneakBattle,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Action sneakAction = new NotificationCompat.Action.Builder(
@@ -75,7 +75,7 @@ public class NotificationUtility {
         Intent runBattle = new Intent(context, SpoilsActivity.class);
         runBattle.putExtra(SpoilsActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_RUN);
         PendingIntent pendingRunIntent = PendingIntent.getActivity(context,
-                NOTIFICATION_IDENTIFIER_BATTLE_RUN, runBattle,
+                notificationNumber, runBattle,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Action runAction = new NotificationCompat.Action.Builder(
@@ -88,5 +88,10 @@ public class NotificationUtility {
         battleActions.add(sneakAction);
         battleActions.add(runAction);
         return battleActions;
+    }
+
+    public static void cancelNotification(@NonNull Context context){
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancelAll();
     }
 }

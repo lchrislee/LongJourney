@@ -26,18 +26,18 @@
         <activity
             android:name=".activities.BattleEngageActivity"
             android:allowEmbedded="true"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:label="@string/title_activity_engage_battle"
             android:noHistory="true"
-            android:excludeFromRecents="true"
             android:parentActivityName=".activities.TravelActivity">
         </activity>
         <activity
             android:name=".activities.BattleSneakActivity"
-            android:label="@string/title_activity_battle_sneak"
-            android:excludeFromRecents="true"
             android:allowEmbedded="true"
+            android:excludeFromRecents="true"
             android:exported="true"
+            android:label="@string/title_activity_battle_sneak"
             android:noHistory="true"
             android:parentActivityName=".activities.BattleEngageActivity">
         </activity>
@@ -45,8 +45,8 @@
             android:name=".activities.BattleFightActivity"
             android:allowEmbedded="true"
             android:exported="true"
-            android:noHistory="true"
-            android:label="@string/title_activity_battle">
+            android:label="@string/title_activity_battle"
+            android:noHistory="true">
         </activity>
         <activity
             android:name=".activities.SpoilsActivity"
@@ -55,6 +55,7 @@
             android:noHistory="true"
             android:parentActivityName=".activities.BattleFightActivity">
         </activity>
+
     </application>
 
 </manifest>

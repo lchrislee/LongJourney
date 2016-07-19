@@ -13,6 +13,7 @@ import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Monster;
 import com.lchrislee.longjourney.model.actors.Player;
 import com.lchrislee.longjourney.utility.BattleUtility;
+import com.lchrislee.longjourney.utility.NotificationUtility;
 
 public class SpoilsActivity extends Activity {
     public static final String CONCLUSION = "com.lchrislee.longjourney.activities.SpoilsActivity.CONCLUSION";
@@ -36,6 +37,7 @@ public class SpoilsActivity extends Activity {
         Intent i = getIntent();
         if (i != null){
             conclusion = i.getIntExtra(CONCLUSION, -1);
+            NotificationUtility.cancelNotification(this);
         }
 
         player = ((LongJourneyApplication) getApplication()).getPlayer();

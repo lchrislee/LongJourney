@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.utility.BattleUtility;
+import com.lchrislee.longjourney.utility.NotificationUtility;
 
 public class BattleSneakActivity extends Activity {
 
@@ -23,6 +24,12 @@ public class BattleSneakActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sneak);
+
+        Intent i = getIntent();
+        if (i != null){
+            NotificationUtility.cancelNotification(this);
+        }
+
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.sneak_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
