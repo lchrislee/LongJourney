@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/apk/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
+    android:paddingTop="44dp"
+    android:paddingBottom="32dp"
+    android:paddingStart="28dp"
+    android:paddingEnd="28dp"
     tools:context="com.lchrislee.longjourney.activities.TravelActivity"
     tools:deviceIds="wear_round"
     >
@@ -16,6 +19,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="2dp"
+        android:textSize="20sp"
         android:text="@string/travel_level" />
 
     <TextView
@@ -25,7 +29,8 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/travel_text_level_prompt"
         android:layout_marginStart="2dp"
-        android:text="@string/travel_counter_default" />
+        android:textSize="20sp"
+        tools:text="@string/travel_counter_default" />
 
     <TextView
         android:id="@+id/travel_text_gold_prompt"
@@ -34,6 +39,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="2dp"
+        android:textSize="20sp"
         android:text="@string/travel_gold" />
 
     <TextView
@@ -45,25 +51,30 @@
         android:layout_toStartOf="@+id/travel_text_gold_prompt"
         android:layout_marginEnd="2dp"
         android:gravity="end"
-        android:text="@string/travel_counter_default" />
+        android:textSize="20sp"
+        tools:text="@string/travel_money_counter_default" />
 
     <TextView
         android:id="@+id/travel_text_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
+        android:layout_below="@+id/travel_text_level"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="40dp"
         android:gravity="end"
-        android:text="@string/travel_counter_default" />
+        android:textSize="20sp"
+        tools:text="@string/travel_money_counter_default" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/travel_text_steps"
+        android:layout_alignBottom="@+id/travel_text_steps"
         android:layout_toEndOf="@+id/travel_text_steps"
         android:layout_marginStart="2dp"
-        android:gravity="start"
+        android:gravity="start|center_vertical"
+        android:textSize="16sp"
         android:text="@string/travel_steps" />
 
 </RelativeLayout>

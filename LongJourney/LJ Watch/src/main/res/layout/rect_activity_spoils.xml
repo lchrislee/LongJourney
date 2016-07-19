@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/apk/tools"
     android:padding="8dp"
     tools:context="com.lchrislee.longjourney.activities.SpoilsActivity"
     tools:deviceIds="wear_square"
@@ -16,6 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="2dp"
+        android:textSize="20sp"
         android:text="@string/travel_level" />
 
     <TextView
@@ -25,7 +26,8 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/spoils_text_level_prompt"
         android:layout_marginStart="2dp"
-        android:text="@string/travel_counter_default" />
+        android:textSize="20sp"
+        tools:text="@string/travel_counter_default" />
 
     <TextView
         android:id="@+id/spoils_text_gold_prompt"
@@ -34,6 +36,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="2dp"
+        android:textSize="20sp"
         android:text="@string/travel_gold" />
 
     <TextView
@@ -45,7 +48,8 @@
         android:layout_toStartOf="@+id/spoils_text_gold_prompt"
         android:layout_marginEnd="2dp"
         android:gravity="end"
-        android:text="@string/travel_counter_default" />
+        android:textSize="20sp"
+        tools:text="@string/travel_money_counter_default" />
 
     <TextView
         android:id="@+id/spoils_text_spoils"
@@ -54,7 +58,8 @@
         android:layout_toStartOf="@+id/spoils_text_gold_prompt"
         android:layout_below="@+id/spoils_text_gold"
         android:layout_marginEnd="2dp"
-        android:text="@string/travel_counter_default" />
+        android:textSize="20sp"
+        tools:text="@string/travel_counter_default" />
 
     <TextView
         android:id="@+id/spoils_status"
@@ -62,18 +67,34 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:textSize="20sp"
         android:text="@string/conclusion_loss" />
+
+    <TextView
+        android:id="@+id/spoils_text_xp_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="2dp"
+        android:textSize="20sp"
+        android:text="@string/conclusion_xp" />
 
     <ProgressBar
         android:id="@+id/spoils_progress_xp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
+        android:layout_toEndOf="@+id/spoils_text_xp_prompt"
+        android:layout_alignTop="@+id/spoils_text_xp_prompt"
+        android:layout_alignBottom="@+id/spoils_text_xp_prompt"
         android:layout_alignParentEnd="true"
-        android:progress="10"
+        android:layout_marginStart="2dp"
+        android:foregroundGravity="center_vertical"
+        tools:progress="10"
+        tools:secondaryProgress="50"
         android:max="100"
-        android:secondaryProgress="50"
         android:clickable="false"
         android:focusable="false"
         android:longClickable="false"

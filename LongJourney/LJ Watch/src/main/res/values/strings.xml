@@ -10,10 +10,11 @@
     <string name="travel_level">LV</string>
     <string name="travel_gold">G</string>
     <string name="travel_steps">Steps</string>
-    <string name="travel_counter_default">99999</string>
+    <string name="travel_counter_default">999</string>
+    <string name="travel_money_counter_default">999999</string>
 
     <!-- Battle Engage Activity -->
-    <string name="engage_prompt">What will you do?</string>
+    <string name="engage_prompt">What do you do?</string>
     <string name="engage_option_fight">Fight</string>
     <string name="engage_option_sneak">Sneak</string>
     <string name="engage_option_run">Run</string>
@@ -34,6 +35,7 @@
     <string name="conclusion_loss">You lost!</string>
     <string name="conclusion_sneak">You got away!</string>
     <string name="conclusion_run">You fled!</string>
+    <string name="conclusion_xp">XP</string>
 
     <!-- Unorganized -->
     <string name="zero">0</string>

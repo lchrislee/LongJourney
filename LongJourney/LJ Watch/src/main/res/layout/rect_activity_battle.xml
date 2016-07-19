@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:padding="8dp"
     tools:context="com.lchrislee.longjourney.activities.BattleEngageActivity"
     tools:deviceIds="wear_square"
@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:text="@string/battle_monster_name_default" />
+        android:textSize="20sp"
+        tools:text="@string/battle_monster_name_default" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,6 +26,7 @@
         android:layout_toStartOf="@+id/battle_text_monster_level"
         android:layout_marginEnd="2dp"
         android:gravity="end"
+        android:textSize="20sp"
         android:text="@string/travel_level" />
 
     <TextView
@@ -34,26 +36,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="2dp"
-        android:text="@string/travel_counter_default" />
-
-    <ProgressBar
-        android:id="@+id/battle_progress_monster"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/battle_text_monster_name"
-        android:progress="10"
-        android:max="100"
-        android:secondaryProgress="50"
-        android:clickable="false"
-        android:focusable="false"
-        android:longClickable="false"
-        style="?android:attr/progressBarStyleHorizontal" />
+        android:textSize="20sp"
+        tools:text="@string/travel_counter_default" />
 
     <ImageView
         android:id="@+id/battle_image_monster"
-        android:src="@drawable/slime"
+        tools:src="@drawable/slime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
@@ -62,9 +50,23 @@
         android:layout_above="@+id/battle_text_player_identifier"
         android:scaleType="fitCenter"/>
 
+    <ProgressBar
+        android:id="@+id/battle_progress_monster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/battle_text_monster_name"
+        tools:progress="10"
+        android:max="100"
+        android:clickable="false"
+        android:focusable="false"
+        android:longClickable="false"
+        style="?android:attr/progressBarStyleHorizontal" />
+
     <ImageView
         android:id="@+id/battle_image_player"
-        android:src="@drawable/rubber_chicken"
+        tools:src="@drawable/rubber_chicken"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/battle_text_player_identifier"
@@ -77,7 +79,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/battle_progress_player"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="2dp"
+        android:textSize="20sp"
         android:text="@string/battle_player_identifier" />
 
     <ProgressBar
@@ -85,11 +89,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:progress="10"
+        android:layout_toEndOf="@+id/battle_text_player_identifier"
+        android:layout_marginStart="2dp"
+        android:layout_alignTop="@+id/battle_text_player_identifier"
+        android:layout_alignBottom="@+id/battle_text_player_identifier"
+        android:foregroundGravity="center_vertical"
+        tools:progress="10"
         android:max="100"
-        android:secondaryProgress="50"
         android:clickable="false"
         android:focusable="false"
         android:longClickable="false"

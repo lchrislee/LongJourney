@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/sneak_layout_direction"
-        android:text="@string/sneak_title"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         android:textColor="@color/red"
+        android:text="@string/sneak_title"
         />
 
     <LinearLayout
@@ -46,20 +46,20 @@
             android:id="@+id/sneak_button_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sneak_option_left"
             android:textColor="@color/red"
             android:textSize="16sp"
             style="?android:borderlessButtonStyle"
+            android:text="@string/sneak_option_left"
             />
 
         <Button
             android:id="@+id/sneak_button_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sneak_option_right"
             android:textColor="@color/blue"
             android:textSize="16sp"
             style="?android:borderlessButtonStyle"
+            android:text="@string/sneak_option_right"
             />
 
     </LinearLayout>

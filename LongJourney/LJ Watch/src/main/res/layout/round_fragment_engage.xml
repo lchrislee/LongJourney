@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:padding="32dp"
     tools:context=".activities.BattleEngageActivity"
     tools:deviceIds="wear_round">
@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:text="@string/battle_monster_name_default" />
+        android:textSize="20sp"
+        tools:text="@string/battle_monster_name_default" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,6 +25,7 @@
         android:layout_toStartOf="@+id/engage_text_monster_level"
         android:layout_marginEnd="2dp"
         android:gravity="end"
+        android:textSize="20sp"
         android:text="@string/travel_level" />
 
     <TextView
@@ -33,7 +35,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="2dp"
-        android:text="@string/travel_counter_default" />
+        android:textSize="20sp"
+        tools:text="@string/travel_counter_default" />
 
     <ImageView
         android:id="@+id/engage_image_monster"
@@ -53,8 +56,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center_horizontal"
+        android:textSize="20sp"
         android:text="@string/engage_prompt" />
 
 
