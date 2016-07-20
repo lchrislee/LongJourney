@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="32dp"
     tools:context="com.lchrislee.longjourney.activities.BattleFightActivity"
     tools:deviceIds="wear_round">
@@ -102,5 +103,14 @@
         android:focusable="false"
         android:longClickable="false"
         style="?android:attr/progressBarStyleHorizontal" />
+
+    <android.support.wearable.view.DelayedConfirmationView
+        android:id="@+id/battle_delay_timer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:circle_border_color="@color/blue"
+        app:circle_border_width="12dp"
+        app:circle_radius="85dp"
+        />
 
 </RelativeLayout>

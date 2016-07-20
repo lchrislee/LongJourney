@@ -3,7 +3,9 @@ package com.lchrislee.longjourney.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.wearable.view.DelayedConfirmationView;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ public class BattleFightActivity extends Activity {
     private ImageView playerImage;
     private ProgressBar monsterHealth;
     private ProgressBar playerHealth;
+    private DelayedConfirmationView countDown;
 
     private Monster monster;
     private Player player;
@@ -66,7 +69,9 @@ public class BattleFightActivity extends Activity {
                 playerImage = (ImageView) findViewById(R.id.battle_image_player);
                 monsterHealth = (ProgressBar) findViewById(R.id.battle_progress_monster);
                 playerHealth = (ProgressBar) findViewById(R.id.battle_progress_player);
+                countDown = (DelayedConfirmationView) findViewById(R.id.battle_delay_timer);
                 updateUI();
+                countDown.start();
             }
         });
     }
@@ -78,6 +83,19 @@ public class BattleFightActivity extends Activity {
         playerImage.setImageResource(R.drawable.rubber_chicken);
         monsterHealth.setMax(monster.getMaxHealth());
         playerHealth.setMax(player.getMaxHealth());
+        countDown.setTotalTimeMs(2000);
+        countDown.setListener(new DelayedConfirmationView.DelayedConfirmationListener() {
+            @Override
+            public void onTimerFinished(View view) {
+                Intent i = new Intent(view.getContext(), SpoilsActivity.class);
+                startActivity(i);
+            }
+
+            @Override
+            public void onTimerSelected(View view) {
+                Toast.makeText(view.getContext(), "Don't get distracted while fighting.", Toast.LENGTH_SHORT).show();
+            }
+        });
         updateHealth();
     }
 
