@@ -14,11 +14,11 @@ public abstract class Actor {
     private int maxHealth;
     private int currentHealth;
     private long gold;
-    private long strength;
-    private long defense;
+    private int strength;
+    private int defense;
     private int xp;
 
-    Actor(long level, int maxHealth, long gold, long strength, long defense, int xp) {
+    Actor(long level, int maxHealth, long gold, int strength, int defense, int xp) {
         this.maxHealth = maxHealth;
         this.gold = gold;
         this.level = level;
@@ -36,8 +36,11 @@ public abstract class Actor {
         return currentHealth;
     }
 
-    protected void changeCurrentHealthBy(int change) {
+    public void changeCurrentHealthBy(int change) {
         this.currentHealth += change;
+        if (this.currentHealth > this.maxHealth){
+            this.currentHealth = this.maxHealth;
+        }
     }
 
     public long getGold() {
@@ -52,11 +55,11 @@ public abstract class Actor {
         this.level += levelIncrease;
     }
 
-    public long getStrength() {
+    public int getStrength() {
         return strength;
     }
 
-    public long getDefense() {
+    public int getDefense() {
         return defense;
     }
 
@@ -78,12 +81,16 @@ public abstract class Actor {
 
     protected abstract void buildWeapon();
 
+    public int getTotalDamage(){
+        return strength + weapon.getAttack();
+    }
+
     public static abstract class Builder{
         long level;
         int health;
         long gold;
-        long strength;
-        long defense;
+        int strength;
+        int defense;
         int xp;
 
         public Builder level(long level) {
@@ -101,12 +108,12 @@ public abstract class Actor {
             return this;
         }
 
-        public Builder strength(long strength) {
+        public Builder strength(int strength) {
             this.strength = strength;
             return this;
         }
 
-        public Builder defense(long defense) {
+        public Builder defense(int defense) {
             this.defense = defense;
             return this;
         }

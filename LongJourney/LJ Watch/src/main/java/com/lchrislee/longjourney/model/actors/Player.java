@@ -16,7 +16,7 @@ public class Player extends Actor implements Serializable{
     private long stepReference;
     private int xpNeeded;
 
-    private Player(long level, int health, long gold, long strength, long defense, long stepCount, long stepReference, int xp) {
+    private Player(long level, int health, long gold, int strength, int defense, long stepCount, long stepReference, int xp) {
         super(level, health, gold, strength, defense, xp);
         this.stepCount = stepCount;
         this.stepReference = stepReference;
