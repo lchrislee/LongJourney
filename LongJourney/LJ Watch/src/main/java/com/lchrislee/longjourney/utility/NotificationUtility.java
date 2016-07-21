@@ -25,6 +25,7 @@ public class NotificationUtility {
     private static int notificationNumber = 0;
 
     public static void launchBattleNotification(@NonNull Context context, @DrawableRes int monsterBackground){
+        BattleUtility.fight(context);
         cancelNotification(context);
 
         NotificationCompat.WearableExtender extender = new NotificationCompat.WearableExtender();
@@ -40,7 +41,7 @@ public class NotificationUtility {
                 .setContentText("What will you do?")
                 .setLocalOnly(true)
                 .setAutoCancel(true)
-                .setVibrate(new long[]{100, 200, 100, 200, 300, 200})
+                .setVibrate(new long[]{100, 300, 100, 300, 600, 200})
                 .extend(extender);
 
         NotificationManagerCompat.from(context).notify(notificationNumber++, notificationBuilder.build());
