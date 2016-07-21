@@ -36,25 +36,7 @@ public class BattleFightActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
-
-        Intent i = getIntent();
-        if (i != null){
-            NotificationUtility.cancelNotification(this);
-            int from = i.getIntExtra(FROM, -1);
-            switch(from){
-                case BattleUtility.BATTLE_OPTION_SNEAK:
-                    Toast.makeText(this, R.string.battle_caught, Toast.LENGTH_SHORT).show();
-                    break;
-                case BattleUtility.BATTLE_OPTION_FIGHT:
-                    Toast.makeText(this, R.string.battle_charge, Toast.LENGTH_SHORT).show();
-                default:
-                    break;
-            }
-        }
-
-        player = ((LongJourneyApplication) getApplication()).getPlayer();
-        monster = ((LongJourneyApplication) getApplication()).getMonster();
-
+        NotificationUtility.cancelNotification(this);
         initializeUI();
     }
 
@@ -74,6 +56,23 @@ public class BattleFightActivity extends Activity {
                 countDown.start();
             }
         });
+
+        Intent i = getIntent();
+        if (i != null){
+            int from = i.getIntExtra(FROM, -1);
+            switch(from){
+                case BattleUtility.BATTLE_OPTION_SNEAK:
+                    Toast.makeText(this, R.string.battle_caught, Toast.LENGTH_SHORT).show();
+                    break;
+                case BattleUtility.BATTLE_OPTION_FIGHT:
+                    Toast.makeText(this, R.string.battle_charge, Toast.LENGTH_SHORT).show();
+                default:
+                    break;
+            }
+        }
+
+        player = ((LongJourneyApplication) getApplication()).getPlayer();
+        monster = ((LongJourneyApplication) getApplication()).getMonster();
     }
 
     private void updateUI() {

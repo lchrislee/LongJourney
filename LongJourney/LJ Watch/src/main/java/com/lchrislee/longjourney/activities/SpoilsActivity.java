@@ -81,7 +81,7 @@ public class SpoilsActivity extends Activity {
         }else if(conclusion == BattleUtility.BATTLE_OPTION_RUN){
             spoilsText.setText(String.valueOf(-1 * monster.getGold()));
             statusText.setText(R.string.conclusion_run);
-        } else if (monster.getCurrentHealth() == 0){
+        } else if (monster.getCurrentHealth() <= 0){
             spoilsText.setText(String.valueOf(monster.getGold()));
             statusText.setText(R.string.conclusion_victory);
             int xpChange = player.getXp() + monster.getXp();

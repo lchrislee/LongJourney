@@ -36,9 +36,7 @@ public class BattleSneakActivity extends Activity {
             public void onLayoutInflated(WatchViewStub stub) {
                 monster = (ImageView) stub.findViewById(R.id.sneak_image_monster);
                 left = (Button) stub.findViewById(R.id.sneak_button_left);
-                left.setTag(BattleUtility.BATTLE_SNEAK_OPTION_LEFT);
                 right = (Button) stub.findViewById(R.id.sneak_button_right);
-                right.setTag(BattleUtility.BATTLE_SNEAK_OPTION_RIGHT);
 
                 updateUI();
             }
@@ -56,7 +54,7 @@ public class BattleSneakActivity extends Activity {
         @Override
         public void onClick(View v) {
             Intent nextActivity;
-            if(BattleUtility.determineSneakSuccess((Integer) v.getTag())){
+            if(BattleUtility.determineSneakSuccess(v.getContext())){
                 nextActivity = new Intent(v.getContext(), SpoilsActivity.class);
                 nextActivity.putExtra(SpoilsActivity.CONCLUSION, BattleUtility.BATTLE_OPTION_SNEAK);
             }else{

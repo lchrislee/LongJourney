@@ -19,7 +19,7 @@ import com.lchrislee.longjourney.LongJourneyApplication;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.actors.Player;
 import com.lchrislee.longjourney.utility.NotificationUtility;
-import com.lchrislee.longjourney.utility.constants.SharedPreferenceConstants;
+import com.lchrislee.longjourney.utility.SharedPreferenceUtility;
 
 public class TravelActivity extends Activity {
     private static final String TAG = TravelActivity.class.getSimpleName();
@@ -98,10 +98,10 @@ public class TravelActivity extends Activity {
     }
 
     private void saveDataToPreferences(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreferenceConstants.STEP_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreferenceUtility.STEP_PREF_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong(SharedPreferenceConstants.STEP_REFERENCE, player.getStepReference());
-        editor.putLong(SharedPreferenceConstants.STEP_COUNT, player.getStepCount());
+        editor.putLong(SharedPreferenceUtility.STEP_REFERENCE, player.getStepReference());
+        editor.putLong(SharedPreferenceUtility.STEP_COUNT, player.getStepCount());
         editor.apply();
     }
 
