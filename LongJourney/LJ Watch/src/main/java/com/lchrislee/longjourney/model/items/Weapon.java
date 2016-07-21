@@ -45,7 +45,7 @@ public class Weapon extends UsableItem {
         }
 
         public Weapon build(){
-            return new Weapon(name, description, attack, image);
+            return new Weapon(name, description, image, attack);
         }
     }
 }

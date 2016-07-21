@@ -18,8 +18,9 @@ public abstract class Actor {
     private int defense;
     private int xp;
 
-    Actor(long level, int maxHealth, long gold, int strength, int defense, int xp) {
+    Actor(long level, int maxHealth, int currentHealth, long gold, int strength, int defense, int xp) {
         this.maxHealth = maxHealth;
+        this.currentHealth = currentHealth;
         this.gold = gold;
         this.level = level;
         this.strength = strength;
@@ -88,6 +89,7 @@ public abstract class Actor {
     public static abstract class Builder{
         long level;
         int health;
+        int currentHealth;
         long gold;
         int strength;
         int defense;
@@ -100,6 +102,11 @@ public abstract class Actor {
 
         public Builder maxHealth(int maxHealth) {
             this.health = maxHealth;
+            return this;
+        }
+
+        public Builder currentHealth(int currentHealth) {
+            this.currentHealth = currentHealth;
             return this;
         }
 

@@ -16,12 +16,12 @@ public class Monster extends Actor implements Serializable{
     private @NonNull String name;
     @DrawableRes private int image;
 
-    private Monster(long level, int health, long gold,
-                    int strength, int defense,
+    private Monster(long level, int health, int currentHealth,
+                    long gold, int strength, int defense,
                     @NonNull String name,
                     @DrawableRes int image,
                     int xp) {
-        super(level, health, gold, strength, defense, xp);
+        super(level, health, currentHealth, gold, strength, defense, xp);
         this.name = name;
         this.image = image;
         buildWeapon();
@@ -60,7 +60,7 @@ public class Monster extends Actor implements Serializable{
         }
 
         public @NonNull Monster build(){
-            return new Monster(level, health, gold, strength, defense, name, image, xp);
+            return new Monster(level, health, currentHealth, gold, strength, defense, name, image, xp);
         }
 
         public static @NonNull Monster build(@NonNull Player p, int monsterType){
@@ -69,18 +69,18 @@ public class Monster extends Actor implements Serializable{
             String name = "";
             switch(monsterType){
                 case ActorUtility.MONSTER_TYPE_SLIME:
-                    level = (long)(1.5 * Math.random() * p.getLevel()) + 1;
-                    health = (int)(1.1 * Math.random() * level + 5);
+                    level = (long)(1.2 * Math.random() * p.getLevel()) + 1;
+                    health = (int)(1.1 * Math.random() * level + 2);
                     image = R.drawable.slime;
                     xp = (int)(0.25 * health);
                     gold = (int)(0.1 * Math.random() * level) + 1;
                     strength = (int) (0.05 * Math.random() * level);
-                    defense = (int) (0.05 * Math.random() * level);
+                    defense = (int) (0.02 * Math.random() * level);
                     name = "Slime";
                     break;
                 case ActorUtility.MONSTER_TYPE_GOBLIN:
-                    level = (long)(1.75 * Math.random() * p.getLevel()) + 1;
-                    health = (int)(1.25 * Math.random() * level + 10);
+                    level = (long)(1.5 * Math.random() * p.getLevel()) + 1;
+                    health = (int)(1.2 * Math.random() * level + 5);
                     image = R.drawable.goblin;
                     xp = (int)(0.4 * health);
                     gold = (int)(0.3 * Math.random() * level) + 1;
@@ -89,8 +89,8 @@ public class Monster extends Actor implements Serializable{
                     defense = (int) (0.2 * Math.random() * level);
                     break;
                 case ActorUtility.MONSTER_TYPE_TROLL:
-                    level = (long)(2.0 * Math.random() * p.getLevel()) + 1;
-                    health = (int)(1.5 * Math.random() * level + 20);
+                    level = (long)(1.75 * Math.random() * p.getLevel()) + 1;
+                    health = (int)(1.3 * Math.random() * level + 7);
                     image = R.drawable.troll;
                     xp = (int)(0.65 * health);
                     gold = (int)(1.2 * Math.random() * level) + 1;
@@ -99,11 +99,7 @@ public class Monster extends Actor implements Serializable{
                     defense = (int) (0.3 * Math.random() * level);
                     break;
             }
-            return new Monster(level, health, gold, strength, defense, name, image, xp);
-        }
-
-        public static @NonNull Monster buildDefault(){
-            return new Monster(1, 0, 10, 1, 1, "Slime", R.drawable.slime, 10);
+            return new Monster(level, health, health, gold, strength, defense, name, image, xp);
         }
 
     }

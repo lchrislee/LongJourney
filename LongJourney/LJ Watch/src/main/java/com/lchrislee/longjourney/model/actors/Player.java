@@ -16,8 +16,8 @@ public class Player extends Actor implements Serializable{
     private long stepReference;
     private int xpNeeded;
 
-    private Player(long level, int health, long gold, int strength, int defense, long stepCount, long stepReference, int xp) {
-        super(level, health, gold, strength, defense, xp);
+    private Player(long level, int health, int currentHealth, long gold, int strength, int defense, long stepCount, long stepReference, int xp) {
+        super(level, health, currentHealth, gold, strength, defense, xp);
         this.stepCount = stepCount;
         this.stepReference = stepReference;
         items = new ArrayList<>();
@@ -103,7 +103,7 @@ public class Player extends Actor implements Serializable{
         }
 
         public Player build(){
-            return new Player(level, health, gold, strength, defense, stepReference, stepCount, xp);
+            return new Player(level, health, currentHealth, gold, strength, defense, stepReference, stepCount, xp);
         }
     }
 }
