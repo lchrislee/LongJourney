@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LJ Watch/LJ Watch.iml" filepath="$PROJECT_DIR$/LJ Watch/LJ Watch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJ Watch/LJ Watch.iml" filepath="$PROJECT_DIR$/LJ Watch/LJ Watch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LongJourney.iml" filepath="$PROJECT_DIR$/LongJourney.iml" />
       <module fileurl="file://$PROJECT_DIR$/LongJourney.iml" filepath="$PROJECT_DIR$/LongJourney.iml" />
     </modules>
   </component>
