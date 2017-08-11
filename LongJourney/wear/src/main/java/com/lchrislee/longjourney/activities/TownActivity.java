@@ -36,7 +36,7 @@ public class TownActivity extends Activity implements MenuItem.OnMenuItemClickLi
         town = GameStateManager.get().generateRandomTown(getApplicationContext());
         String name = town.getName();
         townName.setText(name);
-        if (name.length() >= 15)
+        if (name.length() >= 12)
         {
             townName.setTextAppearance(android.R.style.TextAppearance_Medium);
         }
