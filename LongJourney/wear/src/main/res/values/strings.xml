@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">LongJourney</string>
     <string name="title_activity_town">TownActivity</string>
-    <string name="hello_round">Hello Round World!</string>
-    <string name="hello_square">Hello Square World!</string>
+
     <string name="activity_town_experience_prompt">Next Level:</string>
+    <string name="activity_town_gold">G</string>
+    <string name="activity_town_gold_prompt">Carrying:</string>
+
     <string name="menu_action_travel">Set Off!</string>
 </resources>
