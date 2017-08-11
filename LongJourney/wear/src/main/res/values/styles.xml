@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="standard_margin">4dp</dimen>
+
+    <color name="progress_background_tint_default">#444444</color>
+    <color name="progress_tint_player_experience">#229922</color>
+    <color name="progress_tint_player_health">#dd3333</color>
+    <color name="progress_tint_enemy_health">#3333ff</color>
+
+    <style
+        name="progress_player_experience"
+        parent="@android:style/Widget.ProgressBar.Horizontal"
+        >
+        <item
+            name="android:progressTint">@color/progress_tint_player_experience</item>
+        <item
+            name="android:progressBackgroundTint">@color/progress_background_tint_default</item>
+        <item name="android:layout_marginTop">@dimen/standard_margin</item>
+        <item name="android:layout_marginBottom">@dimen/standard_margin</item>
+    </style>
+
+    <style
+        name="progress_player_health"
+        parent="@android:style/Widget.ProgressBar.Horizontal"
+        >
+        <item
+            name="android:progressTint">@color/progress_tint_player_health</item>
+        <item
+            name="android:progressBackgroundTint">@color/progress_background_tint_default</item>
+        <item name="android:layout_marginTop">@dimen/standard_margin</item>
+        <item name="android:layout_marginBottom">@dimen/standard_margin</item>
+    </style>
+
+    <style
+        name="progress_enemy_health"
+        parent="@android:style/Widget.ProgressBar.Horizontal"
+        >
+        <item
+            name="android:progressTint">@color/progress_tint_enemy_health</item>
+        <item
+            name="android:progressBackgroundTint">@color/progress_background_tint_default</item>
+        <item name="android:layout_marginTop">@dimen/standard_margin</item>
+        <item name="android:layout_marginBottom">@dimen/standard_margin</item>
+    </style>
+
 </resources>

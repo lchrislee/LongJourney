@@ -10,7 +10,8 @@ public class Player extends CreatureBase {
 
     public Player()
     {
-        super(50, 0, 0, 1, 1, 1);
+        super(50, 2, 10, 1, 1, 1);
+        currentDistanceToTown = 10;
         experienceForNextLevel = 10;
     }
 

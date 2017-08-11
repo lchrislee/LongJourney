@@ -3,16 +3,21 @@
     <item
         android:id="@+id/menu_town_action_walk"
         android:icon="@android:drawable/ic_input_add"
-        android:title="@string/menu_action_travel"
+        android:title="@string/menu_action_walk"
         />
     <item
-        android:id="@+id/menu_town_action_over"
+        android:id="@+id/menu_town_action_strength"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:title="@string/menu_action_travel"
+        android:title="@string/menu_action_strength"
         />
     <item
-        android:id="@+id/menu_town_action_over_2"
+        android:id="@+id/menu_town_action_defense"
         android:icon="@android:drawable/ic_menu_camera"
-        android:title="@string/menu_action_travel"
+        android:title="@string/menu_action_defense"
+        />
+    <item
+        android:id="@+id/menu_town_action_health"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="@string/menu_action_health"
         />
 </menu>

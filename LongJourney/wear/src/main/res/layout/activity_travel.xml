@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.lchrislee.longjourney.activities.TravelActivity"
+    tools:deviceIds="wear"
+    android:id="@+id/activity_travel_box_inset"
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- layout_box tells circle screens to force children into the parent dimensions -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollIndicators="none"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            app:layout_box="all">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/activity_travel_command" />
+
+            <TextView
+                android:id="@+id/activity_travel_distance"
+                style="@android:style/TextAppearance.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="3524" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_travel_health_prompt" />
+
+            <ProgressBar
+                android:id="@+id/activity_travel_player_health"
+                style="@style/progress_player_health"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:max="100"
+                tools:progress="40" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_travel_experience_prompt" />
+
+            <ProgressBar
+                android:id="@+id/activity_travel_player_experience"
+                style="@style/progress_player_experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:max="100"
+                tools:progress="40" />
+
+        </LinearLayout>
+    </ScrollView>
+<!-- android.support.wearable.view.BoxInsetLayout is deprecated but previewable -->
+<!-- for finalizing, use android.support.wear.widget.BoxInsetLayout -->
+</android.support.wearable.view.BoxInsetLayout>

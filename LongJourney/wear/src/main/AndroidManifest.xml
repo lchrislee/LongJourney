@@ -11,14 +11,25 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
 
-        <!-- Independent of any phone app!-->
+        <!-- Independent of any phone app! -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
         <activity
-            android:name=".TownActivity"
-            android:label="@string/title_activity_town">
+            android:name=".activities.TownActivity"
+            android:label="@string/title_activity_town"
+            android:noHistory="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.TravelActivity"
+            android:label="@string/title_activity_travel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
