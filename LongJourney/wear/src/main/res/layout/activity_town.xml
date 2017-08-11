@@ -36,6 +36,7 @@
             android:layout_height="wrap_content" />
 
         <ProgressBar
+            android:id="@+id/activity_town_player_experience"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:progress="40"
             android:max="100"
@@ -58,6 +59,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/activity_town_player_gold"
                 style="@android:style/TextAppearance.Medium"
                 android:hint="3254"
                 android:gravity="end"

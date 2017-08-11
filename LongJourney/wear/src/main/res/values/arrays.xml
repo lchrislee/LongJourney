@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="town_names">
+        <item>Etherwin</item>
+        <item>Oldoroon</item>
+        <item>HullWaad</item>
+        <item>Bastan</item>
+        <item>Metrapalus</item>
+        <item>Bedrack</item>
+        <item>Hagsmeode</item>
+        <item>Otlontus</item>
+        <item>Gathom</item>
+        <item>Whavulle</item>
+        <item>Emerold</item>
+        <item>Mardar</item>
+        <item>Roptire</item>
+        <item>Mudgor</item>
+    </string-array>
+    <string-array name="town_suffixes">
+        <item>City</item>
+        <item>Town</item>
+        <item>Settlement</item>
+        <item>Citadel</item>
+        <item>Camp</item>
+        <item>Temple</item>
+        <item>Village</item>
+        <item>Resort</item>
+        <item>Port</item>
+    </string-array>
+</resources>
