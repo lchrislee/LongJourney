@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wear.widget.drawer.WearableDrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.lchrislee.longjourney.TownActivity"
+    tools:deviceIds="wear"
+    android:id="@+id/activity_town_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:background="#443322"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/activity_town_town_name"
+            style="@android:style/TextAppearance.Large"
+            android:hint="Etherwin City"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/activity_town_experience_prompt"
+            style="@android:style/TextAppearance.Small"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progress="40"
+            android:max="100"
+            android:progressTint="#229922"
+            android:progressBackgroundTint="#333333"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Carrying:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@android:style/TextAppearance.Medium"
+                android:hint="3254"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="G"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.wear.widget.drawer.WearableActionDrawerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_town_action_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:actionMenu="@menu/menu_town_action_drawer" />
+
+</android.support.wear.widget.drawer.WearableDrawerLayout>

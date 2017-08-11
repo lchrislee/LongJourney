@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_town_action_walk"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/menu_action_travel"
+        />
+    <item
+        android:id="@+id/menu_town_action_over"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/menu_action_travel"
+        />
+    <item
+        android:id="@+id/menu_town_action_over_2"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="@string/menu_action_travel"
+        />
+</menu>
