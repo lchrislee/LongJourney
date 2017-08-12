@@ -10,7 +10,7 @@ public class Player extends CreatureBase {
 
     public Player()
     {
-        super(50, 2, 10, 1, 1, 1);
+        super(50, 2, 4, 1, 1, 1);
         currentDistanceToTown = 10;
         experienceForNextLevel = 10;
     }
@@ -48,6 +48,33 @@ public class Player extends CreatureBase {
 
     public int getExperienceForNextLevel() {
         return experienceForNextLevel;
+    }
+
+    public void loseGold(int goldLost)
+    {
+        int newGoldValue = getGoldCarried() - goldLost;
+        if (newGoldValue < 0)
+        {
+            newGoldValue = 0;
+        }
+
+        setGoldCarried(newGoldValue);
+    }
+
+    public void increaseStrength()
+    {
+        setStrength(getStrength() + 1);
+    }
+
+    public void increaseDefense()
+    {
+        setDefense(getDefense() + 1);
+    }
+
+    public void increaseHealth()
+    {
+        setMaxHealth(getMaxHealth() + 10);
+        setCurrentHealth(getMaxHealth());
     }
 
 }

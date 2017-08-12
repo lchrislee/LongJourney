@@ -15,7 +15,6 @@ public class TravelActivity extends Activity {
     private ProgressBar playerHealth;
     private ProgressBar playerExperience;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

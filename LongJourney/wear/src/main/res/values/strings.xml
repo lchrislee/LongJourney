@@ -3,20 +3,22 @@
     <string name="hello_square">Hello Square World!</string>
 
     <string name="app_name">Long Journey</string>
-    
+
     <string name="title_activity_town">TownActivity</string>
     <string name="title_activity_travel">TravelActivity</string>
 
     <!-- Menus -->
     <string name="menu_action_walk">Set Off!</string>
-    <string name="menu_action_strength">Buy Str</string>
-    <string name="menu_action_defense">Buy Def</string>
-    <string name="menu_action_health">Buy Max HP</string>
+    <string name="menu_action_strength">+ Str</string>
+    <string name="menu_action_defense">+ Def</string>
+    <string name="menu_action_health">+ Max HP</string>
 
     <!-- Activities -->
     <string name="activity_town_experience_prompt">Next Level:</string>
     <string name="activity_town_gold">G</string>
     <string name="activity_town_gold_prompt">Carrying:</string>
+    <string name="activity_town_purchase_success">Got %1$s.</string>
+    <string name="activity_town_purchase_fail">Not enough gold!</string>
 
     <string name="activity_travel_distance_prompt">Distance to next town:</string>
     <string name="activity_travel_command">Steps to next town:</string>

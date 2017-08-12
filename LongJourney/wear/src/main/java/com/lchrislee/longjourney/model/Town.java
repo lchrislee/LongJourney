@@ -9,12 +9,25 @@ public class Town extends LongJourneyBaseModel {
     private int defenseCost;
     private int healthCost;
 
+    public static @NonNull Town generateRandomTown(
+            String[] possibleNames,
+            String[] possibleSuffixes
+    )
+    {
+        Town generatedTown = new Town();
+        String townName = possibleNames[(int)(Math.random() * possibleNames.length)]
+                + " "
+                + possibleSuffixes[(int)(Math.random() * possibleSuffixes.length)];
+        generatedTown.setName(townName);
+        return generatedTown;
+    }
+
     private Town()
     {
         name = "";
         strengthCost = 1;
-        defenseCost = 1;
-        healthCost = 1;
+        defenseCost = 3;
+        healthCost = 5;
     }
 
     public @NonNull String getName() {
@@ -49,17 +62,19 @@ public class Town extends LongJourneyBaseModel {
         this.healthCost = healthCost;
     }
 
-    public static @NonNull Town generateRandomTown(
-            String[] possibleNames,
-            String[] possibleSuffixes
-    )
+    public void increaseStrengthCost()
     {
-        Town generatedTown = new Town();
-        String townName = possibleNames[(int)(Math.random() * possibleNames.length)]
-                + " "
-                + possibleSuffixes[(int)(Math.random() * possibleSuffixes.length)];
-        generatedTown.setName(townName);
-        return generatedTown;
+        setStrengthCost(getStrengthCost() + 3);
+    }
+
+    public void increaseDefenseCost()
+    {
+        setDefenseCost(getDefenseCost() + 3);
+    }
+
+    public void increaseHealthCost()
+    {
+        setHealthCost(getHealthCost() + 5);
     }
 
 }

@@ -10,33 +10,113 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.managers.GameStateManager;
 import com.lchrislee.longjourney.managers.PersistenceManager;
 import com.lchrislee.longjourney.model.Town;
 import com.lchrislee.longjourney.model.creatures.Player;
 
+import java.util.Locale;
+
 public class TownActivity extends Activity implements MenuItem.OnMenuItemClickListener {
+
+    private String strengthTemplate;
+    private String defenseTemplate;
+    private String healthTemplate;
 
     private Town town;
     private Player player;
+
+    private MenuItem strength;
+    private MenuItem defense;
+    private MenuItem health;
+
+    private WearableActionDrawerView actionDrawerView;
+    private TextView playerGold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_town);
 
-        final WearableActionDrawerView actionDrawerView = findViewById(R.id.activity_town_action_drawer);
-        actionDrawerView.getController().peekDrawer();
+        actionDrawerView = findViewById(R.id.activity_town_action_drawer);
         actionDrawerView.setOnMenuItemClickListener(this);
+        actionDrawerView.getController().peekDrawer();
 
-        final TextView townName = findViewById(R.id.activity_town_town_name);
-        final TextView playerGold = findViewById(R.id.activity_town_player_gold);
+        strength = actionDrawerView.getMenu().findItem(R.id.menu_town_action_strength);
+        defense = actionDrawerView.getMenu().findItem(R.id.menu_town_action_defense);
+        health = actionDrawerView.getMenu().findItem(R.id.menu_town_action_health);
+
+        strengthTemplate = getString(R.string.menu_action_strength);
+        defenseTemplate = getString(R.string.menu_action_defense);
+        healthTemplate = getString(R.string.menu_action_health);
+
+        setupPlayerInfo();
+        setupTown();
+    }
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        boolean shouldReloadMenu = false;
+        String buyMessage = null;
+        switch(menuItem.getItemId())
+        {
+            case R.id.menu_town_action_walk:
+                Intent i = new Intent(getApplicationContext(), TravelActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.menu_town_action_strength:
+                shouldReloadMenu = PersistenceManager.get().purchaseStrength();
+                buyMessage = getString(R.string.activity_town_purchase_success, strengthTemplate);
+                break;
+            case R.id.menu_town_action_defense:
+                shouldReloadMenu = PersistenceManager.get().purchaseDefense();
+                buyMessage = getString(R.string.activity_town_purchase_success, defenseTemplate);
+                break;
+            case R.id.menu_town_action_health:
+                shouldReloadMenu = PersistenceManager.get().purchaseHealth();
+                buyMessage = getString(R.string.activity_town_purchase_success, healthTemplate);
+                break;
+        }
+
+        if (shouldReloadMenu) {
+            updateBuyOptions();
+            updateMoney();
+            Toast.makeText(getApplicationContext(), buyMessage, Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(
+                getApplicationContext(),
+                R.string.activity_town_purchase_fail,
+                Toast.LENGTH_SHORT
+            ).show();
+        }
+        actionDrawerView.getController().peekDrawer();
+        return true;
+    }
+
+    private void setupPlayerInfo()
+    {
+        playerGold = findViewById(R.id.activity_town_player_gold);
         final ProgressBar playerExperience = findViewById(R.id.activity_town_player_experience);
+        player = PersistenceManager.get().getPlayer(getApplicationContext());
+        playerExperience.setMax(player.getExperienceForNextLevel());
+        playerExperience.setProgress(player.getCurrentExperience());
+        updateMoney();
+    }
 
-        town = GameStateManager.get().generateRandomTown(getApplicationContext());
+    private void setupTown()
+    {
+        town = PersistenceManager.get().getTown(getApplicationContext());
         String name = town.getName();
+        final TextView townName = findViewById(R.id.activity_town_town_name);
         townName.setText(name);
-        if (name.length() >= 12)
+
+        if (name.length() >= 16)
+        {
+            townName.setTextAppearance(android.R.style.TextAppearance_Small);
+        }
+        else if (name.length() >= 12)
         {
             townName.setTextAppearance(android.R.style.TextAppearance_Medium);
         }
@@ -44,21 +124,38 @@ public class TownActivity extends Activity implements MenuItem.OnMenuItemClickLi
         {
             townName.setTextAppearance(android.R.style.TextAppearance_Large);
         }
-        player = PersistenceManager.get().getPlayer(getApplicationContext());
-        playerGold.setText(String.valueOf(player.getGoldCarried()));
-        playerExperience.setMax(player.getExperienceForNextLevel());
-        playerExperience.setProgress(player.getCurrentExperience());
+        updateBuyOptions();
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-        switch(menuItem.getItemId())
-        {
-            case R.id.menu_town_action_walk:
-                Intent i = new Intent(getApplicationContext(), TravelActivity.class);
-                startActivity(i);
-                return true;
-        }
-        return false;
+    private void updateMoney()
+    {
+        playerGold.setText(String.valueOf(player.getGoldCarried()));
+    }
+
+    private void updateBuyOptions()
+    {
+        final String COST_TEMPLATE = "%s (%d G)";
+
+        strength.setTitle(
+            String.format(
+                Locale.getDefault(),
+                COST_TEMPLATE,
+                strengthTemplate,
+                town.getStrengthCost())
+        );
+        defense.setTitle(
+            String.format(
+                Locale.getDefault(),
+                COST_TEMPLATE,
+                defenseTemplate,
+                town.getDefenseCost())
+        );
+        health.setTitle(
+            String.format(
+                Locale.getDefault(),
+                COST_TEMPLATE,
+                healthTemplate,
+                town.getHealthCost())
+        );
     }
 }
