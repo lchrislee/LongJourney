@@ -24,4 +24,5 @@
     <string name="activity_travel_command">Steps to next town:</string>
     <string name="activity_travel_health_prompt">Health:</string>
     <string name="activity_travel_experience_prompt">Next Level:</string>
+    <string name="activity_travel_step_fail">Failed to track steps.</string>
 </resources>

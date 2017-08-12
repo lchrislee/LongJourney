@@ -3,6 +3,7 @@
     package="com.lchrislee.longjourney">
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.sensor.stepcounter" />
 
     <application
         android:name=".LongJourneyApplication"
@@ -30,7 +31,9 @@
         </activity>
         <activity
             android:name=".activities.TravelActivity"
-            android:label="@string/title_activity_travel">
+            android:label="@string/title_activity_travel"
+            android:noHistory="true"
+            >
         </activity>
     </application>
 

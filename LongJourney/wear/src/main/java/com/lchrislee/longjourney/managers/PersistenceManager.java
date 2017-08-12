@@ -12,14 +12,13 @@ import com.lchrislee.longjourney.model.creatures.Monster;
 import com.lchrislee.longjourney.model.creatures.Player;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class StorageManager extends LongJourneyManagerBase {
+public class PersistenceManager extends LongJourneyManagerBase {
 
     @IntDef({TOWN, TRAVEL, BATTLE_MID, BATTLE_REWARD, BATTLE_LOST, REST, SNEAK, RUN})
     public @interface PlayerLocation {}
@@ -40,11 +39,41 @@ public class StorageManager extends LongJourneyManagerBase {
     private static final String PREFERENCE_TOWN_SCOST = "PREFERENCE_TOWN_SCOST";
     private static final String PREFERENCE_TOWN_DCOST = "PREFERENCE_TOWN_DCOST";
     private static final String PREFERENCE_TOWN_HCOST = "PREFERENCE_TOWN_HCOST";
+    private static final String PREFERENCE_TOWN_COUNT = "PREFERENCE_TOWN_COUNT";
+
+    private static final String PREFERENCE_DISTANCE_REMAINING = "PREFERENCE_DISTANCE_REMAINING";
+    private static final String PREFERENCE_DISTANCE_TOTAL = "PREFERENCE_DISTANCE_TOTAL";
 
     private static final String PLAYER_FILE_NAME = "player.ljf";
     private static final String MONSTER_FILE_NAME = "monster.ljf";
 
-    public static void saveTown(@NonNull Context context, @NonNull Town town)
+    static void increaseDistanceWalked(@NonNull Context context, int amount)
+    {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        int steps = preferences.getInt(PREFERENCE_DISTANCE_REMAINING, 0);
+        long total = preferences.getLong(PREFERENCE_DISTANCE_TOTAL, 0);
+        editor.putInt(PREFERENCE_DISTANCE_REMAINING, steps + amount);
+        editor.putLong(PREFERENCE_DISTANCE_TOTAL, total + amount);
+        editor.apply();
+    }
+
+    static int loadDistanceToTown(@NonNull Context context)
+    {
+        return getPreferences(context).getInt(PREFERENCE_DISTANCE_REMAINING, 0);
+    }
+
+    static int loadTotalDistanceTraveled(@NonNull Context context)
+    {
+        return getPreferences(context).getInt(PREFERENCE_DISTANCE_TOTAL, 0);
+    }
+
+    static int loadTownsVisited(@NonNull Context context)
+    {
+        return getPreferences(context).getInt(PREFERENCE_TOWN_COUNT, 0);
+    }
+
+    static void saveTown(@NonNull Context context, @NonNull Town town)
     {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putString(PREFERENCE_TOWN_NAME, town.getName());
@@ -54,7 +83,7 @@ public class StorageManager extends LongJourneyManagerBase {
         editor.apply();
     }
 
-    public static @Nullable Town loadTown(@NonNull Context context)
+    static @Nullable Town loadTown(@NonNull Context context)
     {
         SharedPreferences prefs = getPreferences(context);
         String name = prefs.getString(PREFERENCE_TOWN_NAME, null);
@@ -71,40 +100,42 @@ public class StorageManager extends LongJourneyManagerBase {
         }
     }
 
-    public static void clearTown(@NonNull Context context)
+    static void leaveTown(@NonNull Context context)
     {
-        SharedPreferences.Editor editor = getEditor(context);
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
         editor.remove(PREFERENCE_TOWN_NAME);
         editor.remove(PREFERENCE_TOWN_SCOST);
         editor.remove(PREFERENCE_TOWN_DCOST);
         editor.remove(PREFERENCE_TOWN_HCOST);
+        editor.putInt(PREFERENCE_TOWN_COUNT, preferences.getInt(PREFERENCE_TOWN_COUNT, 0) + 1);
         editor.apply();
     }
 
-    public static void saveMonster(@NonNull Context context, @NonNull Monster monster)
+    static void saveMonster(@NonNull Context context, @NonNull Monster monster)
     {
         writeToFile(context, MONSTER_FILE_NAME, monster.toString());
     }
 
-    public static void clearMonster(@NonNull Context context)
+    static void clearMonster(@NonNull Context context)
     {
         writeToFile(context, MONSTER_FILE_NAME, null);
     }
 
-    public static @Nullable Monster loadMonster(@NonNull Context context)
+    static @Nullable Monster loadMonster(@NonNull Context context)
     {
         String monsterString = readFromFile(context, MONSTER_FILE_NAME);
         return Monster.loadFromString(monsterString);
     }
 
-    public static void saveCurrentLocation(@NonNull Context context, @PlayerLocation int location)
+    static void saveCurrentLocation(@NonNull Context context, @PlayerLocation int location)
     {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putInt(PREFERENCE_LOCATION, location);
         editor.apply();
     }
 
-    public static @PlayerLocation int loadCurrentLocation(@NonNull Context context)
+    static @PlayerLocation int loadCurrentLocation(@NonNull Context context)
     {
         SharedPreferences preferences = getPreferences(context);
         int locationNum = preferences.getInt(PREFERENCE_LOCATION, TOWN);
@@ -129,12 +160,12 @@ public class StorageManager extends LongJourneyManagerBase {
         }
     }
 
-    public static void savePlayer(@NonNull Context context, @NonNull Player player)
+    static void savePlayer(@NonNull Context context, @NonNull Player player)
     {
         writeToFile(context, PLAYER_FILE_NAME, player.toString());
     }
 
-    public static @Nullable Player loadPlayer(@NonNull Context context)
+    static @Nullable Player loadPlayer(@NonNull Context context)
     {
         String playerString = readFromFile(context, PLAYER_FILE_NAME);
         return Player.loadFromString(playerString);
@@ -200,4 +231,5 @@ public class StorageManager extends LongJourneyManagerBase {
     {
         return getPreferences(context).edit();
     }
+
 }

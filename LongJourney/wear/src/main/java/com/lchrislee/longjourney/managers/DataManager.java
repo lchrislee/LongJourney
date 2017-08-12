@@ -37,7 +37,7 @@ public class DataManager extends LongJourneyManagerBase {
     {
         if (player == null)
         {
-            Player storedPlayer = StorageManager.loadPlayer(context);
+            Player storedPlayer = PersistenceManager.loadPlayer(context);
             if (storedPlayer != null)
             {
                 player = storedPlayer;
@@ -45,7 +45,7 @@ public class DataManager extends LongJourneyManagerBase {
             else
             {
                 player = new Player();
-                StorageManager.savePlayer(context, player);
+                PersistenceManager.savePlayer(context, player);
             }
         }
         return player;
@@ -53,7 +53,7 @@ public class DataManager extends LongJourneyManagerBase {
 
     private void updatePlayer(@NonNull Context context)
     {
-        StorageManager.savePlayer(context, player);
+        PersistenceManager.savePlayer(context, player);
     }
 
     public boolean purchaseStrength(@NonNull Context context)
@@ -66,7 +66,7 @@ public class DataManager extends LongJourneyManagerBase {
         town.increaseStrengthCost();
         player.increaseStrength();
         updatePlayer(context);
-        StorageManager.saveTown(context, town);
+        PersistenceManager.saveTown(context, town);
         return true;
     }
 
@@ -80,7 +80,7 @@ public class DataManager extends LongJourneyManagerBase {
         town.increaseDefenseCost();
         player.increaseDefense();
         updatePlayer(context);
-        StorageManager.saveTown(context, town);
+        PersistenceManager.saveTown(context, town);
         return true;
     }
 
@@ -94,7 +94,7 @@ public class DataManager extends LongJourneyManagerBase {
         town.increaseHealthCost();
         player.increaseHealth();
         updatePlayer(context);
-        StorageManager.saveTown(context, town);
+        PersistenceManager.saveTown(context, town);
         return true;
     }
 
@@ -108,23 +108,38 @@ public class DataManager extends LongJourneyManagerBase {
     {
         if (town == null)
         {
-            Town storedTown = StorageManager.loadTown(context);
+            Town storedTown = PersistenceManager.loadTown(context);
             if (storedTown != null) {
                 town = storedTown;
             }
             else
             {
                 town = generateRandomTown(context);
-                StorageManager.saveTown(context, town);
+                PersistenceManager.saveTown(context, town);
             }
         }
         return town;
     }
 
-    public void clearTown(@NonNull Context context)
+    public void increaseDistanceWalked(@NonNull Context context, int amount)
+    {
+        PersistenceManager.increaseDistanceWalked(context, amount);
+    }
+
+    public int loadDistanceToTown(@NonNull Context context)
+    {
+        return PersistenceManager.loadDistanceToTown(context);
+    }
+
+    public int loadTotalDistanceTraveled(@NonNull Context context)
+    {
+        return PersistenceManager.loadTotalDistanceTraveled(context);
+    }
+
+    public void leaveTown(@NonNull Context context)
     {
         town = null;
-        StorageManager.clearTown(context);
+        PersistenceManager.leaveTown(context);
     }
 
     private @NonNull Town generateRandomTown(@NonNull Context context)

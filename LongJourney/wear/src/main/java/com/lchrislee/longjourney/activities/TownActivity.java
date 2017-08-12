@@ -59,22 +59,25 @@ public class TownActivity extends LongJourneyBaseActivity implements MenuItem.On
     public boolean onMenuItemClick(MenuItem menuItem) {
         boolean shouldReloadMenu = false;
         String buyMessage = null;
+        final DataManager dm = DataManager.get();
+
         switch(menuItem.getItemId())
         {
             case R.id.menu_town_action_walk:
+                dm.leaveTown(getApplicationContext());
                 Intent i = new Intent(getApplicationContext(), TravelActivity.class);
                 startActivity(i);
                 return true;
             case R.id.menu_town_action_strength:
-                shouldReloadMenu = DataManager.get().purchaseStrength(getApplicationContext());
+                shouldReloadMenu = dm.purchaseStrength(getApplicationContext());
                 buyMessage = getString(R.string.activity_town_purchase_success, strengthTemplate);
                 break;
             case R.id.menu_town_action_defense:
-                shouldReloadMenu = DataManager.get().purchaseDefense(getApplicationContext());
+                shouldReloadMenu = dm.purchaseDefense(getApplicationContext());
                 buyMessage = getString(R.string.activity_town_purchase_success, defenseTemplate);
                 break;
             case R.id.menu_town_action_health:
-                shouldReloadMenu = DataManager.get().purchaseHealth(getApplicationContext());
+                shouldReloadMenu = dm.purchaseHealth(getApplicationContext());
                 buyMessage = getString(R.string.activity_town_purchase_success, healthTemplate);
                 break;
         }
