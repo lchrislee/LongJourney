@@ -15,9 +15,9 @@ public class LongJourneyBaseFragment extends Fragment
 
     protected OnChangeFragment changeFragmentListener;
 
-    public LongJourneyBaseFragment setChangeFragmentListener(
+    public void setChangeFragmentListener(
             @NonNull OnChangeFragment changeFragmentListener) {
         this.changeFragmentListener = changeFragmentListener;
-        return this;
     }
+
 }

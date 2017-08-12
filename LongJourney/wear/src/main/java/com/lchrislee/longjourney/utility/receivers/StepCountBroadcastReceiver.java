@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.utility.managers.JobSchedulerManager;
 
 public class StepCountBroadcastReceiver extends BroadcastReceiver {
