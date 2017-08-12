@@ -7,8 +7,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.managers.DataManager;
-import com.lchrislee.longjourney.managers.StepManager;
+import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.managers.StepManager;
 import com.lchrislee.longjourney.model.creatures.Player;
 
 public class TravelActivity extends LongJourneyBaseActivity
@@ -19,7 +19,7 @@ public class TravelActivity extends LongJourneyBaseActivity
 
     private TextView playerDistance;
 
-    private StepManager stepManager;
+//    private StepManager stepManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,28 +38,28 @@ public class TravelActivity extends LongJourneyBaseActivity
         playerExperience.setMax(player.getExperienceForNextLevel());
         playerExperience.setProgress(player.getCurrentExperience());
 
-        stepManager = new StepManager(getApplicationContext(), this);
+//        stepManager = new StepManager(getApplicationContext(), this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         OnStepReceived();
-        stepManager.registerSensor(getApplicationContext());
+//        stepManager.registerSensor(getApplicationContext());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        stepManager.unregisterSensor();
+//        stepManager.unregisterSensor();
     }
 
     @Override
     public void OnStepReceived() {
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        if (pm.isInteractive()) {
+//        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+//        if (pm.isInteractive()) {
             DataManager dm = DataManager.get();
             playerDistance.setText(String.valueOf(dm.loadDistanceToTown(getApplicationContext())));
-        }
+//        }
     }
 }

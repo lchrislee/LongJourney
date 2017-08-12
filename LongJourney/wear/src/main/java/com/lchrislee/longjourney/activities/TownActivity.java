@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.managers.DataManager;
+import com.lchrislee.longjourney.utility.managers.DataManager;
 import com.lchrislee.longjourney.model.Town;
 import com.lchrislee.longjourney.model.creatures.Player;
 

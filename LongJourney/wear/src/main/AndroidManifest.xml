@@ -18,10 +18,12 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
+        <!-- Activities -->
+        <!-- android:allowEmbedded must be true for custom notifications in wear. -->
+
         <activity
             android:name=".activities.TownActivity"
             android:label="@string/app_name"
-            android:noHistory="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,9 +34,26 @@
         <activity
             android:name=".activities.TravelActivity"
             android:label="@string/title_activity_travel"
-            android:noHistory="true"
-            >
-        </activity>
+            />
+
+        <!-- Utilities -->
+
+        <receiver
+            android:name=".utility.receivers.StepCountBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_OFF"/>
+                <action android:name="android.intent.action.SCREEN_ON" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".utility.services.StepCountJobService"
+            android:exported="false"
+            android:label="@string/service_job_step_count_label"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            />
     </application>
 
 </manifest>

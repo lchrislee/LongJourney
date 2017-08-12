@@ -2,7 +2,7 @@ package com.lchrislee.longjourney;
 
 import android.app.Application;
 
-import com.lchrislee.longjourney.managers.DataManager;
+import com.lchrislee.longjourney.utility.managers.DataManager;
 
 public class LongJourneyApplication extends Application {
 

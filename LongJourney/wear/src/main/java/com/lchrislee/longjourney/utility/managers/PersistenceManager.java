@@ -1,4 +1,4 @@
-package com.lchrislee.longjourney.managers;
+package com.lchrislee.longjourney.utility.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
