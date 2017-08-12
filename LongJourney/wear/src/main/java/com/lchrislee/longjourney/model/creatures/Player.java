@@ -110,7 +110,7 @@ public class Player extends CreatureBase {
 
     public @Nullable static Player loadFromString(@Nullable String stringifiedPlayer)
     {
-        if (stringifiedPlayer == null)
+        if (stringifiedPlayer == null || stringifiedPlayer.length() == 0)
         {
             return null;
         }

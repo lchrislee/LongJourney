@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -132,47 +131,32 @@ public class StorageManager extends LongJourneyManagerBase {
 
     public static void savePlayer(@NonNull Context context, @NonNull Player player)
     {
-        Log.e(TAG, "saving player");
         writeToFile(context, PLAYER_FILE_NAME, player.toString());
     }
 
     public static @Nullable Player loadPlayer(@NonNull Context context)
     {
-        Log.e(TAG, "directory: " + context.getFilesDir().getName());
-        for(File f : context.getFilesDir().listFiles())
-        {
-            Log.e(TAG, "reading files: " + f.getName() + " at " + System.lineSeparator() + f.getAbsolutePath());
-        }
-
         String playerString = readFromFile(context, PLAYER_FILE_NAME);
-        Log.e(TAG, "player loads from: " + playerString);
         return Player.loadFromString(playerString);
     }
 
     private static void writeToFile(@NonNull Context context,
                                     @NonNull String fileName,
                                     @Nullable String data
-    )
-    {
+    ) {
         FileOutputStream outputStream;
         try
         {
-            if (data == null)
-            {
-                File file = new File(fileName);
-                if (!file.delete())
-                {
-                    Log.e(TAG, "Could not delete file " + fileName);
-                }
+            outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            if (data == null) {
+                outputStream.write(new byte[]{});
             }
             else
             {
-                Log.e(TAG, "data: " + data);
-                outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
                 outputStream.write(data.getBytes());
-                outputStream.flush();
-                outputStream.close();
             }
+            outputStream.flush();
+            outputStream.close();
         }
         catch (FileNotFoundException e) {
             Log.e(TAG, "Could not save " + fileName + " because file not openable for write.");

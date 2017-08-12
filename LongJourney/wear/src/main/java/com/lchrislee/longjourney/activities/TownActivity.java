@@ -3,7 +3,6 @@ package com.lchrislee.longjourney.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.wear.widget.drawer.WearableActionDrawerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -84,12 +83,6 @@ public class TownActivity extends LongJourneyBaseActivity implements MenuItem.On
             updateBuyOptions();
             updateMoney();
             Toast.makeText(getApplicationContext(), buyMessage, Toast.LENGTH_SHORT).show();
-            Log.e(TAG,
-                    "Player data - gold: " + player.getGoldCarried()
-                            + "str: " + player.getStrength()
-                            + "def: " + player.getDefense()
-                            + "max health: " + player.getMaxHealth()
-            );
         }
         else
         {
@@ -110,12 +103,6 @@ public class TownActivity extends LongJourneyBaseActivity implements MenuItem.On
         player = DataManager.get().getPlayer(getApplicationContext());
         playerExperience.setMax(player.getExperienceForNextLevel());
         playerExperience.setProgress(player.getCurrentExperience());
-        Log.e(TAG,
-            "Player data - gold: " + player.getGoldCarried()
-            + "str: " + player.getStrength()
-            + "def: " + player.getDefense()
-            + "max health: " + player.getMaxHealth()
-        );
         updateMoney();
     }
 

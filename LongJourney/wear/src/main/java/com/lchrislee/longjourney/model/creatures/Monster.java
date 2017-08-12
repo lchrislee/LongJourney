@@ -33,7 +33,7 @@ public class Monster extends CreatureBase {
 
     public static @Nullable Monster loadFromString(@Nullable String monsterString)
     {
-        if (monsterString == null)
+        if (monsterString == null || monsterString.length() == 0)
         {
             return null;
         }
