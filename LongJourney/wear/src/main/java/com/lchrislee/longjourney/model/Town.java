@@ -22,6 +22,14 @@ public class Town extends LongJourneyBaseModel {
         return generatedTown;
     }
 
+    public Town(@NonNull String name, int sCost, int dCost, int hCost)
+    {
+        this.name = name;
+        this.strengthCost = sCost;
+        this.defenseCost = dCost;
+        this.healthCost = hCost;
+    }
+
     private Town()
     {
         name = "";

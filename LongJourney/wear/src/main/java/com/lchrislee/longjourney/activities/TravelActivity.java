@@ -1,15 +1,14 @@
 package com.lchrislee.longjourney.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.managers.PersistenceManager;
+import com.lchrislee.longjourney.managers.DataManager;
 import com.lchrislee.longjourney.model.creatures.Player;
 
-public class TravelActivity extends Activity {
+public class TravelActivity extends LongJourneyBaseActivity {
 
     private TextView playerDistance;
     private ProgressBar playerHealth;
@@ -27,7 +26,7 @@ public class TravelActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        final Player player = PersistenceManager.get().getPlayer(getApplicationContext());
+        final Player player = DataManager.get().getPlayer(getApplicationContext());
         playerDistance.setText(String.valueOf(player.getCurrentDistanceToTown()));
         playerHealth.setProgress(player.getCurrentHealth());
         playerHealth.setMax(player.getMaxHealth());

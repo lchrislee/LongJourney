@@ -1,22 +1,24 @@
 package com.lchrislee.longjourney.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.wear.widget.drawer.WearableActionDrawerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.managers.PersistenceManager;
+import com.lchrislee.longjourney.managers.DataManager;
 import com.lchrislee.longjourney.model.Town;
 import com.lchrislee.longjourney.model.creatures.Player;
 
 import java.util.Locale;
 
-public class TownActivity extends Activity implements MenuItem.OnMenuItemClickListener {
+public class TownActivity extends LongJourneyBaseActivity implements MenuItem.OnMenuItemClickListener {
+
+    private static final String TAG = "TOWN_ACTIVITY";
 
     private String strengthTemplate;
     private String defenseTemplate;
@@ -65,15 +67,15 @@ public class TownActivity extends Activity implements MenuItem.OnMenuItemClickLi
                 startActivity(i);
                 return true;
             case R.id.menu_town_action_strength:
-                shouldReloadMenu = PersistenceManager.get().purchaseStrength();
+                shouldReloadMenu = DataManager.get().purchaseStrength(getApplicationContext());
                 buyMessage = getString(R.string.activity_town_purchase_success, strengthTemplate);
                 break;
             case R.id.menu_town_action_defense:
-                shouldReloadMenu = PersistenceManager.get().purchaseDefense();
+                shouldReloadMenu = DataManager.get().purchaseDefense(getApplicationContext());
                 buyMessage = getString(R.string.activity_town_purchase_success, defenseTemplate);
                 break;
             case R.id.menu_town_action_health:
-                shouldReloadMenu = PersistenceManager.get().purchaseHealth();
+                shouldReloadMenu = DataManager.get().purchaseHealth(getApplicationContext());
                 buyMessage = getString(R.string.activity_town_purchase_success, healthTemplate);
                 break;
         }
@@ -82,6 +84,12 @@ public class TownActivity extends Activity implements MenuItem.OnMenuItemClickLi
             updateBuyOptions();
             updateMoney();
             Toast.makeText(getApplicationContext(), buyMessage, Toast.LENGTH_SHORT).show();
+            Log.e(TAG,
+                    "Player data - gold: " + player.getGoldCarried()
+                            + "str: " + player.getStrength()
+                            + "def: " + player.getDefense()
+                            + "max health: " + player.getMaxHealth()
+            );
         }
         else
         {
@@ -99,15 +107,21 @@ public class TownActivity extends Activity implements MenuItem.OnMenuItemClickLi
     {
         playerGold = findViewById(R.id.activity_town_player_gold);
         final ProgressBar playerExperience = findViewById(R.id.activity_town_player_experience);
-        player = PersistenceManager.get().getPlayer(getApplicationContext());
+        player = DataManager.get().getPlayer(getApplicationContext());
         playerExperience.setMax(player.getExperienceForNextLevel());
         playerExperience.setProgress(player.getCurrentExperience());
+        Log.e(TAG,
+            "Player data - gold: " + player.getGoldCarried()
+            + "str: " + player.getStrength()
+            + "def: " + player.getDefense()
+            + "max health: " + player.getMaxHealth()
+        );
         updateMoney();
     }
 
     private void setupTown()
     {
-        town = PersistenceManager.get().getTown(getApplicationContext());
+        town = DataManager.get().getTown(getApplicationContext());
         String name = town.getName();
         final TextView townName = findViewById(R.id.activity_town_town_name);
         townName.setText(name);
