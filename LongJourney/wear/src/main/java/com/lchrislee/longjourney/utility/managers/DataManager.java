@@ -1,6 +1,7 @@
 package com.lchrislee.longjourney.utility.managers;
 
 import android.content.Context;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 
 import com.lchrislee.longjourney.R;
@@ -8,6 +9,17 @@ import com.lchrislee.longjourney.model.Town;
 import com.lchrislee.longjourney.model.creatures.Player;
 
 public class DataManager extends LongJourneyManagerBase {
+
+    @IntDef({TOWN, TRAVEL, BATTLE_MID, BATTLE_REWARD, BATTLE_LOST, REST, SNEAK, RUN})
+    public @interface PlayerLocation {}
+    public static final int TOWN = 1;
+    public static final int TRAVEL = 2;
+    public static final int BATTLE_MID = 3;
+    public static final int BATTLE_REWARD = 4;
+    public static final int BATTLE_LOST = 5;
+    public static final int REST = 6;
+    public static final int SNEAK = 7;
+    public static final int RUN = 8;
 
     private static DataManager instance;
 
@@ -152,5 +164,16 @@ public class DataManager extends LongJourneyManagerBase {
             townSuffixes = context.getResources().getStringArray(R.array.town_suffixes);
         }
         return Town.generateRandomTown(townNames, townSuffixes);
+    }
+
+    public @PlayerLocation int loadLocation(@NonNull Context context)
+    {
+        return PersistenceManager.loadCurrentLocation(context);
+    }
+
+    public void changeLocation(@NonNull Context context,
+                               @PlayerLocation int newLocation)
+    {
+        PersistenceManager.saveCurrentLocation(context, newLocation);
     }
 }

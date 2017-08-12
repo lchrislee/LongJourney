@@ -2,7 +2,6 @@ package com.lchrislee.longjourney.utility.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -18,18 +17,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class PersistenceManager extends LongJourneyManagerBase {
+import static com.lchrislee.longjourney.utility.managers.DataManager.BATTLE_LOST;
+import static com.lchrislee.longjourney.utility.managers.DataManager.BATTLE_MID;
+import static com.lchrislee.longjourney.utility.managers.DataManager.BATTLE_REWARD;
+import static com.lchrislee.longjourney.utility.managers.DataManager.REST;
+import static com.lchrislee.longjourney.utility.managers.DataManager.RUN;
+import static com.lchrislee.longjourney.utility.managers.DataManager.SNEAK;
+import static com.lchrislee.longjourney.utility.managers.DataManager.TOWN;
+import static com.lchrislee.longjourney.utility.managers.DataManager.TRAVEL;
 
-    @IntDef({TOWN, TRAVEL, BATTLE_MID, BATTLE_REWARD, BATTLE_LOST, REST, SNEAK, RUN})
-    public @interface PlayerLocation {}
-    public static final int TOWN = 1;
-    public static final int TRAVEL = 2;
-    public static final int BATTLE_MID = 3;
-    public static final int BATTLE_REWARD = 4;
-    public static final int BATTLE_LOST = 5;
-    public static final int REST = 6;
-    public static final int SNEAK = 7;
-    public static final int RUN = 8;
+class PersistenceManager extends LongJourneyManagerBase {
 
     private static final String TAG = "STORAGE_MANAGER";
 
@@ -128,14 +125,16 @@ public class PersistenceManager extends LongJourneyManagerBase {
         return Monster.loadFromString(monsterString);
     }
 
-    static void saveCurrentLocation(@NonNull Context context, @PlayerLocation int location)
+    static void saveCurrentLocation(@NonNull Context context,
+                                    @DataManager.PlayerLocation int location)
     {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putInt(PREFERENCE_LOCATION, location);
         editor.apply();
     }
 
-    static @PlayerLocation int loadCurrentLocation(@NonNull Context context)
+    static @DataManager.PlayerLocation
+    int loadCurrentLocation(@NonNull Context context)
     {
         SharedPreferences preferences = getPreferences(context);
         int locationNum = preferences.getInt(PREFERENCE_LOCATION, TOWN);

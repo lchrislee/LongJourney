@@ -45,7 +45,7 @@ public class StepManager extends LongJourneyManagerBase {
         {
             Toast.makeText(
                     context,
-                    R.string.activity_travel_step_fail,
+                    R.string.fragment_travel_step_fail,
                     Toast.LENGTH_SHORT
             ).show();
         }

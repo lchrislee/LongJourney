@@ -1,23 +1,28 @@
-package com.lchrislee.longjourney.activities;
+package com.lchrislee.longjourney.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.wear.widget.drawer.WearableActionDrawerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.utility.managers.DataManager;
 import com.lchrislee.longjourney.model.Town;
 import com.lchrislee.longjourney.model.creatures.Player;
+import com.lchrislee.longjourney.utility.managers.DataManager;
 
 import java.util.Locale;
 
-public class TownActivity extends LongJourneyBaseActivity implements MenuItem.OnMenuItemClickListener {
+public class TownFragment extends LongJourneyBaseFragment
+        implements MenuItem.OnMenuItemClickListener
+{
 
-    private static final String TAG = "TOWN_ACTIVITY";
+    private static final String TAG = "TOWN_FRAGMENT";
 
     private String strengthTemplate;
     private String defenseTemplate;
@@ -32,13 +37,26 @@ public class TownActivity extends LongJourneyBaseActivity implements MenuItem.On
 
     private WearableActionDrawerView actionDrawerView;
     private TextView playerGold;
+    private View masterView;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_town);
 
-        actionDrawerView = findViewById(R.id.activity_town_action_drawer);
+        strengthTemplate = getString(R.string.menu_action_strength);
+        defenseTemplate = getString(R.string.menu_action_defense);
+        healthTemplate = getString(R.string.menu_action_health);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState
+    ) {
+        masterView = inflater.inflate(R.layout.fragment_town, container, false);
+        actionDrawerView = masterView.findViewById(R.id.fragment_town_action_drawer);
         actionDrawerView.setOnMenuItemClickListener(this);
         actionDrawerView.getController().peekDrawer();
 
@@ -46,14 +64,11 @@ public class TownActivity extends LongJourneyBaseActivity implements MenuItem.On
         defense = actionDrawerView.getMenu().findItem(R.id.menu_town_action_defense);
         health = actionDrawerView.getMenu().findItem(R.id.menu_town_action_health);
 
-        strengthTemplate = getString(R.string.menu_action_strength);
-        defenseTemplate = getString(R.string.menu_action_defense);
-        healthTemplate = getString(R.string.menu_action_health);
-
         setupPlayerInfo();
         setupTown();
-    }
 
+        return masterView;
+    }
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -64,34 +79,33 @@ public class TownActivity extends LongJourneyBaseActivity implements MenuItem.On
         switch(menuItem.getItemId())
         {
             case R.id.menu_town_action_walk:
-                dm.leaveTown(getApplicationContext());
-                Intent i = new Intent(getApplicationContext(), TravelActivity.class);
-                startActivity(i);
+                dm.leaveTown(getContext());
+                changeFragmentListener.changeFragment(DataManager.TRAVEL);
                 return true;
             case R.id.menu_town_action_strength:
-                shouldReloadMenu = dm.purchaseStrength(getApplicationContext());
-                buyMessage = getString(R.string.activity_town_purchase_success, strengthTemplate);
+                shouldReloadMenu = dm.purchaseStrength(getContext());
+                buyMessage = getString(R.string.fragment_town_purchase_success, strengthTemplate);
                 break;
             case R.id.menu_town_action_defense:
-                shouldReloadMenu = dm.purchaseDefense(getApplicationContext());
-                buyMessage = getString(R.string.activity_town_purchase_success, defenseTemplate);
+                shouldReloadMenu = dm.purchaseDefense(getContext());
+                buyMessage = getString(R.string.fragment_town_purchase_success, defenseTemplate);
                 break;
             case R.id.menu_town_action_health:
-                shouldReloadMenu = dm.purchaseHealth(getApplicationContext());
-                buyMessage = getString(R.string.activity_town_purchase_success, healthTemplate);
+                shouldReloadMenu = dm.purchaseHealth(getContext());
+                buyMessage = getString(R.string.fragment_town_purchase_success, healthTemplate);
                 break;
         }
 
         if (shouldReloadMenu) {
             updateBuyOptions();
             updateMoney();
-            Toast.makeText(getApplicationContext(), buyMessage, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), buyMessage, Toast.LENGTH_SHORT).show();
         }
         else
         {
             Toast.makeText(
-                getApplicationContext(),
-                R.string.activity_town_purchase_fail,
+                getContext(),
+                R.string.fragment_town_purchase_fail,
                 Toast.LENGTH_SHORT
             ).show();
         }
@@ -101,9 +115,10 @@ public class TownActivity extends LongJourneyBaseActivity implements MenuItem.On
 
     private void setupPlayerInfo()
     {
-        playerGold = findViewById(R.id.activity_town_player_gold);
-        final ProgressBar playerExperience = findViewById(R.id.activity_town_player_experience);
-        player = DataManager.get().getPlayer(getApplicationContext());
+        playerGold = masterView.findViewById(R.id.fragment_town_player_gold);
+        final ProgressBar playerExperience
+                = masterView.findViewById(R.id.fragment_town_player_experience);
+        player = DataManager.get().getPlayer(getContext());
         playerExperience.setMax(player.getExperienceForNextLevel());
         playerExperience.setProgress(player.getCurrentExperience());
         updateMoney();
@@ -111,9 +126,9 @@ public class TownActivity extends LongJourneyBaseActivity implements MenuItem.On
 
     private void setupTown()
     {
-        town = DataManager.get().getTown(getApplicationContext());
+        town = DataManager.get().getTown(getContext());
         String name = town.getName();
-        final TextView townName = findViewById(R.id.activity_town_town_name);
+        final TextView townName = masterView.findViewById(R.id.fragment_town_town_name);
         townName.setText(name);
 
         if (name.length() >= 16)

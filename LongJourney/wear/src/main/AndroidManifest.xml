@@ -22,8 +22,9 @@
         <!-- android:allowEmbedded must be true for custom notifications in wear. -->
 
         <activity
-            android:name=".activities.TownActivity"
+            android:name=".activities.LongJourneyBaseActivity"
             android:label="@string/app_name"
+            android:allowEmbedded="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,10 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.TravelActivity"
-            android:label="@string/title_activity_travel"
-            />
 
         <!-- Utilities -->
 

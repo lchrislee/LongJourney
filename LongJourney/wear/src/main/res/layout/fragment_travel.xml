@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.lchrislee.longjourney.activities.TravelActivity"
+    tools:context="com.lchrislee.longjourney.fragments.TravelFragment"
     tools:deviceIds="wear"
     android:id="@+id/activity_travel_box_inset"
     android:padding="15dp"
@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/activity_travel_command" />
+                android:text="@string/fragment_travel_command" />
 
             <TextView
                 android:id="@+id/activity_travel_distance"
@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_travel_health_prompt" />
+                android:text="@string/fragment_travel_health_prompt" />
 
             <ProgressBar
                 android:id="@+id/activity_travel_player_health"
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_travel_experience_prompt" />
+                android:text="@string/fragment_travel_experience_prompt" />
 
             <ProgressBar
                 android:id="@+id/activity_travel_player_experience"
