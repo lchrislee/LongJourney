@@ -25,7 +25,7 @@ public class LJNotifactionManager extends LongJourneyBaseManager {
     private static final String CHANNEL_NAME = "BATTLE_NOTIFICATION";
     private static LJNotifactionManager instance;
 
-    private AtomicInteger notificationNumber;
+    private final AtomicInteger notificationNumber;
 
     private LJNotifactionManager()
     {

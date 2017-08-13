@@ -18,7 +18,6 @@
     <string name="fragment_town_purchase_success">Got %1$s.</string>
     <string name="fragment_town_purchase_fail">Not enough gold!</string>
 
-    <string name="fragment_travel_distance_prompt">Distance to next town:</string>
     <string name="fragment_travel_command">Steps to next town:</string>
     <string name="fragment_travel_health_prompt">Health:</string>
     <string name="fragment_travel_experience_prompt">Next Level:</string>
