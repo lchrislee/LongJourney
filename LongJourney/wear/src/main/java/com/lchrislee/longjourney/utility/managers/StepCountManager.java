@@ -19,6 +19,7 @@ public class StepCountManager extends LongJourneyBaseManager
 {
     public interface StepReceived
     {
+        void OnMonsterFind();
         void OnStepReceived();
     }
 
@@ -90,7 +91,7 @@ public class StepCountManager extends LongJourneyBaseManager
 
         if (isNotificationTriggered)
         {
-            DataManager.get().changeLocation(context, DataManager.BATTLE_OPTION);
+            DataManager.get().changeLocation(context, DataManager.ENGAGE);
             if (stepReceivedListener != null)
             {
                 stepReceivedListener.OnStepReceived();

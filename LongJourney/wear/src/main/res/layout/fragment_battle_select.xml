@@ -8,35 +8,51 @@
     android:layout_height="match_parent"
     >
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="20dp"
+    <ScrollView
+        android:nestedScrollingEnabled="true"
+        android:padding="@dimen/standard_margin"
+        android:scrollbarStyle="insideOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="@string/notification_battle_title"
-            android:textAppearance="@android:style/TextAppearance.Medium"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/half_margin"
+        <android.support.wear.widget.BoxInsetLayout
+            android:padding="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            >
 
-        <TextView
-            android:text="@string/notification_battle_text"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/half_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/fragment_battle_select_monster"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/half_margin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+                <TextView
+                    android:text="@string/notification_battle_title"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </LinearLayout>
+                <TextView
+                    android:text="@string/notification_battle_text"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/fragment_battle_select_monster"
+                    android:background="@color/white"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
+
+            </LinearLayout>
+
+        </android.support.wear.widget.BoxInsetLayout>
+
+    </ScrollView>
 
     <!-- app:showOverflowInPeek notes more than 1 action but hides -->
     <android.support.wear.widget.drawer.WearableActionDrawerView

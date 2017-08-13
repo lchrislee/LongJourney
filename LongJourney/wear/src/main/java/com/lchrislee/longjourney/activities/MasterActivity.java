@@ -47,7 +47,7 @@ public class MasterActivity extends LongJourneyBaseActivity
                 break;
             case DataManager.BATTLE_REWARD:
                 break;
-            case DataManager.BATTLE_OPTION:
+            case DataManager.ENGAGE:
                 fragment = new BattleSelectFragment();
                 break;
             case DataManager.REST:

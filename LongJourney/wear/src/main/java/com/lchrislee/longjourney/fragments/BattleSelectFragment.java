@@ -26,7 +26,7 @@ public class BattleSelectFragment extends LongJourneyBaseFragment implements Men
         final WearableActionDrawerView actionDrawerView
                 = masterView.findViewById(R.id.fragment_battle_select_action_drawer);
         actionDrawerView.setOnMenuItemClickListener(this);
-        actionDrawerView.getController().peekDrawer();
+//        actionDrawerView.getController().peekDrawer();
 
         final ImageView monster = masterView.findViewById(R.id.fragment_battle_select_monster);
 

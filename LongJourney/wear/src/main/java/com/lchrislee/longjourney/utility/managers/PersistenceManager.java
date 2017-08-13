@@ -180,7 +180,7 @@ class PersistenceManager extends LongJourneyBaseManager {
             case 2:
                 return DataManager.TRAVEL;
             case 3:
-                return DataManager.BATTLE_OPTION;
+                return DataManager.ENGAGE;
             case 4:
                 return DataManager.BATTLE;
             case 5:

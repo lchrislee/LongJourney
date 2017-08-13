@@ -124,4 +124,8 @@ public class TravelFragment extends LongJourneyBaseFragment
         }
     }
 
+    @Override
+    public void OnMonsterFind() {
+        changeFragmentListener.changeFragment(DataManager.ENGAGE);
+    }
 }

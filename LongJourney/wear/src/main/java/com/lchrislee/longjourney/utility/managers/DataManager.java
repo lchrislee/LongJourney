@@ -10,11 +10,11 @@ import com.lchrislee.longjourney.model.creatures.Player;
 
 public class DataManager extends LongJourneyBaseManager {
 
-    @IntDef({TOWN, TRAVEL, BATTLE_OPTION, BATTLE, BATTLE_REWARD, BATTLE_LOST, REST, SNEAK, RUN})
+    @IntDef({TOWN, TRAVEL, ENGAGE, BATTLE, BATTLE_REWARD, BATTLE_LOST, REST, SNEAK, RUN})
     public @interface PlayerLocation {}
     public static final int TOWN = 1;
     public static final int TRAVEL = 2;
-    public static final int BATTLE_OPTION = 3;
+    public static final int ENGAGE = 3;
     public static final int BATTLE = 4;
     public static final int BATTLE_REWARD = 5;
     public static final int BATTLE_LOST = 6;

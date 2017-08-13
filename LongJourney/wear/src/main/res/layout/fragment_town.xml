@@ -10,71 +10,78 @@
 
     <!-- WearableDrawerLayout  -->
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:background="#443322"
+    <android.support.wear.widget.BoxInsetLayout
+        android:padding="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <TextView
-            android:id="@+id/fragment_town_town_name"
-            style="@android:style/TextAppearance.Large"
-            android:maxLines="1"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/half_margin"
-            tools:text="Etherwin City"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@string/fragment_town_experience_prompt"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/half_margin"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <ProgressBar
-            android:id="@+id/fragment_town_player_experience"
-            style="@style/progress_player_experience"
-            tools:progress="40"
-            tools:max="100"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/standard_margin"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_margin"
+            android:background="#443322"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            >
 
             <TextView
-                android:text="@string/fragment_town_gold_prompt"
-                android:layout_width="wrap_content"
+                android:id="@+id/fragment_town_town_name"
+                style="@android:style/TextAppearance.Large"
+                android:maxLines="1"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/half_margin"
+                tools:text="Etherwin City"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/fragment_town_player_gold"
-                style="@android:style/TextAppearance.Medium"
-                tools:text="3254"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/standard_margin"
-                android:layout_width="0dp"
+                android:text="@string/fragment_town_experience_prompt"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:text="@string/fragment_town_gold"
-                style="@android:style/TextAppearance.Medium"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:layout_width="wrap_content"
+            <ProgressBar
+                android:id="@+id/fragment_town_player_experience"
+                style="@style/progress_player_experience"
+                tools:progress="40"
+                tools:max="100"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/fragment_town_gold_prompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/fragment_town_player_gold"
+                    style="@android:style/TextAppearance.Medium"
+                    tools:text="3254"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/standard_margin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/fragment_town_gold"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </android.support.wear.widget.BoxInsetLayout>
 
     <!-- app:showOverflowInPeek notes more than 1 action but hides -->
     <android.support.wear.widget.drawer.WearableActionDrawerView
