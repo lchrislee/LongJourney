@@ -23,6 +23,7 @@
     <string name="fragment_travel_health_prompt">Health:</string>
     <string name="fragment_travel_experience_prompt">Next Level:</string>
     <string name="fragment_travel_step_fail">Failed to track steps.</string>
+    <string name="fragment_travel_reached">Reached town!</string>
 
     <!-- Services -->
     <string name="service_job_step_count_label">StepCountService</string>

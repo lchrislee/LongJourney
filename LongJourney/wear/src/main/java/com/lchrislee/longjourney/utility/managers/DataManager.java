@@ -133,9 +133,9 @@ public class DataManager extends LongJourneyManagerBase {
         return town;
     }
 
-    public void increaseDistanceWalked(@NonNull Context context, int amount)
+    int increaseDistanceWalked(@NonNull Context context, int amount)
     {
-        PersistenceManager.increaseDistanceWalked(context, amount);
+        return PersistenceManager.increaseDistanceWalked(context, amount);
     }
 
     public int loadDistanceToTown(@NonNull Context context)
@@ -146,6 +146,11 @@ public class DataManager extends LongJourneyManagerBase {
     public int loadTotalDistanceTraveled(@NonNull Context context)
     {
         return PersistenceManager.loadTotalDistanceTraveled(context);
+    }
+
+    public void enterTown(@NonNull Context context)
+    {
+        PersistenceManager.enterTown(context);
     }
 
     public void leaveTown(@NonNull Context context)

@@ -56,13 +56,19 @@ public class StepCountManager extends LongJourneyManagerBase
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         DataManager dm = DataManager.get();
+        int remaining;
         if (sensorEvent.values.length == 1)
         {
-            dm.increaseDistanceWalked(context, (int) sensorEvent.values[0]);
+            remaining = dm.increaseDistanceWalked(context, (int) sensorEvent.values[0]);
         }
         else
         {
-            dm.increaseDistanceWalked(context, sensorEvent.values.length);
+            remaining = dm.increaseDistanceWalked(context, sensorEvent.values.length);
+        }
+
+        if (remaining == 0)
+        {
+            stop();
         }
 
         if (stepReceivedListener != null) {

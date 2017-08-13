@@ -17,15 +17,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static com.lchrislee.longjourney.utility.managers.DataManager.BATTLE_LOST;
-import static com.lchrislee.longjourney.utility.managers.DataManager.BATTLE_MID;
-import static com.lchrislee.longjourney.utility.managers.DataManager.BATTLE_REWARD;
-import static com.lchrislee.longjourney.utility.managers.DataManager.REST;
-import static com.lchrislee.longjourney.utility.managers.DataManager.RUN;
-import static com.lchrislee.longjourney.utility.managers.DataManager.SNEAK;
-import static com.lchrislee.longjourney.utility.managers.DataManager.TOWN;
-import static com.lchrislee.longjourney.utility.managers.DataManager.TRAVEL;
-
 class PersistenceManager extends LongJourneyManagerBase {
 
     private static final String TAG = "STORAGE_MANAGER";
@@ -38,26 +29,55 @@ class PersistenceManager extends LongJourneyManagerBase {
     private static final String PREFERENCE_TOWN_HCOST = "PREFERENCE_TOWN_HCOST";
     private static final String PREFERENCE_TOWN_COUNT = "PREFERENCE_TOWN_COUNT";
 
+    private static final String PREFERENCE_DISTANCE_START = "PREFERENCE_DISTANCE_START";
     private static final String PREFERENCE_DISTANCE_REMAINING = "PREFERENCE_DISTANCE_REMAINING";
     private static final String PREFERENCE_DISTANCE_TOTAL = "PREFERENCE_DISTANCE_TOTAL";
 
     private static final String PLAYER_FILE_NAME = "player.ljf";
     private static final String MONSTER_FILE_NAME = "monster.ljf";
 
-    static void increaseDistanceWalked(@NonNull Context context, int amount)
+    static int increaseDistanceWalked(@NonNull Context context, int amount)
     {
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        int steps = preferences.getInt(PREFERENCE_DISTANCE_REMAINING, 0);
-        long total = preferences.getLong(PREFERENCE_DISTANCE_TOTAL, 0);
-        editor.putInt(PREFERENCE_DISTANCE_REMAINING, steps + amount);
-        editor.putLong(PREFERENCE_DISTANCE_TOTAL, total + amount);
+        int remaining = preferences.getInt(PREFERENCE_DISTANCE_REMAINING, 0) - amount;
+        if (remaining < 0)
+        {
+            remaining = 0;
+        }
+        long total = preferences.getLong(PREFERENCE_DISTANCE_TOTAL, 0) + amount;
+        editor.putInt(PREFERENCE_DISTANCE_REMAINING, remaining);
+        editor.putLong(PREFERENCE_DISTANCE_TOTAL, total);
+        editor.apply();
+        return remaining;
+    }
+
+    static void enterTown(@NonNull Context context)
+    {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Increase number of towns visited.
+        int townsVisited = preferences.getInt(PREFERENCE_TOWN_COUNT, 0) + 1;
+        editor.putInt(PREFERENCE_TOWN_COUNT, townsVisited);
+
+        // TODO: Better difficulty curve system.
+        int previousDistance = getPreferences(context).getInt(PREFERENCE_DISTANCE_START, 10);
+        int newDistance = (int) (previousDistance * 1.5);
+        editor.putInt(PREFERENCE_DISTANCE_REMAINING, newDistance);
+        editor.putInt(PREFERENCE_DISTANCE_START, newDistance);
+
         editor.apply();
     }
 
     static int loadDistanceToTown(@NonNull Context context)
     {
-        return getPreferences(context).getInt(PREFERENCE_DISTANCE_REMAINING, 0);
+        int distance = getPreferences(context).getInt(PREFERENCE_DISTANCE_REMAINING, -1);
+        if (distance == -1)
+        {
+            distance = getPreferences(context).getInt(PREFERENCE_DISTANCE_START, 10);
+        }
+        return distance;
     }
 
     static int loadTotalDistanceTraveled(@NonNull Context context)
@@ -137,25 +157,25 @@ class PersistenceManager extends LongJourneyManagerBase {
     int loadCurrentLocation(@NonNull Context context)
     {
         SharedPreferences preferences = getPreferences(context);
-        int locationNum = preferences.getInt(PREFERENCE_LOCATION, TOWN);
+        int locationNum = preferences.getInt(PREFERENCE_LOCATION, DataManager.TOWN);
         switch(locationNum)
         {
             case 2:
-                return TRAVEL;
+                return DataManager.TRAVEL;
             case 3:
-                return BATTLE_MID;
+                return DataManager.BATTLE_MID;
             case 4:
-                return BATTLE_REWARD;
+                return DataManager.BATTLE_REWARD;
             case 5:
-                return BATTLE_LOST;
+                return DataManager.BATTLE_LOST;
             case 6:
-                return REST;
+                return DataManager.REST;
             case 7:
-                return SNEAK;
+                return DataManager.SNEAK;
             case 8:
-                return RUN;
+                return DataManager.RUN;
             default:
-                return TOWN;
+                return DataManager.TOWN;
         }
     }
 

@@ -3,6 +3,7 @@ package com.lchrislee.longjourney.fragments;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,7 +99,28 @@ public class TravelFragment extends LongJourneyBaseFragment
 
     @Override
     public void OnStepReceived() {
-            DataManager dm = DataManager.get();
-            playerDistance.setText(String.valueOf(dm.loadDistanceToTown(getContext())));
+        DataManager dm = DataManager.get();
+        int distance = dm.loadDistanceToTown(getContext());
+        if (distance == 0)
+        {
+            playerDistance.setText(R.string.fragment_travel_reached);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    SystemClock.sleep(500);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            DataManager.get().enterTown(getContext());
+                            changeFragmentListener.changeFragment(DataManager.TOWN);
+                        }
+                    });
+                }
+            }).start();
+        }
+        else
+        {
+            playerDistance.setText(String.valueOf(distance));
+        }
     }
 }
