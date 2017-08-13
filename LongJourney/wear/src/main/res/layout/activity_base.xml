@@ -2,7 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.lchrislee.longjourney.activities.LongJourneyBaseActivity"
+    tools:context="com.lchrislee.longjourney.activities.MasterActivity"
     tools:deviceIds="wear"
     android:id="@+id/activity_base_frame"
     android:layout_width="match_parent"

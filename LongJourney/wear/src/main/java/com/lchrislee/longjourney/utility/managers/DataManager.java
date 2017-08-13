@@ -8,18 +8,21 @@ import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.Town;
 import com.lchrislee.longjourney.model.creatures.Player;
 
-public class DataManager extends LongJourneyManagerBase {
+public class DataManager extends LongJourneyBaseManager {
 
-    @IntDef({TOWN, TRAVEL, BATTLE_MID, BATTLE_REWARD, BATTLE_LOST, REST, SNEAK, RUN})
+    @IntDef({TOWN, TRAVEL, BATTLE_OPTION, BATTLE, BATTLE_REWARD, BATTLE_LOST, REST, SNEAK, RUN})
     public @interface PlayerLocation {}
     public static final int TOWN = 1;
     public static final int TRAVEL = 2;
-    public static final int BATTLE_MID = 3;
-    public static final int BATTLE_REWARD = 4;
-    public static final int BATTLE_LOST = 5;
-    public static final int REST = 6;
-    public static final int SNEAK = 7;
-    public static final int RUN = 8;
+    public static final int BATTLE_OPTION = 3;
+    public static final int BATTLE = 4;
+    public static final int BATTLE_REWARD = 5;
+    public static final int BATTLE_LOST = 6;
+    public static final int REST = 7;
+    public static final int SNEAK = 8;
+    public static final int RUN = 9;
+
+    private static final String TAG = "DATA_MANAGER";
 
     private static DataManager instance;
 
@@ -136,6 +139,11 @@ public class DataManager extends LongJourneyManagerBase {
     int increaseDistanceWalked(@NonNull Context context, int amount)
     {
         return PersistenceManager.increaseDistanceWalked(context, amount);
+    }
+
+    int loadTotalTownDistance(@NonNull Context context)
+    {
+        return PersistenceManager.loadTotalTownDistance(context);
     }
 
     public int loadDistanceToTown(@NonNull Context context)

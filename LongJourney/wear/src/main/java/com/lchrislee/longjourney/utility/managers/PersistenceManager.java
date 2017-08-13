@@ -17,9 +17,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-class PersistenceManager extends LongJourneyManagerBase {
+class PersistenceManager extends LongJourneyBaseManager {
 
-    private static final String TAG = "STORAGE_MANAGER";
+    private static final String TAG = "PERSISTENCE_MANAGER";
 
     private static final String SHARED_PREFERENCES = "LongJourneyMainShared";
     private static final String PREFERENCE_LOCATION = "PREFERENCE_LOCATION";
@@ -36,54 +36,45 @@ class PersistenceManager extends LongJourneyManagerBase {
     private static final String PLAYER_FILE_NAME = "player.ljf";
     private static final String MONSTER_FILE_NAME = "monster.ljf";
 
+    /*
+     * Distance
+     */
+
     static int increaseDistanceWalked(@NonNull Context context, int amount)
     {
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        int remaining = preferences.getInt(PREFERENCE_DISTANCE_REMAINING, 0) - amount;
+        int remaining = loadDistanceToTown(context) - amount;
         if (remaining < 0)
         {
             remaining = 0;
         }
-        long total = preferences.getLong(PREFERENCE_DISTANCE_TOTAL, 0) + amount;
+        int total = loadTotalDistanceTraveled(context) + amount;
         editor.putInt(PREFERENCE_DISTANCE_REMAINING, remaining);
-        editor.putLong(PREFERENCE_DISTANCE_TOTAL, total);
+        editor.putInt(PREFERENCE_DISTANCE_TOTAL, total);
         editor.apply();
         return remaining;
     }
 
-    static void enterTown(@NonNull Context context)
+    static int loadTotalTownDistance(@NonNull Context context)
     {
-        SharedPreferences preferences = getPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        // Increase number of towns visited.
-        int townsVisited = preferences.getInt(PREFERENCE_TOWN_COUNT, 0) + 1;
-        editor.putInt(PREFERENCE_TOWN_COUNT, townsVisited);
-
-        // TODO: Better difficulty curve system.
-        int previousDistance = getPreferences(context).getInt(PREFERENCE_DISTANCE_START, 10);
-        int newDistance = (int) (previousDistance * 1.5);
-        editor.putInt(PREFERENCE_DISTANCE_REMAINING, newDistance);
-        editor.putInt(PREFERENCE_DISTANCE_START, newDistance);
-
-        editor.apply();
+        return getPreferences(context).getInt(PREFERENCE_DISTANCE_START, 10);
     }
 
     static int loadDistanceToTown(@NonNull Context context)
     {
-        int distance = getPreferences(context).getInt(PREFERENCE_DISTANCE_REMAINING, -1);
-        if (distance == -1)
-        {
-            distance = getPreferences(context).getInt(PREFERENCE_DISTANCE_START, 10);
-        }
-        return distance;
+        int totalDistance = loadTotalTownDistance(context);
+        return getPreferences(context).getInt(PREFERENCE_DISTANCE_REMAINING, totalDistance);
     }
 
     static int loadTotalDistanceTraveled(@NonNull Context context)
     {
         return getPreferences(context).getInt(PREFERENCE_DISTANCE_TOTAL, 0);
     }
+
+    /*
+     * Town
+     */
 
     static int loadTownsVisited(@NonNull Context context)
     {
@@ -129,6 +120,28 @@ class PersistenceManager extends LongJourneyManagerBase {
         editor.apply();
     }
 
+    static void enterTown(@NonNull Context context)
+    {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Increase number of towns visited.
+        int townsVisited = preferences.getInt(PREFERENCE_TOWN_COUNT, 0) + 1;
+        editor.putInt(PREFERENCE_TOWN_COUNT, townsVisited);
+
+        // TODO: Better difficulty curve system.
+        int previousDistance = getPreferences(context).getInt(PREFERENCE_DISTANCE_START, 10);
+        int newDistance = (int) (previousDistance * 1.5);
+        editor.putInt(PREFERENCE_DISTANCE_REMAINING, newDistance);
+        editor.putInt(PREFERENCE_DISTANCE_START, newDistance);
+
+        editor.apply();
+    }
+
+    /*
+     * Monster
+     */
+
     static void saveMonster(@NonNull Context context, @NonNull Monster monster)
     {
         writeToFile(context, MONSTER_FILE_NAME, monster.toString());
@@ -144,6 +157,10 @@ class PersistenceManager extends LongJourneyManagerBase {
         String monsterString = readFromFile(context, MONSTER_FILE_NAME);
         return Monster.loadFromString(monsterString);
     }
+
+    /*
+     * Location
+     */
 
     static void saveCurrentLocation(@NonNull Context context,
                                     @DataManager.PlayerLocation int location)
@@ -163,21 +180,27 @@ class PersistenceManager extends LongJourneyManagerBase {
             case 2:
                 return DataManager.TRAVEL;
             case 3:
-                return DataManager.BATTLE_MID;
+                return DataManager.BATTLE_OPTION;
             case 4:
-                return DataManager.BATTLE_REWARD;
+                return DataManager.BATTLE;
             case 5:
-                return DataManager.BATTLE_LOST;
+                return DataManager.BATTLE_REWARD;
             case 6:
-                return DataManager.REST;
+                return DataManager.BATTLE_LOST;
             case 7:
-                return DataManager.SNEAK;
+                return DataManager.REST;
             case 8:
+                return DataManager.SNEAK;
+            case 9:
                 return DataManager.RUN;
             default:
                 return DataManager.TOWN;
         }
     }
+
+    /*
+     * Player
+     */
 
     static void savePlayer(@NonNull Context context, @NonNull Player player)
     {
@@ -189,6 +212,10 @@ class PersistenceManager extends LongJourneyManagerBase {
         String playerString = readFromFile(context, PLAYER_FILE_NAME);
         return Player.loadFromString(playerString);
     }
+
+    /*
+     * Utility
+     */
 
     private static void writeToFile(@NonNull Context context,
                                     @NonNull String fileName,

@@ -123,4 +123,5 @@ public class TravelFragment extends LongJourneyBaseFragment
             playerDistance.setText(String.valueOf(distance));
         }
     }
+
 }

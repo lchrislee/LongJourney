@@ -1,12 +1,11 @@
 package com.lchrislee.longjourney.utility.receivers;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import com.lchrislee.longjourney.utility.managers.JobSchedulerManager;
 
-public class StepCountBroadcastReceiver extends BroadcastReceiver {
+public class StepCountBroadcastReceiver extends LongJourneyBaseBroadcastReceiver {
 
     private static final String TAG = "STEP_COUNT_BR";
 

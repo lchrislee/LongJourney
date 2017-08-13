@@ -2,5 +2,5 @@ package com.lchrislee.longjourney.utility.services;
 
 import android.app.Service;
 
-public abstract class LongJourneyServiceBase extends Service {
+public abstract class LongJourneyBaseService extends Service {
 }

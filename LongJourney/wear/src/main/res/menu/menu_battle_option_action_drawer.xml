@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_battle_select_fight"
+        android:title="@string/fragment_battle_select_fight"
+        android:icon="@android:drawable/ic_input_get"
+        />
+    <item
+        android:id="@+id/menu_battle_select_sneak"
+        android:title="@string/fragment_battle_select_sneak"
+        android:icon="@android:drawable/ic_menu_send"
+        />
+    <item
+        android:id="@+id/menu_battle_select_run"
+        android:title="@string/fragment_battle_select_run"
+        android:icon="@android:drawable/ic_dialog_info"
+        />
+</menu>

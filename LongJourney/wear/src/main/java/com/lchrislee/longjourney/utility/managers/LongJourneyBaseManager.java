@@ -1,4 +1,4 @@
 package com.lchrislee.longjourney.utility.managers;
 
-class LongJourneyManagerBase {
+abstract class LongJourneyBaseManager {
 }

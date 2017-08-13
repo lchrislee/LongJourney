@@ -1,8 +1,10 @@
 package com.lchrislee.longjourney;
 
 import android.app.Application;
+import android.os.Build;
 
 import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.managers.LJNotifactionManager;
 
 public class LongJourneyApplication extends Application {
 
@@ -11,6 +13,9 @@ public class LongJourneyApplication extends Application {
         super.onCreate();
         DataManager.get().getPlayer(getApplicationContext());
         DataManager.get().getTown(getApplicationContext());
-        DataManager.get().changeLocation(getApplicationContext(), DataManager.TOWN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            LJNotifactionManager.get().createNotificationChannel(getApplicationContext());
+        }
     }
 }

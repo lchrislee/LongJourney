@@ -23,7 +23,7 @@
         <!-- android:allowEmbedded must be true for custom notifications in wear. -->
 
         <activity
-            android:name=".activities.LongJourneyBaseActivity"
+            android:name=".activities.MasterActivity"
             android:label="@string/app_name"
             android:allowEmbedded="true"
             >
