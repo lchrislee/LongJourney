@@ -11,5 +11,6 @@ public class LongJourneyApplication extends Application {
         super.onCreate();
         DataManager.get().getPlayer(getApplicationContext());
         DataManager.get().getTown(getApplicationContext());
+        DataManager.get().changeLocation(getApplicationContext(), DataManager.TOWN);
     }
 }

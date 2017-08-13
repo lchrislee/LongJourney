@@ -17,7 +17,7 @@ class CreatureBase extends LongJourneyBaseModel {
 
     }
 
-    protected CreatureBase(
+    CreatureBase(
             int maxHealth,
             int currentExperience,
             int goldCarried,
@@ -50,23 +50,23 @@ class CreatureBase extends LongJourneyBaseModel {
         return goldCarried;
     }
 
-    public int getLevel() {
+    int getLevel() {
         return level;
     }
 
-    public int getStrength() {
+    int getStrength() {
         return strength;
     }
 
-    public int getDefense() {
+    int getDefense() {
         return defense;
     }
 
-    protected void setMaxHealth(int maxHealth) {
+    void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
 
-    protected void setCurrentHealth(int currentHealth) {
+    void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
 
@@ -74,7 +74,7 @@ class CreatureBase extends LongJourneyBaseModel {
         this.currentExperience = currentExperience;
     }
 
-    protected void setGoldCarried(int goldCarried) {
+    void setGoldCarried(int goldCarried) {
         this.goldCarried = goldCarried;
     }
 
@@ -82,11 +82,11 @@ class CreatureBase extends LongJourneyBaseModel {
         this.level = level;
     }
 
-    protected void setStrength(int strength) {
+    void setStrength(int strength) {
         this.strength = strength;
     }
 
-    protected void setDefense(int defense) {
+    void setDefense(int defense) {
         this.defense = defense;
     }
 }

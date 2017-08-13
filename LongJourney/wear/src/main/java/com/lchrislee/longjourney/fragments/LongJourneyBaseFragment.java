@@ -13,7 +13,7 @@ public class LongJourneyBaseFragment extends Fragment
         void changeFragment(@DataManager.PlayerLocation int newLocation);
     }
 
-    protected OnChangeFragment changeFragmentListener;
+    OnChangeFragment changeFragmentListener;
 
     public void setChangeFragmentListener(
             @NonNull OnChangeFragment changeFragmentListener) {

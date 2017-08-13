@@ -1,5 +1,7 @@
 package com.lchrislee.longjourney.fragments;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,17 +13,19 @@ import android.widget.TextView;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.creatures.Player;
 import com.lchrislee.longjourney.utility.managers.DataManager;
-import com.lchrislee.longjourney.utility.managers.StepManager;
+import com.lchrislee.longjourney.utility.managers.StepCountManager;
+import com.lchrislee.longjourney.utility.receivers.StepCountBroadcastReceiver;
 
 public class TravelFragment extends LongJourneyBaseFragment
-        implements StepManager.StepReceived
+        implements StepCountManager.StepReceived
 {
 
     private static final String TAG = "TRAVEL_FRAGMENT";
 
     private TextView playerDistance;
 
-//    private StepManager stepManager;
+    private StepCountBroadcastReceiver stepBackground;
+    private StepCountManager stepForeground;
 
     @Nullable
     @Override
@@ -42,29 +46,59 @@ public class TravelFragment extends LongJourneyBaseFragment
         playerExperience.setMax(player.getExperienceForNextLevel());
         playerExperience.setProgress(player.getCurrentExperience());
 
-//        stepManager = new StepManager(getApplicationContext(), this);
+        stepForeground = new StepCountManager(getContext(), this);
+        registerForSteps();
+
         return masterView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        startForegroundSteps();
         OnStepReceived();
-//        stepManager.registerSensor(getApplicationContext());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        stepManager.unregisterSensor();
+        stopForegroundSteps();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unregisterForSteps();
+    }
+
+    private void startForegroundSteps()
+    {
+        stepForeground.start();
+    }
+
+    private void stopForegroundSteps()
+    {
+        stepForeground.stop();
+    }
+
+    private void registerForSteps()
+    {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+
+        stepBackground = new StepCountBroadcastReceiver();
+        getActivity().registerReceiver(stepBackground, filter);
+    }
+
+    private void unregisterForSteps()
+    {
+        getActivity().unregisterReceiver(stepBackground);
     }
 
     @Override
     public void OnStepReceived() {
-//        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-//        if (pm.isInteractive()) {
             DataManager dm = DataManager.get();
             playerDistance.setText(String.valueOf(dm.loadDistanceToTown(getContext())));
-//        }
     }
 }

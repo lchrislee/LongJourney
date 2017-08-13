@@ -10,6 +10,8 @@ import com.lchrislee.longjourney.utility.services.StepCountJobService;
 
 public class JobSchedulerManager extends LongJourneyManagerBase {
 
+    private static final String TAG = "JOB_SCHEDULER_MANAGER";
+
     private static final int MAX_SENSOR_LATENCY = 1000;
     private static final int MIN_SENSOR_DELAY = 500;
 

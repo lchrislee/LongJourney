@@ -11,6 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:isGame="true"
         android:theme="@android:style/Theme.DeviceDefault">
 
         <!-- Independent of any phone app! -->
@@ -35,21 +36,20 @@
 
         <!-- Utilities -->
 
+        <!-- IntentFilter for SCREEN_ON and SCREEN_OFF cannot be set in manifest. -->
         <receiver
             android:name=".utility.receivers.StepCountBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.SCREEN_OFF"/>
-                <action android:name="android.intent.action.SCREEN_ON" />
-            </intent-filter>
+            android:exported="false"
+            >
         </receiver>
 
+        <!-- BIND_JOB_SERVICE permission is required for JobScheduler. -->
         <service
             android:name=".utility.services.StepCountJobService"
             android:exported="false"
-            android:label="@string/service_job_step_count_label"
             android:permission="android.permission.BIND_JOB_SERVICE"
+            android:label="@string/service_job_step_count_label"
             />
     </application>
 
