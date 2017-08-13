@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wear.widget.drawer.WearableDrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.lchrislee.longjourney.fragments.AvoidFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.wear.widget.BoxInsetLayout
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="@dimen/standard_margin"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/fragment_avoid_title"
+                android:text="@string/fragment_avoid_success"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/fragment_avoid_text"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                tools:text="Caught!"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </android.support.wear.widget.BoxInsetLayout>
+
+    <!-- Programmatically inflate the menu to use fight or walk. -->
+    <android.support.wear.widget.drawer.WearableActionDrawerView
+        android:id="@+id/fragment_avoid_action_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</android.support.wear.widget.drawer.WearableDrawerLayout>

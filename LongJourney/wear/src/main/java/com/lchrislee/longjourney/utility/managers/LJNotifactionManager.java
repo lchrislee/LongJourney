@@ -103,15 +103,16 @@ public class LJNotifactionManager extends LongJourneyBaseManager {
         ArrayList<NotificationCompat.Action> actions = new ArrayList<>();
 
         Intent battleIntent = new Intent(context, MasterActivity.class);
+        battleIntent.putExtra(MasterActivity.NEW_LOCATION, DataManager.BATTLE);
 
-        PendingIntent pendingBattleIntent = PendingIntent.getActivity(
+        PendingIntent battlePending = PendingIntent.getActivity(
             context,
             notificationId,
             battleIntent,
             PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT
         );
 
-        NotificationCompat.Action.WearableExtender battleActionExtender
+        NotificationCompat.Action.WearableExtender actionExtender
                 = new NotificationCompat.Action.WearableExtender()
                 .setHintDisplayActionInline(true)
                 .setHintLaunchesActivity(true);
@@ -119,12 +120,48 @@ public class LJNotifactionManager extends LongJourneyBaseManager {
         NotificationCompat.Action.Builder battleAction = new NotificationCompat.Action.Builder(
             android.R.drawable.sym_action_call,
             context.getString(R.string.notification_battle_fight),
-            pendingBattleIntent
+            battlePending
         );
 
-        battleAction.extend(battleActionExtender);
+        Intent sneakIntent = new Intent(context, MasterActivity.class);
+        sneakIntent.putExtra(MasterActivity.NEW_LOCATION, DataManager.SNEAK);
+
+        PendingIntent sneakPending = PendingIntent.getActivity(
+                context,
+                notificationId,
+                battleIntent,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT
+        );
+
+        NotificationCompat.Action.Builder sneakAction = new NotificationCompat.Action.Builder(
+                android.R.drawable.sym_action_chat,
+                context.getString(R.string.notification_battle_sneak),
+                sneakPending
+        );
+
+        Intent runIntent = new Intent(context, MasterActivity.class);
+        runIntent.putExtra(MasterActivity.NEW_LOCATION, DataManager.RUN);
+
+        PendingIntent runPending = PendingIntent.getActivity(
+                context,
+                notificationId,
+                battleIntent,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT
+        );
+
+        NotificationCompat.Action.Builder runAction = new NotificationCompat.Action.Builder(
+                android.R.drawable.sym_action_email,
+                context.getString(R.string.notification_battle_run),
+                runPending
+        );
+
+        battleAction.extend(actionExtender);
+        sneakAction.extend(actionExtender);
+        runAction.extend(actionExtender);
 
         actions.add(battleAction.build());
+        actions.add(sneakAction.build());
+        actions.add(runAction.build());
         return actions;
     }
 }

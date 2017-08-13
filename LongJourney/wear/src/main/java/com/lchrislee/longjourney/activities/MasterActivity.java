@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.lchrislee.longjourney.R;
+import com.lchrislee.longjourney.fragments.AvoidFragment;
 import com.lchrislee.longjourney.fragments.BattleSelectFragment;
 import com.lchrislee.longjourney.fragments.LongJourneyBaseFragment;
 import com.lchrislee.longjourney.fragments.TownFragment;
@@ -17,6 +18,8 @@ public class MasterActivity extends LongJourneyBaseActivity
         implements LongJourneyBaseFragment.OnChangeFragment {
 
     private static final String TAG = "MasterActivity";
+
+    public static final String NEW_LOCATION = "NEW_LOCATION";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,8 +32,26 @@ public class MasterActivity extends LongJourneyBaseActivity
         {
             finish();
         }
-
-        changeDisplayingFragment();
+        else if (incomingIntent.hasExtra(NEW_LOCATION))
+        {
+            int newLocation = incomingIntent.getIntExtra(NEW_LOCATION, DataManager.BATTLE);
+            switch(newLocation)
+            {
+                case DataManager.SNEAK:
+                    changeFragment(DataManager.SNEAK);
+                    break;
+                case DataManager.RUN:
+                    changeFragment(DataManager.RUN);
+                    break;
+                default:
+                    changeFragment(DataManager.BATTLE);
+                    break;
+            }
+        }
+        else
+        {
+            changeDisplayingFragment();
+        }
     }
 
     private void changeDisplayingFragment()
@@ -53,8 +74,8 @@ public class MasterActivity extends LongJourneyBaseActivity
             case DataManager.REST:
                 break;
             case DataManager.RUN:
-                break;
             case DataManager.SNEAK:
+                fragment = new AvoidFragment();
                 break;
             case DataManager.TOWN:
                 fragment = new TownFragment();

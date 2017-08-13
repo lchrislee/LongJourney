@@ -28,6 +28,10 @@
     <string name="fragment_battle_select_sneak">Sneak around.</string>
     <string name="fragment_battle_select_run">Run away!</string>
 
+    <string name="fragment_avoid_caught">Caught!</string>
+    <string name="fragment_avoid_success">Success!</string>
+    <string name="fragment_avoid_run_backtrack">Backtracked %1$d steps.</string>
+
     <!-- Services -->
     <string name="service_job_step_count_label">StepCountService</string>
 
@@ -35,5 +39,7 @@
     <string name="notification_battle_title">A monster appears!</string>
     <string name="notification_battle_text">What will you do?</string>
     <string name="notification_battle_fight">Fight!</string>
+    <string name="notification_battle_sneak">Sneak around.</string>
+    <string name="notification_battle_run">Run away!</string>
 
 </resources>

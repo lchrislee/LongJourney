@@ -33,6 +33,8 @@ class PersistenceManager extends LongJourneyBaseManager {
     private static final String PREFERENCE_DISTANCE_REMAINING = "PREFERENCE_DISTANCE_REMAINING";
     private static final String PREFERENCE_DISTANCE_TOTAL = "PREFERENCE_DISTANCE_TOTAL";
 
+    private static final String PREFERENCE_AVOID_SUCCESS = "PREFERENCE_AVOID_SUCCESS";
+
     private static final String PLAYER_FILE_NAME = "player.ljf";
     private static final String MONSTER_FILE_NAME = "monster.ljf";
 
@@ -156,6 +158,34 @@ class PersistenceManager extends LongJourneyBaseManager {
     {
         String monsterString = readFromFile(context, MONSTER_FILE_NAME);
         return Monster.loadFromString(monsterString);
+    }
+
+    /*
+     * Battle
+     */
+
+    static boolean getAvoidSuccess(@NonNull Context context)
+    {
+        int success = getPreferences(context).getInt(PREFERENCE_AVOID_SUCCESS, 0);
+        if (success == 1)
+        {
+            return true;
+        }
+        else if (success == -1)
+        {
+            return false;
+        }
+        else
+        {
+            double random = Math.random();
+            getEditor(context).putInt(PREFERENCE_AVOID_SUCCESS, random < 0.5f ? -1 : 1);
+            return getAvoidSuccess(context);
+        }
+    }
+
+    static void clearAvoidSuccess(@NonNull Context context)
+    {
+        getEditor(context).remove(PREFERENCE_AVOID_SUCCESS);
     }
 
     /*

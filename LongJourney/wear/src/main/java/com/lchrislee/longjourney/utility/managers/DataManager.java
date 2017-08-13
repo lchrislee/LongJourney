@@ -113,6 +113,16 @@ public class DataManager extends LongJourneyBaseManager {
         return true;
     }
 
+    public boolean getAvoidSuccess(@NonNull Context context)
+    {
+        return PersistenceManager.getAvoidSuccess(context);
+    }
+
+    public void clearAvoidSuccess(@NonNull Context context)
+    {
+        PersistenceManager.clearAvoidSuccess(context);
+    }
+
     public void loseGold(int goldLost)
     {
         player.loseGold(goldLost);

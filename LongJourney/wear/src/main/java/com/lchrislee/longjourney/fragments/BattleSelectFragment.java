@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.managers.LJNotifactionManager;
 
 public class BattleSelectFragment extends LongJourneyBaseFragment implements MenuItem.OnMenuItemClickListener {
 
@@ -26,7 +27,6 @@ public class BattleSelectFragment extends LongJourneyBaseFragment implements Men
         final WearableActionDrawerView actionDrawerView
                 = masterView.findViewById(R.id.fragment_battle_select_action_drawer);
         actionDrawerView.setOnMenuItemClickListener(this);
-//        actionDrawerView.getController().peekDrawer();
 
         final ImageView monster = masterView.findViewById(R.id.fragment_battle_select_monster);
 
@@ -50,7 +50,8 @@ public class BattleSelectFragment extends LongJourneyBaseFragment implements Men
                 break;
         }
 
-        DataManager.get().changeLocation(getContext(), location);
+        LJNotifactionManager.get().cancelNotification(getContext());
+        changeFragmentListener.changeFragment(location);
 
         return true;
     }
