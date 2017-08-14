@@ -144,6 +144,19 @@ class PersistenceManager extends LongJourneyBaseManager {
      * Monster
      */
 
+    static @NonNull Monster generateMonster(@NonNull Context context)
+    {
+        Monster.Builder monsterBuilder = new Monster.Builder()
+            .setName("Evil Bunny")
+            .setLevel(1)
+            .setMaxHealth(2)
+            .setStrength(1)
+            .setDefense(1)
+            .setExperience(2)
+            .setGold(1);
+        return monsterBuilder.build();
+    }
+
     static void saveMonster(@NonNull Context context, @NonNull Monster monster)
     {
         writeToFile(context, MONSTER_FILE_NAME, monster.toString());

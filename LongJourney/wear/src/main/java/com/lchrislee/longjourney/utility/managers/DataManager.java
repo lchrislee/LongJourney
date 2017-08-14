@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.Town;
+import com.lchrislee.longjourney.model.creatures.Monster;
 import com.lchrislee.longjourney.model.creatures.Player;
 
 public class DataManager extends LongJourneyBaseManager {
@@ -26,6 +27,7 @@ public class DataManager extends LongJourneyBaseManager {
 
     private static DataManager instance;
 
+    private Monster monster;
     private Player player;
     private Town town;
 
@@ -45,6 +47,24 @@ public class DataManager extends LongJourneyBaseManager {
             instance = new DataManager();
         }
         return instance;
+    }
+
+    public @NonNull
+    Monster getMonster(@NonNull Context context)
+    {
+        if (monster == null)
+        {
+            Monster storedMonster = PersistenceManager.loadMonster(context);
+            if (storedMonster != null)
+            {
+                monster = storedMonster;
+            }
+            else
+            {
+                monster = PersistenceManager.generateMonster(context);
+            }
+        }
+        return monster;
     }
 
     public @NonNull

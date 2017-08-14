@@ -32,6 +32,9 @@
     <string name="fragment_avoid_success">Success!</string>
     <string name="fragment_avoid_run_backtrack">Backtracked %1$d steps.</string>
 
+    <string name="fragment_battle_engage_monster_health_prompt">%1$s health:</string>
+    <string name="fragment_battle_engage_player_health_prompt">Your health:</string>
+
     <!-- Services -->
     <string name="service_job_step_count_label">StepCountService</string>
 

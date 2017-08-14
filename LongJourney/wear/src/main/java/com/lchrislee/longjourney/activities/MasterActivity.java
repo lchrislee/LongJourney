@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.fragments.AvoidFragment;
+import com.lchrislee.longjourney.fragments.BattleEngageFragment;
 import com.lchrislee.longjourney.fragments.BattleSelectFragment;
 import com.lchrislee.longjourney.fragments.LongJourneyBaseFragment;
 import com.lchrislee.longjourney.fragments.TownFragment;
@@ -65,6 +66,7 @@ public class MasterActivity extends LongJourneyBaseActivity
             case DataManager.BATTLE_LOST:
                 break;
             case DataManager.BATTLE:
+                fragment = new BattleEngageFragment();
                 break;
             case DataManager.BATTLE_REWARD:
                 break;
