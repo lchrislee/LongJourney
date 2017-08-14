@@ -27,8 +27,37 @@ public class Player extends CreatureBase {
         this.experienceForNextLevel = experienceForNextLevel;
     }
 
+    public void gainExperience(int experienceGained)
+    {
+        setCurrentExperience(getCurrentExperience() + experienceGained);
+        while (getCurrentExperience() > getExperienceForNextLevel())
+        {
+            setLevel(getLevel() + 1);
+            increaseHealth();
+            increaseStrength();
+            increaseDefense();
+            increaseExperienceForNextLevel();
+        }
+    }
+
     public int getExperienceForNextLevel() {
         return experienceForNextLevel;
+    }
+
+    private void setExperienceForNextLevel(int change)
+    {
+        experienceForNextLevel += change;
+    }
+
+    private void increaseExperienceForNextLevel()
+    {
+        setCurrentExperience(getCurrentExperience() - getExperienceForNextLevel());
+        setExperienceForNextLevel((int) (getExperienceForNextLevel() * 1.25));
+    }
+
+    public void gainGold(int goldGained)
+    {
+        setGoldCarried(getGoldCarried() + goldGained);
     }
 
     public void loseGold(int goldLost)

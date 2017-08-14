@@ -47,7 +47,8 @@ public class AvoidFragment extends LongJourneyBaseFragment implements MenuItem.O
         {
             TextView title = masterView.findViewById(R.id.fragment_avoid_title);
             title.setVisibility(View.VISIBLE);
-            text.setText(getString(R.string.fragment_avoid_run_backtrack, 10));
+            int distanceLost = DataManager.get().loseDistanceTraveled(getContext());
+            text.setText(getString(R.string.fragment_avoid_run_backtrack, distanceLost));
         }
         else if (isSuccessful)
         {

@@ -27,7 +27,6 @@ public class DataManager extends LongJourneyBaseManager {
 
     private static DataManager instance;
 
-    private Monster monster;
     private Player player;
     private Town town;
 
@@ -52,17 +51,15 @@ public class DataManager extends LongJourneyBaseManager {
     public @NonNull
     Monster getMonster(@NonNull Context context)
     {
-        if (monster == null)
+        Monster monster;
+        Monster storedMonster = PersistenceManager.loadMonster(context);
+        if (storedMonster != null)
         {
-            Monster storedMonster = PersistenceManager.loadMonster(context);
-            if (storedMonster != null)
-            {
-                monster = storedMonster;
-            }
-            else
-            {
-                monster = PersistenceManager.generateMonster(context);
-            }
+            monster = storedMonster;
+        }
+        else
+        {
+            monster = PersistenceManager.generateMonster(context);
         }
         return monster;
     }
@@ -86,22 +83,15 @@ public class DataManager extends LongJourneyBaseManager {
         return player;
     }
 
-    private void updatePlayer(@NonNull Context context)
-    {
-        PersistenceManager.savePlayer(context, player);
-    }
-
     public boolean purchaseStrength(@NonNull Context context)
     {
         if (town.getStrengthCost() > player.getGoldCarried())
         {
             return false;
         }
-        loseGold(town.getStrengthCost());
         town.increaseStrengthCost();
         player.increaseStrength();
-        updatePlayer(context);
-        PersistenceManager.saveTown(context, town);
+        finishPurchase(context, town.getStrengthCost());
         return true;
     }
 
@@ -111,11 +101,9 @@ public class DataManager extends LongJourneyBaseManager {
         {
             return false;
         }
-        loseGold(town.getDefenseCost());
         town.increaseDefenseCost();
         player.increaseDefense();
-        updatePlayer(context);
-        PersistenceManager.saveTown(context, town);
+        finishPurchase(context, town.getDefenseCost());
         return true;
     }
 
@@ -125,12 +113,17 @@ public class DataManager extends LongJourneyBaseManager {
         {
             return false;
         }
-        loseGold(town.getHealthCost());
         town.increaseHealthCost();
         player.increaseHealth();
-        updatePlayer(context);
-        PersistenceManager.saveTown(context, town);
+        finishPurchase(context, town.getHealthCost());
         return true;
+    }
+
+    private void finishPurchase(@NonNull Context context, int goldSpent)
+    {
+        loseGold(goldSpent);
+        PersistenceManager.savePlayer(context, player);
+        PersistenceManager.saveTown(context, town);
     }
 
     public boolean getAvoidSuccess(@NonNull Context context)
@@ -143,7 +136,33 @@ public class DataManager extends LongJourneyBaseManager {
         PersistenceManager.clearAvoidSuccess(context);
     }
 
-    public void loseGold(int goldLost)
+    public void setBattleOutcome(@NonNull Context context, boolean isPlayerWinner)
+    {
+        PersistenceManager.setBattleOutcome(context, isPlayerWinner);
+    }
+
+    public boolean getBattleOutcome(@NonNull Context context)
+    {
+        return PersistenceManager.loadBattleOutcome(context);
+    }
+
+    public void completeBattleSideEffects(@NonNull Context context)
+    {
+        if (getBattleOutcome(context))
+        {
+            Monster monster = getMonster(context);
+            player.gainGold(monster.getGoldCarried());
+            player.gainExperience(monster.getCurrentExperience());
+        }
+        else
+        {
+            loseGold(getMonster(context).getGoldCarried());
+        }
+        PersistenceManager.savePlayer(context, player);
+        PersistenceManager.clearMonster(context);
+    }
+
+    private void loseGold(int goldLost)
     {
         player.loseGold(goldLost);
     }
@@ -171,9 +190,22 @@ public class DataManager extends LongJourneyBaseManager {
         return PersistenceManager.increaseDistanceWalked(context, amount);
     }
 
+    private void decreaseDistanceWalked(@NonNull Context context, int amount)
+    {
+        PersistenceManager.decreaseDistanceWalked(context, amount);
+    }
+
     int loadTotalTownDistance(@NonNull Context context)
     {
         return PersistenceManager.loadTotalTownDistance(context);
+    }
+
+    public int loseDistanceTraveled(@NonNull Context context)
+    {
+        int expectedDistance = loadTotalTownDistance(context);
+        int distanceLost = (int) (expectedDistance * 0.2f);
+        decreaseDistanceWalked(context, distanceLost);
+        return distanceLost;
     }
 
     public int loadDistanceToTown(@NonNull Context context)

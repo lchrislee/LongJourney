@@ -34,6 +34,7 @@ class PersistenceManager extends LongJourneyBaseManager {
     private static final String PREFERENCE_DISTANCE_TOTAL = "PREFERENCE_DISTANCE_TOTAL";
 
     private static final String PREFERENCE_AVOID_SUCCESS = "PREFERENCE_AVOID_SUCCESS";
+    private static final String PREFERENCE_BATTLE_OUTCOME = "PREFERENCE_BATTLE_OUTCOME";
 
     private static final String PLAYER_FILE_NAME = "player.ljf";
     private static final String MONSTER_FILE_NAME = "monster.ljf";
@@ -56,6 +57,15 @@ class PersistenceManager extends LongJourneyBaseManager {
         editor.putInt(PREFERENCE_DISTANCE_TOTAL, total);
         editor.apply();
         return remaining;
+    }
+
+    static void decreaseDistanceWalked(@NonNull Context context, int amount)
+    {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        int remaining = loadDistanceToTown(context) + amount;
+        editor.putInt(PREFERENCE_DISTANCE_REMAINING, remaining);
+        editor.apply();
     }
 
     static int loadTotalTownDistance(@NonNull Context context)
@@ -199,6 +209,16 @@ class PersistenceManager extends LongJourneyBaseManager {
     static void clearAvoidSuccess(@NonNull Context context)
     {
         getEditor(context).remove(PREFERENCE_AVOID_SUCCESS);
+    }
+
+    static void setBattleOutcome(@NonNull Context context, boolean didPlayerWin)
+    {
+        getEditor(context).putBoolean(PREFERENCE_BATTLE_OUTCOME, didPlayerWin);
+    }
+
+    static boolean loadBattleOutcome(@NonNull Context context)
+    {
+        return getPreferences(context).getBoolean(PREFERENCE_BATTLE_OUTCOME, false);
     }
 
     /*
