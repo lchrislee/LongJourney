@@ -10,6 +10,7 @@
     <string name="menu_action_strength">+ Str</string>
     <string name="menu_action_defense">+ Def</string>
     <string name="menu_action_health">+ Max HP</string>
+    <string name="menu_action_rest">Rest</string>
 
     <!-- Fragments -->
     <string name="fragment_town_experience_prompt">Next Level:</string>
@@ -34,6 +35,16 @@
 
     <string name="fragment_battle_engage_monster_health_prompt">%1$s health:</string>
     <string name="fragment_battle_engage_player_health_prompt">Your health:</string>
+
+    <string name="fragment_battle_loss_title">Defeated!</string>
+    <string name="fragment_battle_loss_text">You need to rest.</string>
+
+    <string name="fragment_battle_reward_gold">%1$d G</string>
+    <string name="fragment_battle_reward_experience_prompt">Next Level:</string>
+
+    <string name="fragment_rest_health_prompt">Health:</string>
+    <string name="fragment_rest_time_prompt">Fully heal in:</string>
+    <string name="fragment_rest_time">%1$dh %2$dm %3$ds</string>
 
     <!-- Services -->
     <string name="service_job_step_count_label">StepCountService</string>

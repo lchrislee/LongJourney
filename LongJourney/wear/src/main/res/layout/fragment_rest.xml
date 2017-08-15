@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wear.widget.drawer.WearableDrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.wear.widget.drawer.WearableDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.lchrislee.longjourney.fragments.AvoidFragment"
+    tools:context="com.lchrislee.longjourney.fragments.RestFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,28 +12,36 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            app:layout_box="all"
+            app:boxedEdges="all"
             android:padding="@dimen/standard_margin"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/fragment_avoid_title"
-                android:text="@string/fragment_avoid_success"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:text="@string/fragment_rest_health_prompt" />
+
+            <ProgressBar
+                android:id="@+id/fragment_rest_player_health"
+                style="@style/progress_player_health"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:max="100"
+                tools:progress="40" />
+
+            <TextView
+                android:text="@string/fragment_rest_time_prompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/fragment_avoid_text"
+                android:id="@+id/fragment_rest_time"
                 android:textAppearance="@android:style/TextAppearance.Medium"
-                tools:text="Caught!"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -42,7 +49,8 @@
 
     <!-- Programmatically inflate the menu to use fight or walk. -->
     <android.support.wear.widget.drawer.WearableActionDrawerView
-        android:id="@+id/fragment_avoid_action_drawer"
+        android:id="@+id/fragment_rest_action_drawer"
+        app:actionMenu="@menu/menu_rest"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

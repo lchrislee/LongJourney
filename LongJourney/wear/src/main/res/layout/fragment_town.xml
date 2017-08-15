@@ -89,6 +89,6 @@
         android:id="@+id/fragment_town_action_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:actionMenu="@menu/menu_town_action_drawer" />
+        app:actionMenu="@menu/menu_town" />
 
 </android.support.wear.widget.drawer.WearableDrawerLayout>

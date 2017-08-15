@@ -34,10 +34,10 @@ public class TravelFragment extends LongJourneyBaseFragment
                              @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         final View masterView = inflater.inflate(R.layout.fragment_travel, container, false);
-        playerDistance = masterView.findViewById(R.id.activity_travel_distance);
-        final ProgressBar playerHealth = masterView.findViewById(R.id.activity_travel_player_health);
+        playerDistance = masterView.findViewById(R.id.fragment_travel_distance);
+        final ProgressBar playerHealth = masterView.findViewById(R.id.fragment_travel_player_health);
         final ProgressBar playerExperience
-                = masterView.findViewById(R.id.activity_travel_player_experience);
+                = masterView.findViewById(R.id.fragment_travel_player_experience);
 
         DataManager dm = DataManager.get();
 
