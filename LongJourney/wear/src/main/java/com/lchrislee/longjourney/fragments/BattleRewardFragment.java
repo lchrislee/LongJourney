@@ -16,7 +16,7 @@ import com.lchrislee.longjourney.model.creatures.Monster;
 import com.lchrislee.longjourney.model.creatures.Player;
 import com.lchrislee.longjourney.utility.managers.DataManager;
 
-public class BattleRewardFragment extends LongJourneyBaseFragment
+public class BattleRewardFragment extends BaseFragment
         implements MenuItem.OnMenuItemClickListener
 {
 
@@ -36,15 +36,17 @@ public class BattleRewardFragment extends LongJourneyBaseFragment
         final DataManager dm = DataManager.get();
         final Monster monster = dm.getMonster(getContext());
         player = dm.getPlayer(getContext());
-        endGold = player.getGoldCarried() + monster.getGoldCarried();
-        endExperience = player.getCurrentExperience() + monster.getCurrentExperience();
+        endGold = player.goldCarried() + monster.goldCarried();
+        endExperience = player.currentExperience() + monster.currentExperience();
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+        LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        Bundle savedInstanceState
+    ) {
         final View masterView = inflater.inflate(R.layout.fragment_battle_reward, container, false);
         final WearableActionDrawerView drawerView
                 = masterView.findViewById(R.id.fragment_battle_reward_action_drawer);
@@ -52,11 +54,11 @@ public class BattleRewardFragment extends LongJourneyBaseFragment
         drawerView.getController().peekDrawer();
 
         gold = masterView.findViewById(R.id.fragment_battle_reward_gold);
-        gold.setText(player.getGoldCarried());
+        gold.setText(player.goldCarried());
 
         experience = masterView.findViewById(R.id.fragment_battle_reward_experience);
         experience.setMax(player.getExperienceForNextLevel());
-        experience.setProgress(player.getCurrentExperience());
+        experience.setProgress(player.currentExperience());
         experience.setSecondaryProgress(endExperience);
 
         new Thread(new Runnable() {

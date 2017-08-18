@@ -3,7 +3,7 @@ package com.lchrislee.longjourney.model.creatures;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-public class Monster extends CreatureBase {
+public class Monster extends BaseCreature {
 
     private String name;
 
@@ -15,13 +15,8 @@ public class Monster extends CreatureBase {
         this.name = "";
     }
 
-    public @NonNull String getName() {
+    public @NonNull String name() {
         return name;
-    }
-
-    private void setName(@NonNull String name)
-    {
-        this.name = name;
     }
 
     @Override
@@ -54,38 +49,38 @@ public class Monster extends CreatureBase {
         private int strength;
         private int defense;
 
-        public @NonNull Builder setLevel(int levelIn)
+        public @NonNull Builder level(int levelIn)
         {
             this.level = levelIn;
             return this;
         }
 
-        public @NonNull Builder setName(String name) {
+        public @NonNull Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public @NonNull Builder setMaxHealth(int maxHealth) {
+        public @NonNull Builder maxHealth(int maxHealth) {
             this.maxHealth = maxHealth;
             return this;
         }
 
-        public @NonNull Builder setExperience(int experience) {
+        public @NonNull Builder experience(int experience) {
             this.experience = experience;
             return this;
         }
 
-        public @NonNull Builder setGold(int gold) {
+        public @NonNull Builder gold(int gold) {
             this.gold = gold;
             return this;
         }
 
-        public @NonNull Builder setStrength(int strength) {
+        public @NonNull Builder strength(int strength) {
             this.strength = strength;
             return this;
         }
 
-        public @NonNull Builder setDefense(int defense) {
+        public @NonNull Builder defense(int defense) {
             this.defense = defense;
             return this;
         }
@@ -93,14 +88,14 @@ public class Monster extends CreatureBase {
         public @NonNull Monster build()
         {
             Monster monster = new Monster();
-            monster.setName(this.name);
-            monster.setLevel(this.level);
-            monster.setMaxHealth(this.maxHealth);
-            monster.setCurrentHealth(this.maxHealth);
-            monster.setCurrentExperience(this.experience);
-            monster.setGoldCarried(this.gold);
-            monster.setStrength(this.strength);
-            monster.setDefense(this.defense);
+            monster.name = this.name;
+            monster.level = this.level;
+            monster.maxHealth = this.maxHealth;
+            monster.currentHealth = this.maxHealth;
+            monster.currentExperience = this.experience;
+            monster.goldCarried = this.gold;
+            monster.strength = this.strength;
+            monster.defense = this.defense;
             return monster;
         }
     }

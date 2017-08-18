@@ -17,9 +17,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-class PersistenceManager extends LongJourneyBaseManager {
+class DataPersistence extends BaseManager {
 
-    private static final String TAG = "PERSISTENCE_MANAGER";
+    private static final String TAG = "DataPersistence";
 
     private static final String SHARED_PREFERENCES = "LongJourneyMainShared";
     private static final String PREFERENCE_LOCATION = "PREFERENCE_LOCATION";
@@ -96,10 +96,10 @@ class PersistenceManager extends LongJourneyBaseManager {
     static void saveTown(@NonNull Context context, @NonNull Town town)
     {
         SharedPreferences.Editor editor = getEditor(context);
-        editor.putString(PREFERENCE_TOWN_NAME, town.getName());
-        editor.putInt(PREFERENCE_TOWN_SCOST, town.getStrengthCost());
-        editor.putInt(PREFERENCE_TOWN_DCOST, town.getDefenseCost());
-        editor.putInt(PREFERENCE_TOWN_HCOST, town.getHealthCost());
+        editor.putString(PREFERENCE_TOWN_NAME, town.name());
+        editor.putInt(PREFERENCE_TOWN_SCOST, town.strengthCost());
+        editor.putInt(PREFERENCE_TOWN_DCOST, town.defenseCost());
+        editor.putInt(PREFERENCE_TOWN_HCOST, town.healthCost());
         editor.apply();
     }
 
@@ -157,13 +157,13 @@ class PersistenceManager extends LongJourneyBaseManager {
     static @NonNull Monster generateMonster(@NonNull Context context)
     {
         Monster.Builder monsterBuilder = new Monster.Builder()
-            .setName("Evil Bunny")
-            .setLevel(1)
-            .setMaxHealth(2)
-            .setStrength(1)
-            .setDefense(1)
-            .setExperience(2)
-            .setGold(1);
+            .name("Evil Bunny")
+            .level(1)
+            .maxHealth(2)
+            .strength(1)
+            .defense(1)
+            .experience(2)
+            .gold(1);
         return monsterBuilder.build();
     }
 

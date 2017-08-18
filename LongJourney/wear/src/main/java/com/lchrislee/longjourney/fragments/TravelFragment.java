@@ -14,11 +14,11 @@ import android.widget.TextView;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.creatures.Player;
 import com.lchrislee.longjourney.utility.managers.DataManager;
-import com.lchrislee.longjourney.utility.managers.StepCountManager;
+import com.lchrislee.longjourney.utility.managers.StepSensor;
 import com.lchrislee.longjourney.utility.receivers.StepCountBroadcastReceiver;
 
-public class TravelFragment extends LongJourneyBaseFragment
-        implements StepCountManager.StepReceived
+public class TravelFragment extends BaseFragment
+        implements StepSensor.StepReceived
 {
 
     private static final String TAG = "TRAVEL_FRAGMENT";
@@ -26,28 +26,31 @@ public class TravelFragment extends LongJourneyBaseFragment
     private TextView playerDistance;
 
     private StepCountBroadcastReceiver stepBackground;
-    private StepCountManager stepForeground;
+    private StepSensor stepForeground;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+        LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        Bundle savedInstanceState
+    ) {
         final View masterView = inflater.inflate(R.layout.fragment_travel, container, false);
         playerDistance = masterView.findViewById(R.id.fragment_travel_distance);
-        final ProgressBar playerHealth = masterView.findViewById(R.id.fragment_travel_player_health);
+        final ProgressBar playerHealth
+                = masterView.findViewById(R.id.fragment_travel_player_health);
         final ProgressBar playerExperience
                 = masterView.findViewById(R.id.fragment_travel_player_experience);
 
         DataManager dm = DataManager.get();
 
         final Player player = dm.getPlayer(getContext());
-        playerHealth.setProgress(player.getCurrentHealth());
-        playerHealth.setMax(player.getMaxHealth());
+        playerHealth.setProgress(player.currentHealth());
+        playerHealth.setMax(player.maxHealth());
         playerExperience.setMax(player.getExperienceForNextLevel());
-        playerExperience.setProgress(player.getCurrentExperience());
+        playerExperience.setProgress(player.currentExperience());
 
-        stepForeground = new StepCountManager(getContext(), this);
+        stepForeground = new StepSensor(getContext(), this);
         registerForSteps();
 
         return masterView;

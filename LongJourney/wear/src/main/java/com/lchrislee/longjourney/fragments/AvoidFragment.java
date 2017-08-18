@@ -13,33 +13,29 @@ import android.widget.TextView;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.utility.managers.DataManager;
 
-public class AvoidFragment extends LongJourneyBaseFragment implements MenuItem.OnMenuItemClickListener {
+public class AvoidFragment extends BaseFragment implements MenuItem.OnMenuItemClickListener {
 
-    private static final String TAG = "Avoid_Fragment";
+    private static final String TAG = "AvoidFragment";
 
     private boolean isSuccessful;
     private boolean isShowingTitle;
-    private int menuToInflate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isSuccessful = DataManager.get().getAvoidSuccess(getContext());
 
-        if (isSuccessful) {
-            menuToInflate = R.menu.menu_avoid_success;
-            isShowingTitle = (DataManager.get().loadLocation(getContext()) == DataManager.RUN);
-        }
-        else
-        {
-            menuToInflate = R.menu.menu_avoid_caught;
-            isShowingTitle = false;
-        }
+        isShowingTitle = isSuccessful
+            && (DataManager.get().loadLocation(getContext()) == DataManager.RUN);
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+        LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        Bundle savedInstanceState
+    ) {
         final View masterView = inflater.inflate(R.layout.fragment_avoid, container, false);
 
         TextView text = masterView.findViewById(R.id.fragment_avoid_text);
@@ -63,6 +59,9 @@ public class AvoidFragment extends LongJourneyBaseFragment implements MenuItem.O
                 = masterView.findViewById(R.id.fragment_avoid_action_drawer);
         drawerView.setOnMenuItemClickListener(this);
         Menu menu = drawerView.getMenu();
+
+        final int menuToInflate
+            = isSuccessful ? R.menu.menu_avoid_success : R.menu.menu_avoid_caught;
 
         getActivity().getMenuInflater().inflate(menuToInflate, menu);
         drawerView.getController().peekDrawer();

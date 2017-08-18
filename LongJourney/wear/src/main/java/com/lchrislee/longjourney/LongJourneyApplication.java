@@ -3,8 +3,8 @@ package com.lchrislee.longjourney;
 import android.app.Application;
 import android.os.Build;
 
+import com.lchrislee.longjourney.utility.managers.BattleNotification;
 import com.lchrislee.longjourney.utility.managers.DataManager;
-import com.lchrislee.longjourney.utility.managers.LJNotifactionManager;
 
 public class LongJourneyApplication extends Application {
 
@@ -15,7 +15,7 @@ public class LongJourneyApplication extends Application {
         DataManager.get().getTown(getApplicationContext());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
-            LJNotifactionManager.get().createNotificationChannel(getApplicationContext());
+            BattleNotification.get().createNotificationChannel(getApplicationContext());
         }
     }
 }

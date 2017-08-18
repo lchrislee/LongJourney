@@ -18,7 +18,7 @@ import com.lchrislee.longjourney.utility.managers.DataManager;
 
 import java.util.Locale;
 
-public class TownFragment extends LongJourneyBaseFragment
+public class TownFragment extends BaseFragment
         implements MenuItem.OnMenuItemClickListener
 {
 
@@ -51,9 +51,10 @@ public class TownFragment extends LongJourneyBaseFragment
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState
+    public View onCreateView(
+        LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState
     ) {
         masterView = inflater.inflate(R.layout.fragment_town, container, false);
         actionDrawerView = masterView.findViewById(R.id.fragment_town_action_drawer);
@@ -120,14 +121,14 @@ public class TownFragment extends LongJourneyBaseFragment
                 = masterView.findViewById(R.id.fragment_town_player_experience);
         player = DataManager.get().getPlayer(getContext());
         playerExperience.setMax(player.getExperienceForNextLevel());
-        playerExperience.setProgress(player.getCurrentExperience());
+        playerExperience.setProgress(player.currentExperience());
         updateMoney();
     }
 
     private void setupTown()
     {
         town = DataManager.get().getTown(getContext());
-        String name = town.getName();
+        String name = town.name();
         final TextView townName = masterView.findViewById(R.id.fragment_town_town_name);
         townName.setText(name);
 
@@ -148,7 +149,7 @@ public class TownFragment extends LongJourneyBaseFragment
 
     private void updateMoney()
     {
-        playerGold.setText(String.valueOf(player.getGoldCarried()));
+        playerGold.setText(String.valueOf(player.goldCarried()));
     }
 
     private void updateBuyOptions()
@@ -160,21 +161,21 @@ public class TownFragment extends LongJourneyBaseFragment
                 Locale.getDefault(),
                 COST_TEMPLATE,
                 strengthTemplate,
-                town.getStrengthCost())
+                town.strengthCost())
         );
         defense.setTitle(
             String.format(
                 Locale.getDefault(),
                 COST_TEMPLATE,
                 defenseTemplate,
-                town.getDefenseCost())
+                town.defenseCost())
         );
         health.setTitle(
             String.format(
                 Locale.getDefault(),
                 COST_TEMPLATE,
                 healthTemplate,
-                town.getHealthCost())
+                town.healthCost())
         );
     }
 }

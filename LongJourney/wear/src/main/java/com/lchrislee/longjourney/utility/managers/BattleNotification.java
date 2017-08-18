@@ -18,25 +18,25 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 // https://developer.android.com/training/wearables/notifications/creating.html
-public class LJNotifactionManager extends LongJourneyBaseManager {
+public class BattleNotification extends BaseManager {
 
-    private static final String TAG = "LJNotificationManager";
+    private static final String TAG = "BattleNotification";
     private static final String CHANNEL_ID = "LONG_JOURNEY_NOTIFICATION_CHANNEL";
     private static final String CHANNEL_NAME = "BATTLE_NOTIFICATION";
-    private static LJNotifactionManager instance;
+    private static BattleNotification instance;
 
     private final AtomicInteger notificationNumber;
 
-    private LJNotifactionManager()
+    private BattleNotification()
     {
         notificationNumber = new AtomicInteger(0);
     }
 
-    public static LJNotifactionManager get()
+    public static BattleNotification get()
     {
         if (instance == null)
         {
-            instance = new LJNotifactionManager();
+            instance = new BattleNotification();
         }
         return instance;
     }

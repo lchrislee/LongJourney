@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.lchrislee.longjourney.utility.managers.DataManager;
 
-public abstract class LongJourneyBaseFragment extends Fragment
+public abstract class BaseFragment extends Fragment
 {
 
     public interface OnChangeFragment

@@ -11,11 +11,15 @@ import android.view.ViewGroup;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.utility.managers.DataManager;
 
-public class BattleLossFragment extends LongJourneyBaseFragment implements MenuItem.OnMenuItemClickListener {
+public class BattleLossFragment extends BaseFragment implements MenuItem.OnMenuItemClickListener {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+        LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        Bundle savedInstanceState
+    ) {
         final View masterView = inflater.inflate(R.layout.fragment_battle_loss, container, false);
 
         final WearableActionDrawerView drawerView

@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.lchrislee.longjourney.utility.services.StepCountJobService;
 
-public class JobSchedulerManager extends LongJourneyBaseManager {
+public class BackgroundStepScheduler extends BaseManager {
 
     private static final String TAG = "JOB_SCHEDULER_MANAGER";
 

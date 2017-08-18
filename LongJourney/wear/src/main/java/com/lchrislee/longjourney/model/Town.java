@@ -2,7 +2,7 @@ package com.lchrislee.longjourney.model;
 
 import android.support.annotation.NonNull;
 
-public class Town extends LongJourneyBaseModel {
+public class Town extends BaseModel {
     private String name;
 
     private int strengthCost;
@@ -10,16 +10,12 @@ public class Town extends LongJourneyBaseModel {
     private int healthCost;
 
     public static @NonNull Town generateRandomTown(
-            String[] possibleNames,
-            String[] possibleSuffixes
-    )
-    {
-        Town generatedTown = new Town();
-        String townName = possibleNames[(int)(Math.random() * possibleNames.length)]
+        String[] possibleNames,
+        String[] possibleSuffixes
+    ) {
+        return new Town(possibleNames[(int)(Math.random() * possibleNames.length)]
                 + " "
-                + possibleSuffixes[(int)(Math.random() * possibleSuffixes.length)];
-        generatedTown.setName(townName);
-        return generatedTown;
+                + possibleSuffixes[(int)(Math.random() * possibleSuffixes.length)]);
     }
 
     public Town(@NonNull String name, int sCost, int dCost, int hCost)
@@ -30,59 +26,43 @@ public class Town extends LongJourneyBaseModel {
         this.healthCost = hCost;
     }
 
-    private Town()
+    private Town(@NonNull String name)
     {
-        name = "";
+        this.name = name;
         strengthCost = 1;
         defenseCost = 3;
         healthCost = 5;
     }
 
-    public @NonNull String getName() {
+    public @NonNull String name() {
         return name;
     }
 
-    public int getStrengthCost() {
+    public int strengthCost() {
         return strengthCost;
     }
 
-    public int getDefenseCost() {
+    public int defenseCost() {
         return defenseCost;
     }
 
-    public int getHealthCost() {
+    public int healthCost() {
         return healthCost;
-    }
-
-    private void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-    private void setStrengthCost(int strengthCost) {
-        this.strengthCost = strengthCost;
-    }
-
-    private void setDefenseCost(int defenseCost) {
-        this.defenseCost = defenseCost;
-    }
-
-    private void setHealthCost(int healthCost) {
-        this.healthCost = healthCost;
     }
 
     public void increaseStrengthCost()
     {
-        setStrengthCost(getStrengthCost() + 3);
+        this.strengthCost += 3;
     }
 
     public void increaseDefenseCost()
     {
-        setDefenseCost(getDefenseCost() + 3);
+        this.defenseCost += 3;
     }
 
     public void increaseHealthCost()
     {
-        setHealthCost(getHealthCost() + 5);
+        this.healthCost += 5;
     }
 
 }

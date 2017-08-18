@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.activities.MasterActivity;
 
-public class StepCountManager extends LongJourneyBaseManager
+public class StepSensor extends BaseManager
     implements SensorEventListener
 {
     public interface StepReceived
@@ -23,7 +23,7 @@ public class StepCountManager extends LongJourneyBaseManager
         void OnStepReceived();
     }
 
-    private static final String TAG = "StepCounterManager";
+    private static final String TAG = "StepSensor";
 
     private static final int MAX_LATENCY_MS = 500;
     private static final boolean DOES_WAKEUP = false;
@@ -35,7 +35,7 @@ public class StepCountManager extends LongJourneyBaseManager
     private final Context context;
     private boolean isNotificationTriggered;
 
-    public StepCountManager(@NonNull Context context, @Nullable StepReceived listener) {
+    public StepSensor(@NonNull Context context, @Nullable StepReceived listener) {
         this.context = context;
         stepSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         stepReceivedListener = listener;
@@ -98,7 +98,7 @@ public class StepCountManager extends LongJourneyBaseManager
             }
             else
             {
-                LJNotifactionManager.get().triggerBattleNotification(context);
+                BattleNotification.get().triggerBattleNotification(context);
                 Intent clearApp = new Intent(context, MasterActivity.class);
                 clearApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(clearApp);

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.lchrislee.longjourney.R;
 
-public class RestFragment extends LongJourneyBaseFragment
+public class RestFragment extends BaseFragment
         implements MenuItem.OnMenuItemClickListener
 {
 
@@ -21,10 +21,11 @@ public class RestFragment extends LongJourneyBaseFragment
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+    public View onCreateView(
+        LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        Bundle savedInstanceState
+    ) {
         final View masterView = inflater.inflate(R.layout.fragment_rest, container, false);
         final WearableActionDrawerView drawerView
                 = masterView.findViewById(R.id.fragment_rest_action_drawer);

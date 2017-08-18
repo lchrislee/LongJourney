@@ -8,17 +8,17 @@ import android.support.annotation.Nullable;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.fragments.AvoidFragment;
+import com.lchrislee.longjourney.fragments.BaseFragment;
 import com.lchrislee.longjourney.fragments.BattleEngageFragment;
 import com.lchrislee.longjourney.fragments.BattleLossFragment;
 import com.lchrislee.longjourney.fragments.BattleRewardFragment;
 import com.lchrislee.longjourney.fragments.BattleSelectFragment;
-import com.lchrislee.longjourney.fragments.LongJourneyBaseFragment;
 import com.lchrislee.longjourney.fragments.TownFragment;
 import com.lchrislee.longjourney.fragments.TravelFragment;
 import com.lchrislee.longjourney.utility.managers.DataManager;
 
-public class MasterActivity extends LongJourneyBaseActivity
-        implements LongJourneyBaseFragment.OnChangeFragment {
+public class MasterActivity extends BaseActivity
+        implements BaseFragment.OnChangeFragment {
 
     private static final String TAG = "MasterActivity";
 
@@ -34,8 +34,10 @@ public class MasterActivity extends LongJourneyBaseActivity
         if (flags == (Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK))
         {
             finish();
+            return;
         }
-        else if (incomingIntent.hasExtra(NEW_LOCATION))
+
+        if (incomingIntent.hasExtra(NEW_LOCATION))
         {
             int newLocation = incomingIntent.getIntExtra(NEW_LOCATION, DataManager.BATTLE);
             switch(newLocation)
@@ -60,7 +62,7 @@ public class MasterActivity extends LongJourneyBaseActivity
     private void changeDisplayingFragment()
     {
         FragmentManager manager = getFragmentManager();
-        LongJourneyBaseFragment fragment = null;
+        BaseFragment fragment = null;
 
         @DataManager.PlayerLocation int location
                 = DataManager.get().loadLocation(getApplicationContext());

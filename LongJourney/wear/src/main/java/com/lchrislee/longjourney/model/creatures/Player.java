@@ -2,7 +2,7 @@ package com.lchrislee.longjourney.model.creatures;
 
 import android.support.annotation.Nullable;
 
-public class Player extends CreatureBase {
+public class Player extends BaseCreature {
 
     private int experienceForNextLevel;
 
@@ -13,26 +13,26 @@ public class Player extends CreatureBase {
     }
 
     private Player(
-            int maxHealth,
-            int currentHealth,
-            int currentExperience,
-            int goldCarried,
-            int level,
-            int strength,
-            int defense,
-            int experienceForNextLevel
+        int maxHealth,
+        int currentHealth,
+        int currentExperience,
+        int goldCarried,
+        int level,
+        int strength,
+        int defense,
+        int experienceForNextLevel
     ) {
         super(maxHealth, currentExperience, goldCarried, level, strength, defense);
-        this.setCurrentHealth(currentHealth);
+        this.currentHealth = currentHealth;
         this.experienceForNextLevel = experienceForNextLevel;
     }
 
     public void gainExperience(int experienceGained)
     {
-        setCurrentExperience(getCurrentExperience() + experienceGained);
-        while (getCurrentExperience() > getExperienceForNextLevel())
+        this.currentExperience += experienceGained;
+        while (currentExperience() > getExperienceForNextLevel())
         {
-            setLevel(getLevel() + 1);
+            this.level += 1;
             increaseHealth();
             increaseStrength();
             increaseDefense();
@@ -51,40 +51,40 @@ public class Player extends CreatureBase {
 
     private void increaseExperienceForNextLevel()
     {
-        setCurrentExperience(getCurrentExperience() - getExperienceForNextLevel());
+        this.currentExperience -= getExperienceForNextLevel();
         setExperienceForNextLevel((int) (getExperienceForNextLevel() * 1.25));
     }
 
     public void gainGold(int goldGained)
     {
-        setGoldCarried(getGoldCarried() + goldGained);
+        this.goldCarried += goldGained;
     }
 
     public void loseGold(int goldLost)
     {
-        int newGoldValue = getGoldCarried() - goldLost;
+        int newGoldValue = goldCarried() - goldLost;
         if (newGoldValue < 0)
         {
             newGoldValue = 0;
         }
 
-        setGoldCarried(newGoldValue);
+        this.goldCarried = newGoldValue;
     }
 
     public void increaseStrength()
     {
-        setStrength(getStrength() + 1);
+        ++this.strength;
     }
 
     public void increaseDefense()
     {
-        setDefense(getDefense() + 1);
+        ++this.defense;
     }
 
     public void increaseHealth()
     {
-        setMaxHealth(getMaxHealth() + 10);
-        setCurrentHealth(getMaxHealth());
+        this.maxHealth += 10;
+        this.currentHealth = this.maxHealth;
     }
 
     /*
@@ -98,14 +98,14 @@ public class Player extends CreatureBase {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(getCurrentExperience()).append('|')
+        builder.append(currentExperience()).append('|')
                 .append(getExperienceForNextLevel()).append(' ');
-        builder.append(getGoldCarried()).append(' ');
-        builder.append(getLevel()).append(' ');
-        builder.append(getStrength()).append('|')
-                .append(getDefense()).append(' ');
-        builder.append(getCurrentHealth()).append('|')
-                .append(getMaxHealth());
+        builder.append(goldCarried()).append(' ');
+        builder.append(level()).append(' ');
+        builder.append(strength()).append('|')
+                .append(defense()).append(' ');
+        builder.append(currentHealth()).append('|')
+                .append(maxHealth());
         return builder.toString();
     }
 

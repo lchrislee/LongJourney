@@ -10,18 +10,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.lchrislee.longjourney.R;
+import com.lchrislee.longjourney.utility.managers.BattleNotification;
 import com.lchrislee.longjourney.utility.managers.DataManager;
-import com.lchrislee.longjourney.utility.managers.LJNotifactionManager;
 
-public class BattleSelectFragment extends LongJourneyBaseFragment implements MenuItem.OnMenuItemClickListener {
+public class BattleSelectFragment extends BaseFragment
+        implements MenuItem.OnMenuItemClickListener
+{
 
     private static final String TAG = "BATTLE_SELECT_FRAGMENT";
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+        LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        Bundle savedInstanceState
+    ) {
         final View masterView = inflater.inflate(R.layout.fragment_battle_select, container, false);
 
         final WearableActionDrawerView actionDrawerView
@@ -50,7 +54,7 @@ public class BattleSelectFragment extends LongJourneyBaseFragment implements Men
                 break;
         }
 
-        LJNotifactionManager.get().cancelNotification(getContext());
+        BattleNotification.get().cancelNotification(getContext());
         changeFragmentListener.changeFragment(location);
 
         return true;
