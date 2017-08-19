@@ -1,8 +1,6 @@
 package com.lchrislee.longjourney.model.creatures;
 
-import com.lchrislee.longjourney.model.BaseModel;
-
-class BaseCreature extends BaseModel {
+abstract class BaseCreature {
     int maxHealth;
     int currentHealth;
     int currentExperience;

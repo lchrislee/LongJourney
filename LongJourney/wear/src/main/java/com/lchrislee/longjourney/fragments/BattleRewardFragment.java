@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.creatures.Monster;
 import com.lchrislee.longjourney.model.creatures.Player;
-import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class BattleRewardFragment extends BaseFragment
         implements MenuItem.OnMenuItemClickListener
@@ -33,9 +33,8 @@ public class BattleRewardFragment extends BaseFragment
         super.onCreate(savedInstanceState);
         canContinue = false;
 
-        final DataManager dm = DataManager.get();
-        final Monster monster = dm.getMonster(getContext());
-        player = dm.getPlayer(getContext());
+        final Monster monster = DataPersistence.monster(getContext());
+        player = DataPersistence.player(getContext());
         endGold = player.goldCarried() + monster.goldCarried();
         endExperience = player.currentExperience() + monster.currentExperience();
     }
@@ -83,8 +82,8 @@ public class BattleRewardFragment extends BaseFragment
     public boolean onMenuItemClick(MenuItem menuItem) {
         if (canContinue)
         {
-            DataManager.get().completeBattleSideEffects(getContext());
-            changeFragmentListener.changeFragment(DataManager.TRAVEL);
+            DataPersistence.completeBattle(getContext());
+            changeFragmentListener.changeFragment(DataPersistence.TRAVEL);
         }
         return true;
     }

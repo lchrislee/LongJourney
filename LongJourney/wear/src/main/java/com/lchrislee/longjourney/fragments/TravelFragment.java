@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.creatures.Player;
-import com.lchrislee.longjourney.utility.managers.DataManager;
-import com.lchrislee.longjourney.utility.managers.StepSensor;
+import com.lchrislee.longjourney.utility.DataPersistence;
+import com.lchrislee.longjourney.utility.StepSensor;
 import com.lchrislee.longjourney.utility.receivers.StepCountBroadcastReceiver;
 
 public class TravelFragment extends BaseFragment
@@ -42,9 +42,7 @@ public class TravelFragment extends BaseFragment
         final ProgressBar playerExperience
                 = masterView.findViewById(R.id.fragment_travel_player_experience);
 
-        DataManager dm = DataManager.get();
-
-        final Player player = dm.getPlayer(getContext());
+        final Player player = DataPersistence.player(getContext());
         playerHealth.setProgress(player.currentHealth());
         playerHealth.setMax(player.maxHealth());
         playerExperience.setMax(player.getExperienceForNextLevel());
@@ -102,33 +100,31 @@ public class TravelFragment extends BaseFragment
 
     @Override
     public void OnStepReceived() {
-        DataManager dm = DataManager.get();
-        int distance = dm.loadDistanceToTown(getContext());
-        if (distance == 0)
-        {
-            playerDistance.setText(R.string.fragment_travel_reached);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    SystemClock.sleep(500);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            DataManager.get().enterTown(getContext());
-                            changeFragmentListener.changeFragment(DataManager.TOWN);
-                        }
-                    });
-                }
-            }).start();
-        }
-        else
+        int distance = DataPersistence.distanceToTown(getContext());
+        if (distance > 0)
         {
             playerDistance.setText(String.valueOf(distance));
+            return;
         }
+
+        playerDistance.setText(R.string.fragment_travel_reached);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(500);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        DataPersistence.enterTown(getContext());
+                        changeFragmentListener.changeFragment(DataPersistence.TOWN);
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
     public void OnMonsterFind() {
-        changeFragmentListener.changeFragment(DataManager.ENGAGE);
+        changeFragmentListener.changeFragment(DataPersistence.ENGAGE);
     }
 }

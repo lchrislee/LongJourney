@@ -3,14 +3,14 @@ package com.lchrislee.longjourney.fragments;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
 
-import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public abstract class BaseFragment extends Fragment
 {
 
     public interface OnChangeFragment
     {
-        void changeFragment(@DataManager.PlayerLocation int newLocation);
+        void changeFragment(@DataPersistence.PlayerLocation int newLocation);
     }
 
     OnChangeFragment changeFragmentListener;

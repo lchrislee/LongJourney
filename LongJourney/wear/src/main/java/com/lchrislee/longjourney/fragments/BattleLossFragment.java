@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class BattleLossFragment extends BaseFragment implements MenuItem.OnMenuItemClickListener {
 
@@ -32,8 +32,8 @@ public class BattleLossFragment extends BaseFragment implements MenuItem.OnMenuI
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        DataManager.get().completeBattleSideEffects(getContext());
-        changeFragmentListener.changeFragment(DataManager.REST);
+        DataPersistence.completeBattle(getContext());
+        changeFragmentListener.changeFragment(DataPersistence.REST);
         return true;
     }
 }

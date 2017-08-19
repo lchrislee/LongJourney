@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.Town;
 import com.lchrislee.longjourney.model.creatures.Player;
-import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 import java.util.Locale;
 
@@ -73,53 +73,80 @@ public class TownFragment extends BaseFragment
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        boolean shouldReloadMenu = false;
         String buyMessage = null;
-        final DataManager dm = DataManager.get();
 
+        int cost = 0;
         switch(menuItem.getItemId())
         {
             case R.id.menu_town_action_walk:
-                dm.leaveTown(getContext());
-                changeFragmentListener.changeFragment(DataManager.TRAVEL);
+                DataPersistence.leaveTown(getContext());
+                changeFragmentListener.changeFragment(DataPersistence.TRAVEL);
                 return true;
             case R.id.menu_town_action_strength:
-                shouldReloadMenu = dm.purchaseStrength(getContext());
+                cost = town.strengthCost();
+                if (player.goldCarried() < cost)
+                {
+                    displayFailedPurchase();
+                    return true;
+                }
+
+                town.purchaseStrength();
+                player.increaseStrength();
                 buyMessage = getString(R.string.fragment_town_purchase_success, strengthTemplate);
                 break;
             case R.id.menu_town_action_defense:
-                shouldReloadMenu = dm.purchaseDefense(getContext());
+                cost = town.defenseCost();
+                if (player.goldCarried() < cost)
+                {
+                    displayFailedPurchase();
+                    return true;
+                }
+
+                town.purchaseDefense();
+                player.increaseDefense();
                 buyMessage = getString(R.string.fragment_town_purchase_success, defenseTemplate);
                 break;
             case R.id.menu_town_action_health:
-                shouldReloadMenu = dm.purchaseHealth(getContext());
+                cost = town.healthCost();
+                if (player.goldCarried() < cost)
+                {
+                    displayFailedPurchase();
+                    return true;
+                }
+
+                town.purchaseHealth();
+                player.increaseHealth();
                 buyMessage = getString(R.string.fragment_town_purchase_success, healthTemplate);
                 break;
         }
 
-        if (shouldReloadMenu) {
-            updateBuyOptions();
-            updateMoney();
-            Toast.makeText(getContext(), buyMessage, Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(
-                getContext(),
-                R.string.fragment_town_purchase_fail,
-                Toast.LENGTH_SHORT
-            ).show();
-        }
+        player.loseGold(cost);
+        player.save(getContext());
+        town.save(getContext());
+
+        updateBuyOptions();
+        updateMoney();
+
+        Toast.makeText(getContext(), buyMessage, Toast.LENGTH_SHORT).show();
         actionDrawerView.getController().peekDrawer();
         return true;
+    }
+
+    private void displayFailedPurchase()
+    {
+        Toast.makeText(
+            getContext(),
+            R.string.fragment_town_purchase_fail,
+            Toast.LENGTH_SHORT
+        ).show();
     }
 
     private void setupPlayerInfo()
     {
         playerGold = masterView.findViewById(R.id.fragment_town_player_gold);
         final ProgressBar playerExperience
-                = masterView.findViewById(R.id.fragment_town_player_experience);
-        player = DataManager.get().getPlayer(getContext());
+            = masterView.findViewById(R.id.fragment_town_player_experience);
+        player = DataPersistence.player(getContext());
         playerExperience.setMax(player.getExperienceForNextLevel());
         playerExperience.setProgress(player.currentExperience());
         updateMoney();
@@ -127,7 +154,7 @@ public class TownFragment extends BaseFragment
 
     private void setupTown()
     {
-        town = DataManager.get().getTown(getContext());
+        town = DataPersistence.town(getContext());
         String name = town.name();
         final TextView townName = masterView.findViewById(R.id.fragment_town_town_name);
         townName.setText(name);

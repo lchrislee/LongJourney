@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.utility.managers.BattleNotification;
-import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.BattleNotification;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class BattleSelectFragment extends BaseFragment
         implements MenuItem.OnMenuItemClickListener
@@ -40,17 +40,17 @@ public class BattleSelectFragment extends BaseFragment
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        @DataManager.PlayerLocation int location;
+        @DataPersistence.PlayerLocation int location;
         switch(menuItem.getItemId())
         {
             case R.id.menu_battle_select_sneak:
-                location = DataManager.SNEAK;
+                location = DataPersistence.SNEAK;
                 break;
             case R.id.menu_battle_select_run:
-                location = DataManager.RUN;
+                location = DataPersistence.RUN;
                 break;
             default:
-                location = DataManager.BATTLE;
+                location = DataPersistence.BATTLE;
                 break;
         }
 

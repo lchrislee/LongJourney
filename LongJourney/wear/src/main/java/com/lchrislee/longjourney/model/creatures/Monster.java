@@ -1,7 +1,10 @@
 package com.lchrislee.longjourney.model.creatures;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class Monster extends BaseCreature {
 
@@ -24,6 +27,11 @@ public class Monster extends BaseCreature {
         StringBuilder builder = new StringBuilder();
         // TODO: parse out data to string.
         return builder.toString();
+    }
+
+    public void save(@NonNull Context context)
+    {
+        DataPersistence.saveMonster(context, this);
     }
 
     public static @Nullable Monster loadFromString(@Nullable String monsterString)

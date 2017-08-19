@@ -1,8 +1,11 @@
 package com.lchrislee.longjourney.model;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
-public class Town extends BaseModel {
+import com.lchrislee.longjourney.utility.DataPersistence;
+
+public class Town {
     private String name;
 
     private int strengthCost;
@@ -50,19 +53,24 @@ public class Town extends BaseModel {
         return healthCost;
     }
 
-    public void increaseStrengthCost()
+    public void purchaseStrength()
     {
         this.strengthCost += 3;
     }
 
-    public void increaseDefenseCost()
+    public void purchaseDefense()
     {
         this.defenseCost += 3;
     }
 
-    public void increaseHealthCost()
+    public void purchaseHealth()
     {
         this.healthCost += 5;
+    }
+
+    public void save(@NonNull Context context)
+    {
+        DataPersistence.saveTown(context, this);
     }
 
 }

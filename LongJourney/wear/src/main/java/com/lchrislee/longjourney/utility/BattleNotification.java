@@ -1,4 +1,4 @@
-package com.lchrislee.longjourney.utility.managers;
+package com.lchrislee.longjourney.utility;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 // https://developer.android.com/training/wearables/notifications/creating.html
-public class BattleNotification extends BaseManager {
+public class BattleNotification {
 
     private static final String TAG = "BattleNotification";
     private static final String CHANNEL_ID = "LONG_JOURNEY_NOTIFICATION_CHANNEL";
@@ -103,7 +103,7 @@ public class BattleNotification extends BaseManager {
         ArrayList<NotificationCompat.Action> actions = new ArrayList<>();
 
         Intent battleIntent = new Intent(context, MasterActivity.class);
-        battleIntent.putExtra(MasterActivity.NEW_LOCATION, DataManager.BATTLE);
+        battleIntent.putExtra(MasterActivity.NEW_LOCATION, DataPersistence.BATTLE);
 
         PendingIntent battlePending = PendingIntent.getActivity(
             context,
@@ -124,7 +124,7 @@ public class BattleNotification extends BaseManager {
         );
 
         Intent sneakIntent = new Intent(context, MasterActivity.class);
-        sneakIntent.putExtra(MasterActivity.NEW_LOCATION, DataManager.SNEAK);
+        sneakIntent.putExtra(MasterActivity.NEW_LOCATION, DataPersistence.SNEAK);
 
         PendingIntent sneakPending = PendingIntent.getActivity(
                 context,
@@ -140,7 +140,7 @@ public class BattleNotification extends BaseManager {
         );
 
         Intent runIntent = new Intent(context, MasterActivity.class);
-        runIntent.putExtra(MasterActivity.NEW_LOCATION, DataManager.RUN);
+        runIntent.putExtra(MasterActivity.NEW_LOCATION, DataPersistence.RUN);
 
         PendingIntent runPending = PendingIntent.getActivity(
                 context,

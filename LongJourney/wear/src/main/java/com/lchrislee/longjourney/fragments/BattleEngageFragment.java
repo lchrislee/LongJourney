@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.model.creatures.Monster;
 import com.lchrislee.longjourney.model.creatures.Player;
-import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class BattleEngageFragment extends BaseFragment {
 
@@ -61,7 +61,7 @@ public class BattleEngageFragment extends BaseFragment {
 
     private void loadMonster()
     {
-        monster = DataManager.get().getMonster(getContext());
+        monster = DataPersistence.monster(getContext());
         monsterHealthPrompt.setText(getString(R.string.fragment_battle_engage_monster_health_prompt, monster.name()));
         monsterHealth.setMax(monster.maxHealth());
         monsterHealth.setProgress(monster.currentHealth());
@@ -70,7 +70,7 @@ public class BattleEngageFragment extends BaseFragment {
 
     private void loadPlayer()
     {
-        player = DataManager.get().getPlayer(getContext());
+        player = DataPersistence.player(getContext());
         playerHealth.setProgress(player.currentHealth());
         playerHealth.setSecondaryProgress(player.currentHealth());
         playerHealth.setMax(player.maxHealth());
@@ -101,14 +101,14 @@ public class BattleEngageFragment extends BaseFragment {
 
                         boolean isPlayerWinner = monsterHealthMin <= 0;
 
-                        DataManager.get().setBattleOutcome(getContext(), isPlayerWinner);
+                        DataPersistence.saveDidPlayerWin(getContext(), isPlayerWinner);
                         if (isPlayerWinner)
                         {
-                            changeFragmentListener.changeFragment(DataManager.BATTLE_REWARD);
+                            changeFragmentListener.changeFragment(DataPersistence.BATTLE_REWARD);
                         }
                         else
                         {
-                            changeFragmentListener.changeFragment(DataManager.BATTLE_LOST);
+                            changeFragmentListener.changeFragment(DataPersistence.BATTLE_LOST);
                         }
                     }
                 });

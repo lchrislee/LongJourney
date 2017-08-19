@@ -1,6 +1,10 @@
 package com.lchrislee.longjourney.model.creatures;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class Player extends BaseCreature {
 
@@ -27,7 +31,7 @@ public class Player extends BaseCreature {
         this.experienceForNextLevel = experienceForNextLevel;
     }
 
-    public void gainExperience(int experienceGained)
+    public void gainExperience(@NonNull Context context, int experienceGained)
     {
         this.currentExperience += experienceGained;
         while (currentExperience() > getExperienceForNextLevel())
@@ -38,6 +42,7 @@ public class Player extends BaseCreature {
             increaseDefense();
             increaseExperienceForNextLevel();
         }
+        save(context);
     }
 
     public int getExperienceForNextLevel() {
@@ -85,6 +90,11 @@ public class Player extends BaseCreature {
     {
         this.maxHealth += 10;
         this.currentHealth = this.maxHealth;
+    }
+
+    public void save(@NonNull Context context)
+    {
+        DataPersistence.savePlayer(context, this);
     }
 
     /*

@@ -1,4 +1,4 @@
-package com.lchrislee.longjourney.utility.managers;
+package com.lchrislee.longjourney.utility;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.activities.MasterActivity;
 
-public class StepSensor extends BaseManager
+public class StepSensor
     implements SensorEventListener
 {
     public interface StepReceived
@@ -69,8 +69,7 @@ public class StepSensor extends BaseManager
             return;
         }
 
-        DataManager dm = DataManager.get();
-        int remaining = dm.increaseDistanceWalked(context, (int) sensorEvent.values[0]);
+        int remaining = DataPersistence.increaseDistanceWalked(context, (int) sensorEvent.values[0]);
 
         if (remaining == 0)
         {
@@ -78,7 +77,7 @@ public class StepSensor extends BaseManager
         }
         else
         {
-            int totalDistance = DataManager.get().loadTotalTownDistance(context);
+            int totalDistance = DataPersistence.totalTownDistance(context);
             double chance = ((double) remaining) / totalDistance;
             double roll = Math.random();
             Log.d(TAG, "chance of encounter: " + chance + ", roll: " + roll);
@@ -89,22 +88,25 @@ public class StepSensor extends BaseManager
             }
         }
 
-        if (isNotificationTriggered)
+        if (stepReceivedListener != null)
         {
-            DataManager.get().changeLocation(context, DataManager.ENGAGE);
-            if (stepReceivedListener != null)
-            {
-                stepReceivedListener.OnStepReceived();
-            }
-            else
-            {
-                BattleNotification.get().triggerBattleNotification(context);
-                Intent clearApp = new Intent(context, MasterActivity.class);
-                clearApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(clearApp);
-            }
+            stepReceivedListener.OnStepReceived();
         }
 
+        if (isNotificationTriggered)
+        {
+            if (stepReceivedListener != null)
+            {
+                stepReceivedListener.OnMonsterFind();
+                return;
+            }
+
+            DataPersistence.saveCurrentLocation(context, DataPersistence.ENGAGE);
+            BattleNotification.get().triggerBattleNotification(context);
+            Intent clearApp = new Intent(context, MasterActivity.class);
+            clearApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(clearApp);
+        }
     }
 
     @Override

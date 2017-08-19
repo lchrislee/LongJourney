@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lchrislee.longjourney.R;
-import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class AvoidFragment extends BaseFragment implements MenuItem.OnMenuItemClickListener {
 
@@ -23,10 +23,10 @@ public class AvoidFragment extends BaseFragment implements MenuItem.OnMenuItemCl
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isSuccessful = DataManager.get().getAvoidSuccess(getContext());
+        isSuccessful = DataPersistence.isAvoidSuccessful(getContext());
 
         isShowingTitle = isSuccessful
-            && (DataManager.get().loadLocation(getContext()) == DataManager.RUN);
+            && (DataPersistence.currentLocation(getContext()) == DataPersistence.RUN);
     }
 
     @Nullable
@@ -43,7 +43,10 @@ public class AvoidFragment extends BaseFragment implements MenuItem.OnMenuItemCl
         {
             TextView title = masterView.findViewById(R.id.fragment_avoid_title);
             title.setVisibility(View.VISIBLE);
-            int distanceLost = DataManager.get().loseDistanceTraveled(getContext());
+
+            final int expectedDistance = DataPersistence.totalTownDistance(getContext());
+            final int distanceLost = (int) (expectedDistance * 0.2f);
+            DataPersistence.decreaseDistanceWalked(getContext(), distanceLost);
             text.setText(getString(R.string.fragment_avoid_run_backtrack, distanceLost));
         }
         else if (isSuccessful)
@@ -71,14 +74,14 @@ public class AvoidFragment extends BaseFragment implements MenuItem.OnMenuItemCl
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        DataManager.get().clearAvoidSuccess(getContext());
+        DataPersistence.resetAvoidSuccess(getContext());
         switch(menuItem.getItemId())
         {
             case R.id.menu_avoid_caught:
-                changeFragmentListener.changeFragment(DataManager.BATTLE);
+                changeFragmentListener.changeFragment(DataPersistence.BATTLE);
                 return true;
             case R.id.menu_avoid_success:
-                changeFragmentListener.changeFragment(DataManager.TRAVEL);
+                changeFragmentListener.changeFragment(DataPersistence.TRAVEL);
                 return true;
         }
         return true;

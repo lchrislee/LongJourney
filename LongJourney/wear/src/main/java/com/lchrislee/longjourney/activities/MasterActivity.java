@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.wearable.activity.WearableActivity;
 
 import com.lchrislee.longjourney.R;
 import com.lchrislee.longjourney.fragments.AvoidFragment;
@@ -15,9 +16,9 @@ import com.lchrislee.longjourney.fragments.BattleRewardFragment;
 import com.lchrislee.longjourney.fragments.BattleSelectFragment;
 import com.lchrislee.longjourney.fragments.TownFragment;
 import com.lchrislee.longjourney.fragments.TravelFragment;
-import com.lchrislee.longjourney.utility.managers.DataManager;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
-public class MasterActivity extends BaseActivity
+public class MasterActivity extends WearableActivity
         implements BaseFragment.OnChangeFragment {
 
     private static final String TAG = "MasterActivity";
@@ -39,17 +40,17 @@ public class MasterActivity extends BaseActivity
 
         if (incomingIntent.hasExtra(NEW_LOCATION))
         {
-            int newLocation = incomingIntent.getIntExtra(NEW_LOCATION, DataManager.BATTLE);
+            int newLocation = incomingIntent.getIntExtra(NEW_LOCATION, DataPersistence.BATTLE);
             switch(newLocation)
             {
-                case DataManager.SNEAK:
-                    changeFragment(DataManager.SNEAK);
+                case DataPersistence.SNEAK:
+                    changeFragment(DataPersistence.SNEAK);
                     break;
-                case DataManager.RUN:
-                    changeFragment(DataManager.RUN);
+                case DataPersistence.RUN:
+                    changeFragment(DataPersistence.RUN);
                     break;
                 default:
-                    changeFragment(DataManager.BATTLE);
+                    changeFragment(DataPersistence.BATTLE);
                     break;
             }
         }
@@ -64,31 +65,31 @@ public class MasterActivity extends BaseActivity
         FragmentManager manager = getFragmentManager();
         BaseFragment fragment = null;
 
-        @DataManager.PlayerLocation int location
-                = DataManager.get().loadLocation(getApplicationContext());
+        @DataPersistence.PlayerLocation int location
+                = DataPersistence.currentLocation(getApplicationContext());
         switch (location) {
-            case DataManager.BATTLE_LOST:
+            case DataPersistence.BATTLE_LOST:
                 fragment = new BattleLossFragment();
                 break;
-            case DataManager.BATTLE:
+            case DataPersistence.BATTLE:
                 fragment = new BattleEngageFragment();
                 break;
-            case DataManager.BATTLE_REWARD:
+            case DataPersistence.BATTLE_REWARD:
                 fragment = new BattleRewardFragment();
                 break;
-            case DataManager.ENGAGE:
+            case DataPersistence.ENGAGE:
                 fragment = new BattleSelectFragment();
                 break;
-            case DataManager.REST:
+            case DataPersistence.REST:
                 break;
-            case DataManager.RUN:
-            case DataManager.SNEAK:
+            case DataPersistence.RUN:
+            case DataPersistence.SNEAK:
                 fragment = new AvoidFragment();
                 break;
-            case DataManager.TOWN:
+            case DataPersistence.TOWN:
                 fragment = new TownFragment();
                 break;
-            case DataManager.TRAVEL:
+            case DataPersistence.TRAVEL:
                 fragment = new TravelFragment();
                 break;
         }
@@ -104,8 +105,8 @@ public class MasterActivity extends BaseActivity
     }
 
     @Override
-    public void changeFragment(@DataManager.PlayerLocation int newLocation) {
-        DataManager.get().changeLocation(getApplicationContext(), newLocation);
+    public void changeFragment(@DataPersistence.PlayerLocation int newLocation) {
+        DataPersistence.saveCurrentLocation(getApplicationContext(), newLocation);
         changeDisplayingFragment();
     }
 }

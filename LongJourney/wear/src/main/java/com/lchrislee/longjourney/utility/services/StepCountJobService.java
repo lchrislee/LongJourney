@@ -3,7 +3,7 @@ package com.lchrislee.longjourney.utility.services;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 
-import com.lchrislee.longjourney.utility.managers.StepSensor;
+import com.lchrislee.longjourney.utility.StepSensor;
 
 public class StepCountJobService extends JobService
 {
