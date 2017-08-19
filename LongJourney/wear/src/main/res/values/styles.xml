@@ -2,6 +2,7 @@
 <resources>
     <dimen name="standard_margin">4dp</dimen>
     <dimen name="half_margin">2dp</dimen>
+    <dimen name="round_padding">12dp</dimen>
 
     <color name="progress_background_tint_default">#444444</color>
     <color name="progress_tint_player_experience">#229922</color>

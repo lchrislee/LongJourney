@@ -26,9 +26,9 @@ public class StepSensor
     private static final String TAG = "StepSensor";
 
     private static final int MAX_LATENCY_MS = 500;
-    private static final boolean DOES_WAKEUP = false;
+    private static final boolean IS_WAKEUP = false;
 
-    private final SensorManager stepSensorManager;
+    private final SensorManager stepSensor;
 
     private final StepReceived stepReceivedListener;
 
@@ -37,15 +37,15 @@ public class StepSensor
 
     public StepSensor(@NonNull Context context, @Nullable StepReceived listener) {
         this.context = context;
-        stepSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        stepSensor = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         stepReceivedListener = listener;
         isNotificationTriggered = false;
     }
 
     public void start() {
         isNotificationTriggered = false;
-        Sensor sensor = stepSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR, DOES_WAKEUP);
-        boolean doesSense = stepSensorManager.registerListener(
+        final Sensor sensor = stepSensor.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR, IS_WAKEUP);
+        final boolean doesSense = stepSensor.registerListener(
             this,
             sensor,
             SensorManager.SENSOR_DELAY_GAME,
@@ -59,7 +59,7 @@ public class StepSensor
     }
 
     public void stop() {
-        stepSensorManager.unregisterListener(this);
+        stepSensor.unregisterListener(this);
     }
 
     @Override
@@ -69,7 +69,8 @@ public class StepSensor
             return;
         }
 
-        int remaining = DataPersistence.increaseDistanceWalked(context, (int) sensorEvent.values[0]);
+        final int walked = (int) sensorEvent.values[0];
+        final int remaining = DataPersistence.increaseDistanceWalked(context, walked);
 
         if (remaining == 0)
         {
@@ -77,9 +78,9 @@ public class StepSensor
         }
         else
         {
-            int totalDistance = DataPersistence.totalTownDistance(context);
-            double chance = ((double) remaining) / totalDistance;
-            double roll = Math.random();
+            final int totalDistance = DataPersistence.totalTownDistance(context);
+            final double chance = ((double) remaining) / totalDistance;
+            final double roll = Math.random();
             Log.d(TAG, "chance of encounter: " + chance + ", roll: " + roll);
 
             if (roll < chance)

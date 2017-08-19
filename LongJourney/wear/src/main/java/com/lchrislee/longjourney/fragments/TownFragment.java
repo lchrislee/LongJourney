@@ -121,8 +121,8 @@ public class TownFragment extends BaseFragment
         }
 
         player.loseGold(cost);
-        player.save(getContext());
-        town.save(getContext());
+        DataPersistence.savePlayer(getContext());
+        DataPersistence.saveTown(getContext());
 
         updateBuyOptions();
         updateMoney();

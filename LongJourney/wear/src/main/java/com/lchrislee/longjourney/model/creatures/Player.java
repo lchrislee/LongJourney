@@ -1,10 +1,11 @@
 package com.lchrislee.longjourney.model.creatures;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
-import com.lchrislee.longjourney.utility.DataPersistence;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Player extends BaseCreature {
 
@@ -16,22 +17,7 @@ public class Player extends BaseCreature {
         experienceForNextLevel = 10;
     }
 
-    private Player(
-        int maxHealth,
-        int currentHealth,
-        int currentExperience,
-        int goldCarried,
-        int level,
-        int strength,
-        int defense,
-        int experienceForNextLevel
-    ) {
-        super(maxHealth, currentExperience, goldCarried, level, strength, defense);
-        this.currentHealth = currentHealth;
-        this.experienceForNextLevel = experienceForNextLevel;
-    }
-
-    public void gainExperience(@NonNull Context context, int experienceGained)
+    public void gainExperience(int experienceGained)
     {
         this.currentExperience += experienceGained;
         while (currentExperience() > getExperienceForNextLevel())
@@ -42,7 +28,6 @@ public class Player extends BaseCreature {
             increaseDefense();
             increaseExperienceForNextLevel();
         }
-        save(context);
     }
 
     public int getExperienceForNextLevel() {
@@ -92,58 +77,49 @@ public class Player extends BaseCreature {
         this.currentHealth = this.maxHealth;
     }
 
-    public void save(@NonNull Context context)
-    {
-        DataPersistence.savePlayer(context, this);
-    }
-
-    /*
-     * (0) current experience | exp for next level (int, int)
-     * (1) gold (int)
-     * (2) level (int)
-     * (3) strength | defense (int, int)
-     * (4) current health | max health (int, int)
-     */
-
+    @Nullable
     @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(currentExperience()).append('|')
-                .append(getExperienceForNextLevel()).append(' ');
-        builder.append(goldCarried()).append(' ');
-        builder.append(level()).append(' ');
-        builder.append(strength()).append('|')
-                .append(defense()).append(' ');
-        builder.append(currentHealth()).append('|')
-                .append(maxHealth());
-        return builder.toString();
-    }
-
-    public @Nullable static Player loadFromString(@Nullable String stringifiedPlayer)
-    {
-        if (stringifiedPlayer == null || stringifiedPlayer.length() == 0)
+    public Player fromJSONString(@NonNull String inputData) {
+        if (super.fromJSONString(inputData) == null)
         {
             return null;
         }
-        String[] lines = stringifiedPlayer.split(" ");
-        int currentExperience = Integer.parseInt(lines[0].substring(0, lines[0].indexOf('|')));
-        int requiredExperience = Integer.parseInt(lines[0].substring(lines[0].indexOf('|') + 1));
-        int gold = Integer.parseInt(lines[1]);
-        int level = Integer.parseInt(lines[2]);
-        int strength = Integer.parseInt(lines[3].substring(0, lines[3].indexOf('|')));
-        int defense = Integer.parseInt(lines[3].substring(lines[3].indexOf('|') + 1));
-        int curHP = Integer.parseInt(lines[4].substring(0, lines[4].indexOf('|')));
-        int maxHP = Integer.parseInt(lines[4].substring(lines[4].indexOf('|') + 1));
 
-        return new Player(
-            maxHP,
-            curHP,
-            currentExperience,
-            gold,
-            level,
-            strength,
-            defense,
-            requiredExperience
-        );
+        JSONObject data;
+        try {
+            data = new JSONObject(inputData);
+
+            final JSONObject experience = data.getJSONObject("experience");
+            this.experienceForNextLevel = experience.getInt("max");
+
+        } catch (JSONException e) {
+            Log.e(getClass().getSimpleName(), "Could not parse file input.");
+            return null;
+        }
+        return this;
+    }
+
+    @NonNull
+    @Override
+    public JSONObject toJSON() {
+        JSONObject playerJSON = super.toJSON();
+
+        if (!playerJSON.has("gold"))
+        {
+            return playerJSON;
+        }
+
+        try {
+            JSONObject experienceJSON = new JSONObject();
+            experienceJSON.put("current", currentExperience);
+            experienceJSON.put("max", experienceForNextLevel);
+            playerJSON.put("experience", experienceJSON);
+
+        } catch (JSONException e) {
+            Log.e(getClass().getSimpleName(), "Could not create JSON output.");
+            return new JSONObject();
+        }
+
+        return playerJSON;
     }
 }

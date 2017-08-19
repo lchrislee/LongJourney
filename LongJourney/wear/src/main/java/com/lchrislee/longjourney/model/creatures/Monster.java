@@ -1,10 +1,11 @@
 package com.lchrislee.longjourney.model.creatures;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
-import com.lchrislee.longjourney.utility.DataPersistence;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Monster extends BaseCreature {
 
@@ -12,7 +13,7 @@ public class Monster extends BaseCreature {
 
     // TODO: Something for images.
 
-    private Monster()
+    public Monster()
     {
         super(5, 2, 2, 1, 1, 1);
         this.name = "";
@@ -22,28 +23,44 @@ public class Monster extends BaseCreature {
         return name;
     }
 
+    @Nullable
     @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        // TODO: parse out data to string.
-        return builder.toString();
-    }
-
-    public void save(@NonNull Context context)
-    {
-        DataPersistence.saveMonster(context, this);
-    }
-
-    public static @Nullable Monster loadFromString(@Nullable String monsterString)
-    {
-        if (monsterString == null || monsterString.length() == 0)
+    public Monster fromJSONString(@NonNull String inputData) {
+        if (super.fromJSONString(inputData) == null)
         {
             return null;
         }
-        Monster.Builder builder = new Builder();
 
-        // TODO: parse input string.
-        return builder.build();
+        JSONObject monsterObject;
+
+        try {
+            monsterObject = new JSONObject(inputData);
+            this.name = monsterObject.getString("name");
+        } catch (JSONException e) {
+            Log.e(getClass().getSimpleName(), "Could not parse file input.");
+            return null;
+        }
+
+        return this;
+    }
+
+    @NonNull
+    @Override
+    public JSONObject toJSON() {
+        JSONObject monsterObject = super.toJSON();
+        if (!monsterObject.has("gold"))
+        {
+            return monsterObject;
+        }
+
+        try {
+            monsterObject.put("name", name);
+        } catch (JSONException e) {
+            Log.e(getClass().getSimpleName(), "Could not create JSON output.");
+            return new JSONObject();
+        }
+
+        return monsterObject;
     }
 
     public static class Builder

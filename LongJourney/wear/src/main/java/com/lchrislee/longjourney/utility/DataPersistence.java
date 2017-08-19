@@ -25,10 +25,6 @@ public class DataPersistence {
 
     private static final String SHARED_PREFERENCES = "LongJourneyMainShared";
     private static final String PREFERENCE_LOCATION = "PREFERENCE_LOCATION";
-    private static final String PREFERENCE_TOWN_NAME = "PREFERENCE_TOWN_NAME";
-    private static final String PREFERENCE_TOWN_SCOST = "PREFERENCE_TOWN_SCOST";
-    private static final String PREFERENCE_TOWN_DCOST = "PREFERENCE_TOWN_DCOST";
-    private static final String PREFERENCE_TOWN_HCOST = "PREFERENCE_TOWN_HCOST";
     private static final String PREFERENCE_TOWN_COUNT = "PREFERENCE_TOWN_COUNT";
 
     private static final String PREFERENCE_DISTANCE_START = "PREFERENCE_DISTANCE_START";
@@ -40,6 +36,7 @@ public class DataPersistence {
 
     private static final String PLAYER_FILE_NAME = "player.ljf";
     private static final String MONSTER_FILE_NAME = "monster.ljf";
+    private static final String TOWN_FILE_NAME = "town.ljf";
 
     private static String townNames[];
     private static String townSuffixes[];
@@ -56,11 +53,15 @@ public class DataPersistence {
     public static final int SNEAK = 8;
     public static final int RUN = 9;
 
+    private static Monster monster;
+    private static Player player;
+    private static Town town;
+
     /*
      * Distance
      */
 
-    private static int increaseDistanceWalked(@NonNull Context context, int amount)
+    static int increaseDistanceWalked(@NonNull Context context, int amount)
     {
         SharedPreferences preferences = preferences(context);
         SharedPreferences.Editor editor = preferences.edit();
@@ -105,59 +106,47 @@ public class DataPersistence {
      * Town
      */
 
-    static int townsVisited(@NonNull Context context)
+    public static int townsVisited(@NonNull Context context)
     {
         return preferences(context).getInt(PREFERENCE_TOWN_COUNT, 0);
     }
 
-    public static void saveTown(@NonNull Context context, @NonNull Town town)
+    public static void saveTown(@NonNull Context context)
     {
-        SharedPreferences.Editor editor = editor(context);
-        editor.putString(PREFERENCE_TOWN_NAME, town.name());
-        editor.putInt(PREFERENCE_TOWN_SCOST, town.strengthCost());
-        editor.putInt(PREFERENCE_TOWN_DCOST, town.defenseCost());
-        editor.putInt(PREFERENCE_TOWN_HCOST, town.healthCost());
-        editor.apply();
+        writeToFile(context, TOWN_FILE_NAME, town.toJSON().toString());
     }
 
     public static @NonNull Town town(@NonNull Context context)
     {
-        SharedPreferences prefs = preferences(context);
-        final String name = prefs.getString(PREFERENCE_TOWN_NAME, null);
-        Town townToReturn;
-        if (name == null)
-        {
-            if (townNames == null)
-            {
+        if (town== null) {
+            String townString = readFromFile(context, TOWN_FILE_NAME);
+            if (townString != null) {
+                town= new Town().fromJSONString(townString);
+                if (town!= null) {
+                    return town;
+                }
+            }
+
+            if (townNames == null) {
                 townNames = context.getResources().getStringArray(R.array.town_names);
             }
-            if (townSuffixes == null)
-            {
+            if (townSuffixes == null) {
                 townSuffixes = context.getResources().getStringArray(R.array.town_suffixes);
             }
-            townToReturn = Town.generateRandomTown(townNames, townSuffixes);
+            town = Town.generateRandomTown(townNames, townSuffixes);
+            saveTown(context);
         }
-        else
-        {
-            final int sCost = prefs.getInt(PREFERENCE_TOWN_SCOST, 1);
-            final int dCost = prefs.getInt(PREFERENCE_TOWN_DCOST, 3);
-            final int hCost = prefs.getInt(PREFERENCE_TOWN_HCOST, 5);
-            townToReturn = new Town(name, sCost, dCost, hCost);
-            saveTown(context, townToReturn);
-        }
-        return townToReturn;
+        return town;
     }
 
     public static void leaveTown(@NonNull Context context)
     {
+        writeToFile(context, MONSTER_FILE_NAME, null);
         SharedPreferences preferences = preferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.remove(PREFERENCE_TOWN_NAME);
-        editor.remove(PREFERENCE_TOWN_SCOST);
-        editor.remove(PREFERENCE_TOWN_DCOST);
-        editor.remove(PREFERENCE_TOWN_HCOST);
         editor.putInt(PREFERENCE_TOWN_COUNT, preferences.getInt(PREFERENCE_TOWN_COUNT, 0) + 1);
         editor.apply();
+        town = null;
     }
 
     public static void enterTown(@NonNull Context context)
@@ -182,34 +171,41 @@ public class DataPersistence {
      * Monster
      */
 
-    public static void saveMonster(@NonNull Context context, @NonNull Monster monster)
+    private static void saveMonster(@NonNull Context context)
     {
-        writeToFile(context, MONSTER_FILE_NAME, monster.toString());
+        writeToFile(context, MONSTER_FILE_NAME, monster.toJSON().toString());
     }
 
     private static void resetMonster(@NonNull Context context)
     {
         writeToFile(context, MONSTER_FILE_NAME, null);
+        monster = null;
     }
 
     public static @NonNull Monster monster(@NonNull Context context)
     {
-        String monsterString = readFromFile(context, MONSTER_FILE_NAME);
-        Monster monsterToReturn = Monster.loadFromString(monsterString);
-        if (monsterToReturn != null)
-        {
-            return monsterToReturn;
-        }
+        if (monster == null) {
+            String monsterString = readFromFile(context, MONSTER_FILE_NAME);
+            if (monsterString != null) {
+                monster = new Monster().fromJSONString(monsterString);
+                if (monster != null) {
+                    return monster;
+                }
+            }
 
-        Monster.Builder monsterBuilder = new Monster.Builder()
-                .name("Evil Bunny")
-                .level(1)
-                .maxHealth(2)
-                .strength(1)
-                .defense(1)
-                .experience(2)
-                .gold(1);
-        return monsterBuilder.build();
+            // TODO: Randomize monster generation.
+            Monster.Builder monsterBuilder = new Monster.Builder()
+                    .name("Evil Bunny")
+                    .level(1)
+                    .maxHealth(2)
+                    .strength(1)
+                    .defense(1)
+                    .experience(2)
+                    .gold(1);
+            monster = monsterBuilder.build();
+            saveMonster(context);
+        }
+        return monster;
     }
 
     /*
@@ -260,14 +256,15 @@ public class DataPersistence {
         if (isPlayerWinner(context))
         {
             player.gainGold(goldChange);
-            player.gainExperience(context, experienceChange);
+            player.gainExperience(experienceChange);
+            savePlayer(context);
         }
         else
         {
             player.loseGold(goldChange);
         }
 
-        savePlayer(context, player);
+        savePlayer(context);
         resetMonster(context);
     }
 
@@ -315,32 +312,36 @@ public class DataPersistence {
      * Player
      */
 
-    public static void savePlayer(@NonNull Context context, @NonNull Player player)
+    public static void savePlayer(@NonNull Context context)
     {
-        writeToFile(context, PLAYER_FILE_NAME, player.toString());
+        writeToFile(context, PLAYER_FILE_NAME, player.toJSON().toString());
     }
 
     public static @NonNull Player player(@NonNull Context context)
     {
-        final String playerString = readFromFile(context, PLAYER_FILE_NAME);
-        Player playerToReturn = Player.loadFromString(playerString);
-        if (playerToReturn != null)
-        {
-            return playerToReturn;
-        }
+        if (player == null) {
+            final String playerString = readFromFile(context, PLAYER_FILE_NAME);
+            if (playerString != null) {
+                player = new Player().fromJSONString(playerString);
+                if (player != null) {
+                    return player;
+                }
+            }
 
-        playerToReturn = new Player();
-        savePlayer(context, playerToReturn);
-        return playerToReturn;
+            player = new Player();
+            savePlayer(context);
+        }
+        return player;
     }
 
     /*
      * Utility
      */
 
-    private static void writeToFile(@NonNull Context context,
-                                    @NonNull String fileName,
-                                    @Nullable String data
+    private static void writeToFile(
+        @NonNull Context context,
+        @NonNull String fileName,
+        @Nullable String data
     ) {
         FileOutputStream outputStream;
         try
