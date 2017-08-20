@@ -11,7 +11,7 @@ import com.lchrislee.longjourney.utility.services.StepCountJobService;
 
 public class StepCountBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "STEP_COUNT_BR";
+    private static final String TAG = "StepCountBroadcastReceiver";
 
     private static final int MAX_SENSOR_LATENCY = 1000;
     private static final int MIN_SENSOR_DELAY = 500;
@@ -19,12 +19,13 @@ public class StepCountBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        JobScheduler scheduler = (JobScheduler)
+        final JobScheduler scheduler = (JobScheduler)
                 context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         // Enable the job to monitor steps.
         if (intent.getAction().equalsIgnoreCase(Intent.ACTION_SCREEN_OFF))
         {
-            ComponentName serviceComponent = new ComponentName(context, StepCountJobService.class);
+            final ComponentName serviceComponent
+                = new ComponentName(context, StepCountJobService.class);
             JobInfo.Builder builder = new JobInfo.Builder(JOB_NUMBER_STEP_COUNT, serviceComponent);
             builder.setMinimumLatency(MIN_SENSOR_DELAY);
             builder.setOverrideDeadline(MAX_SENSOR_LATENCY);

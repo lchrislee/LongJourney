@@ -8,16 +8,15 @@ import com.lchrislee.longjourney.utility.DataPersistence;
 public abstract class BaseFragment extends Fragment
 {
 
-    public interface OnChangeFragment
+    public interface ChangesLocation
     {
-        void changeFragment(@DataPersistence.PlayerLocation int newLocation);
+        void updateLocation(@DataPersistence.PlayerLocation int newLocation);
     }
 
-    OnChangeFragment changeFragmentListener;
+    ChangesLocation locationListener;
 
-    public void setChangeFragmentListener(
-            @NonNull OnChangeFragment changeFragmentListener) {
-        this.changeFragmentListener = changeFragmentListener;
+    public void changeLocationListener(@NonNull ChangesLocation updateListener) {
+        this.locationListener = updateListener;
     }
 
 }

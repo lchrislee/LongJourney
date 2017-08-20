@@ -58,7 +58,7 @@ public class TravelFragment extends BaseFragment
     public void onResume() {
         super.onResume();
         startForegroundSteps();
-        OnStepReceived();
+        OnStep();
     }
 
     @Override
@@ -99,7 +99,7 @@ public class TravelFragment extends BaseFragment
     }
 
     @Override
-    public void OnStepReceived() {
+    public void OnStep() {
         int distance = DataPersistence.distanceToTown(getContext());
         if (distance > 0)
         {
@@ -116,7 +116,7 @@ public class TravelFragment extends BaseFragment
                     @Override
                     public void run() {
                         DataPersistence.enterTown(getContext());
-                        changeFragmentListener.changeFragment(DataPersistence.TOWN);
+                        locationListener.updateLocation(DataPersistence.TOWN);
                     }
                 });
             }
@@ -125,6 +125,6 @@ public class TravelFragment extends BaseFragment
 
     @Override
     public void OnMonsterFind() {
-        changeFragmentListener.changeFragment(DataPersistence.ENGAGE);
+        locationListener.updateLocation(DataPersistence.ENGAGE);
     }
 }

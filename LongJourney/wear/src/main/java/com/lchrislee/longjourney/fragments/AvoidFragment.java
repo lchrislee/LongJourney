@@ -78,10 +78,10 @@ public class AvoidFragment extends BaseFragment implements MenuItem.OnMenuItemCl
         switch(menuItem.getItemId())
         {
             case R.id.menu_avoid_caught:
-                changeFragmentListener.changeFragment(DataPersistence.BATTLE);
+                locationListener.updateLocation(DataPersistence.BATTLE);
                 return true;
             case R.id.menu_avoid_success:
-                changeFragmentListener.changeFragment(DataPersistence.TRAVEL);
+                locationListener.updateLocation(DataPersistence.TRAVEL);
                 return true;
         }
         return true;

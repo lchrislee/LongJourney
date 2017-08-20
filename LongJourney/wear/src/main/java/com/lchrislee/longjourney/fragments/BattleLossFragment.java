@@ -33,7 +33,7 @@ public class BattleLossFragment extends BaseFragment implements MenuItem.OnMenuI
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         DataPersistence.completeBattle(getContext());
-        changeFragmentListener.changeFragment(DataPersistence.REST);
+        locationListener.updateLocation(DataPersistence.REST);
         return true;
     }
 }

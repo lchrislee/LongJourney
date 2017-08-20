@@ -32,7 +32,7 @@ public class BattleNotification {
         notificationNumber = new AtomicInteger(0);
     }
 
-    public static BattleNotification get()
+    public static BattleNotification instance()
     {
         if (instance == null)
         {
@@ -57,18 +57,18 @@ public class BattleNotification {
 
         channel.enableVibration(true);
 
-        NotificationManager notificationManager
-                = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager notificationManager
+            = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(channel);
     }
 
-    void triggerBattleNotification(@NonNull Context context)
+    void send(@NonNull Context context)
     {
-        int notificationId = notificationNumber.getAndIncrement();
+        final int notificationId = notificationNumber.getAndIncrement();
 
-        WearableExtender extender = new WearableExtender()
+        final WearableExtender extender = new WearableExtender()
             .setContentIntentAvailableOffline(true)
-            .addActions(generateBattleActions(context, notificationId));
+            .addActions(makeActions(context, notificationId));
 
         NotificationCompat.Builder builder;
 
@@ -82,86 +82,83 @@ public class BattleNotification {
             .extend(extender)
             .setSmallIcon(android.R.drawable.ic_menu_zoom);
 
-        NotificationManager notificationManager
-                = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager notificationManager
+            = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationId, builder.build());
     }
 
-    public void cancelNotification(@NonNull Context context)
+    public void cancelAll(@NonNull Context context)
     {
-        NotificationManager notificationManager
-                = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager notificationManager
+            = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }
 
-    private @NonNull
-    ArrayList<NotificationCompat.Action> generateBattleActions(
+    private @NonNull NotificationCompat.Action.Builder createAction(
         @NonNull Context context,
-        int notificationId
-    )
-    {
-        ArrayList<NotificationCompat.Action> actions = new ArrayList<>();
+        int notificationId,
+        @DataPersistence.PlayerLocation int destination,
+        int icon,
+        int title
+    ){
+        final Intent battleIntent = new Intent(context, MasterActivity.class);
+        battleIntent.putExtra(MasterActivity.NEW_LOCATION, destination);
 
-        Intent battleIntent = new Intent(context, MasterActivity.class);
-        battleIntent.putExtra(MasterActivity.NEW_LOCATION, DataPersistence.BATTLE);
-
-        PendingIntent battlePending = PendingIntent.getActivity(
+        final PendingIntent battlePending = PendingIntent.getActivity(
             context,
             notificationId,
             battleIntent,
             PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT
         );
 
-        NotificationCompat.Action.WearableExtender actionExtender
-                = new NotificationCompat.Action.WearableExtender()
-                .setHintDisplayActionInline(true)
-                .setHintLaunchesActivity(true);
-
-        NotificationCompat.Action.Builder battleAction = new NotificationCompat.Action.Builder(
-            android.R.drawable.sym_action_call,
-            context.getString(R.string.notification_battle_fight),
+        return new NotificationCompat.Action.Builder(
+            icon,
+            context.getString(title),
             battlePending
         );
+    }
 
-        Intent sneakIntent = new Intent(context, MasterActivity.class);
-        sneakIntent.putExtra(MasterActivity.NEW_LOCATION, DataPersistence.SNEAK);
+    private @NonNull ArrayList<NotificationCompat.Action> makeActions(
+        @NonNull Context context,
+        int notificationId
+    ) {
+        ArrayList<NotificationCompat.Action> actions = new ArrayList<>();
 
-        PendingIntent sneakPending = PendingIntent.getActivity(
-                context,
-                notificationId,
-                battleIntent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT
+        final NotificationCompat.Action.WearableExtender actionExtender
+            = new NotificationCompat.Action.WearableExtender()
+            .setHintDisplayActionInline(true)
+            .setHintLaunchesActivity(true);
+
+        NotificationCompat.Action.Builder battleAction = createAction(
+            context,
+            notificationId,
+            DataPersistence.BATTLE,
+            android.R.drawable.sym_action_call,
+            R.string.notification_battle_fight
         );
-
-        NotificationCompat.Action.Builder sneakAction = new NotificationCompat.Action.Builder(
-                android.R.drawable.sym_action_chat,
-                context.getString(R.string.notification_battle_sneak),
-                sneakPending
-        );
-
-        Intent runIntent = new Intent(context, MasterActivity.class);
-        runIntent.putExtra(MasterActivity.NEW_LOCATION, DataPersistence.RUN);
-
-        PendingIntent runPending = PendingIntent.getActivity(
-                context,
-                notificationId,
-                battleIntent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT
-        );
-
-        NotificationCompat.Action.Builder runAction = new NotificationCompat.Action.Builder(
-                android.R.drawable.sym_action_email,
-                context.getString(R.string.notification_battle_run),
-                runPending
-        );
-
         battleAction.extend(actionExtender);
-        sneakAction.extend(actionExtender);
-        runAction.extend(actionExtender);
-
         actions.add(battleAction.build());
+
+        NotificationCompat.Action.Builder sneakAction = createAction(
+            context,
+            notificationId,
+            DataPersistence.SNEAK,
+            android.R.drawable.sym_action_chat,
+            R.string.notification_battle_sneak
+        );
+        sneakAction.extend(actionExtender);
         actions.add(sneakAction.build());
+
+        NotificationCompat.Action.Builder runAction = createAction(
+            context,
+            notificationId,
+            DataPersistence.RUN,
+            android.R.drawable.sym_action_email,
+            R.string.notification_battle_run
+        );
+        runAction.extend(actionExtender);
         actions.add(runAction.build());
+
         return actions;
     }
 }

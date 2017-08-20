@@ -19,7 +19,7 @@ import com.lchrislee.longjourney.fragments.TravelFragment;
 import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class MasterActivity extends WearableActivity
-        implements BaseFragment.OnChangeFragment {
+        implements BaseFragment.ChangesLocation {
 
     private static final String TAG = "MasterActivity";
 
@@ -30,8 +30,8 @@ public class MasterActivity extends WearableActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        Intent incomingIntent = getIntent();
-        int flags = incomingIntent.getFlags();
+        final Intent incomingIntent = getIntent();
+        final int flags = incomingIntent.getFlags();
         if (flags == (Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK))
         {
             finish();
@@ -44,29 +44,29 @@ public class MasterActivity extends WearableActivity
             switch(newLocation)
             {
                 case DataPersistence.SNEAK:
-                    changeFragment(DataPersistence.SNEAK);
+                    updateLocation(DataPersistence.SNEAK);
                     break;
                 case DataPersistence.RUN:
-                    changeFragment(DataPersistence.RUN);
+                    updateLocation(DataPersistence.RUN);
                     break;
                 default:
-                    changeFragment(DataPersistence.BATTLE);
+                    updateLocation(DataPersistence.BATTLE);
                     break;
             }
         }
         else
         {
-            changeDisplayingFragment();
+            updateDisplayingLocation();
         }
     }
 
-    private void changeDisplayingFragment()
+    private void updateDisplayingLocation()
     {
-        FragmentManager manager = getFragmentManager();
+        final FragmentManager manager = getFragmentManager();
         BaseFragment fragment = null;
 
-        @DataPersistence.PlayerLocation int location
-                = DataPersistence.currentLocation(getApplicationContext());
+        final @DataPersistence.PlayerLocation int location
+            = DataPersistence.currentLocation(getApplicationContext());
         switch (location) {
             case DataPersistence.BATTLE_LOST:
                 fragment = new BattleLossFragment();
@@ -96,7 +96,7 @@ public class MasterActivity extends WearableActivity
 
         if (fragment != null)
         {
-            fragment.setChangeFragmentListener(this);
+            fragment.changeLocationListener(this);
         }
 
         FragmentTransaction transaction = manager.beginTransaction();
@@ -105,8 +105,8 @@ public class MasterActivity extends WearableActivity
     }
 
     @Override
-    public void changeFragment(@DataPersistence.PlayerLocation int newLocation) {
-        DataPersistence.saveCurrentLocation(getApplicationContext(), newLocation);
-        changeDisplayingFragment();
+    public void updateLocation(@DataPersistence.PlayerLocation int newLocation) {
+        DataPersistence.moveToLocation(getApplicationContext(), newLocation);
+        updateDisplayingLocation();
     }
 }

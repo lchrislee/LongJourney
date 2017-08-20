@@ -20,7 +20,7 @@ public class StepSensor
     public interface StepReceived
     {
         void OnMonsterFind();
-        void OnStepReceived();
+        void OnStep();
     }
 
     private static final String TAG = "StepSensor";
@@ -91,7 +91,7 @@ public class StepSensor
 
         if (stepReceivedListener != null)
         {
-            stepReceivedListener.OnStepReceived();
+            stepReceivedListener.OnStep();
         }
 
         if (isNotificationTriggered)
@@ -102,8 +102,8 @@ public class StepSensor
                 return;
             }
 
-            DataPersistence.saveCurrentLocation(context, DataPersistence.ENGAGE);
-            BattleNotification.get().triggerBattleNotification(context);
+            DataPersistence.moveToLocation(context, DataPersistence.ENGAGE);
+            BattleNotification.instance().send(context);
             Intent clearApp = new Intent(context, MasterActivity.class);
             clearApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(clearApp);

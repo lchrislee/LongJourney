@@ -53,7 +53,7 @@ public class BattleRewardFragment extends BaseFragment
         drawerView.getController().peekDrawer();
 
         gold = masterView.findViewById(R.id.fragment_battle_reward_gold);
-        gold.setText(player.goldCarried());
+        gold.setText(getString(R.string.fragment_battle_reward_gold, player.goldCarried()));
 
         experience = masterView.findViewById(R.id.fragment_battle_reward_experience);
         experience.setMax(player.getExperienceForNextLevel());
@@ -67,7 +67,7 @@ public class BattleRewardFragment extends BaseFragment
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        gold.setText(endGold);
+                        gold.setText(getString(R.string.fragment_battle_reward_gold, endGold));
                         experience.setProgress(endExperience);
                         canContinue = true;
                     }
@@ -83,7 +83,7 @@ public class BattleRewardFragment extends BaseFragment
         if (canContinue)
         {
             DataPersistence.completeBattle(getContext());
-            changeFragmentListener.changeFragment(DataPersistence.TRAVEL);
+            locationListener.updateLocation(DataPersistence.TRAVEL);
         }
         return true;
     }

@@ -54,8 +54,8 @@ public class BattleSelectFragment extends BaseFragment
                 break;
         }
 
-        BattleNotification.get().cancelNotification(getContext());
-        changeFragmentListener.changeFragment(location);
+        BattleNotification.instance().cancelAll(getContext());
+        locationListener.updateLocation(location);
 
         return true;
     }

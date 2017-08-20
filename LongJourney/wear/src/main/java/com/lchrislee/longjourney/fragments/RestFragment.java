@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lchrislee.longjourney.R;
+import com.lchrislee.longjourney.utility.DataPersistence;
 
 public class RestFragment extends BaseFragment
         implements MenuItem.OnMenuItemClickListener
@@ -33,6 +34,7 @@ public class RestFragment extends BaseFragment
         drawerView.getController().peekDrawer();
 
         timeRemaining = masterView.findViewById(R.id.fragment_rest_time);
+        // TODO: Setup some time methods.
         health = masterView.findViewById(R.id.fragment_rest_player_health);
 
         return masterView;
@@ -40,7 +42,7 @@ public class RestFragment extends BaseFragment
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        // TODO: Move to travel and stop regenerating health.
+        locationListener.updateLocation(DataPersistence.TRAVEL);
         return true;
     }
 }

@@ -22,7 +22,7 @@ public class TownFragment extends BaseFragment
         implements MenuItem.OnMenuItemClickListener
 {
 
-    private static final String TAG = "TOWN_FRAGMENT";
+    private static final String TAG = "TownFragment";
 
     private String strengthTemplate;
     private String defenseTemplate;
@@ -80,7 +80,7 @@ public class TownFragment extends BaseFragment
         {
             case R.id.menu_town_action_walk:
                 DataPersistence.leaveTown(getContext());
-                changeFragmentListener.changeFragment(DataPersistence.TRAVEL);
+                locationListener.updateLocation(DataPersistence.TRAVEL);
                 return true;
             case R.id.menu_town_action_strength:
                 cost = town.strengthCost();

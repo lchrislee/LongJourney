@@ -7,7 +7,7 @@ import com.lchrislee.longjourney.utility.StepSensor;
 
 public class StepCountJobService extends JobService
 {
-    private static final String TAG = "STEP_COUNT_JOB_SERVICE";
+    private static final String TAG = "StepCountJobService";
 
     private StepSensor manager;
 

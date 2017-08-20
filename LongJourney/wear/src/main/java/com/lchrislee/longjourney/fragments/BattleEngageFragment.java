@@ -27,11 +27,6 @@ public class BattleEngageFragment extends BaseFragment {
     private Player player;
     private Monster monster;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(
@@ -104,11 +99,11 @@ public class BattleEngageFragment extends BaseFragment {
                         DataPersistence.saveDidPlayerWin(getContext(), isPlayerWinner);
                         if (isPlayerWinner)
                         {
-                            changeFragmentListener.changeFragment(DataPersistence.BATTLE_REWARD);
+                            locationListener.updateLocation(DataPersistence.BATTLE_REWARD);
                         }
                         else
                         {
-                            changeFragmentListener.changeFragment(DataPersistence.BATTLE_LOST);
+                            locationListener.updateLocation(DataPersistence.BATTLE_LOST);
                         }
                     }
                 });

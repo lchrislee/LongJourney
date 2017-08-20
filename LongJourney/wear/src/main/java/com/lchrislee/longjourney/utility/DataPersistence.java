@@ -195,13 +195,13 @@ public class DataPersistence {
 
             // TODO: Randomize monster generation.
             Monster.Builder monsterBuilder = new Monster.Builder()
-                    .name("Evil Bunny")
-                    .level(1)
-                    .maxHealth(2)
-                    .strength(1)
-                    .defense(1)
-                    .experience(2)
-                    .gold(1);
+                .name("Evil Bunny")
+                .level(1)
+                .maxHealth(2)
+                .strength(1)
+                .defense(1)
+                .experience(2)
+                .gold(1);
             monster = monsterBuilder.build();
             saveMonster(context);
         }
@@ -223,12 +223,10 @@ public class DataPersistence {
         {
             return false;
         }
-        else
-        {
-            double random = Math.random();
-            editor(context).putInt(PREFERENCE_AVOID_SUCCESS, random < 0.5f ? -1 : 1);
-            return isAvoidSuccessful(context);
-        }
+
+        double random = Math.random();
+        editor(context).putInt(PREFERENCE_AVOID_SUCCESS, random < 0.5f ? -1 : 1);
+        return isAvoidSuccessful(context);
     }
 
     public static void resetAvoidSuccess(@NonNull Context context)
@@ -251,13 +249,13 @@ public class DataPersistence {
         final Monster monster = monster(context);
         final int goldChange = monster.goldCarried();
         final int experienceChange = monster.currentExperience();
+        resetMonster(context);
 
         final Player player = player(context);
         if (isPlayerWinner(context))
         {
             player.gainGold(goldChange);
             player.gainExperience(experienceChange);
-            savePlayer(context);
         }
         else
         {
@@ -265,15 +263,14 @@ public class DataPersistence {
         }
 
         savePlayer(context);
-        resetMonster(context);
     }
 
     /*
      * Location
      */
 
-    public static void saveCurrentLocation(@NonNull Context context,
-                                    @PlayerLocation int location)
+    public static void moveToLocation(@NonNull Context context,
+                                      @PlayerLocation int location)
     {
         SharedPreferences.Editor editor = editor(context);
         editor.putInt(PREFERENCE_LOCATION, location);

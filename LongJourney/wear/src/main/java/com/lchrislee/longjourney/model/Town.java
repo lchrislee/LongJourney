@@ -1,11 +1,8 @@
 package com.lchrislee.longjourney.model;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
-import com.lchrislee.longjourney.utility.DataPersistence;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,17 +20,11 @@ public class Town
         String[] possibleNames,
         String[] possibleSuffixes
     ) {
-        return new Town(possibleNames[(int)(Math.random() * possibleNames.length)]
-                + " "
-                + possibleSuffixes[(int)(Math.random() * possibleSuffixes.length)]);
-    }
-
-    public Town(@NonNull String name, int sCost, int dCost, int hCost)
-    {
-        this.name = name;
-        this.strengthCost = sCost;
-        this.defenseCost = dCost;
-        this.healthCost = hCost;
+        return new Town(
+            possibleNames[(int)(Math.random() * possibleNames.length)]
+            + " "
+            + possibleSuffixes[(int)(Math.random() * possibleSuffixes.length)]
+        );
     }
 
     private Town(@NonNull String name)
@@ -81,12 +72,6 @@ public class Town
     public void purchaseHealth()
     {
         this.healthCost += 5;
-    }
-
-    @Override
-    public void save(@NonNull Context context)
-    {
-        DataPersistence.saveTown(context);
     }
 
     @Nullable
